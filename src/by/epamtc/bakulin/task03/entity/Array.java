@@ -12,12 +12,7 @@ public class Array<E extends Number> implements PlainArray<E> {
     /**
      * Пустой экземпляр массива
      */
-    private static final Object[] EMPTY_ELEMENT_DATA = {};
-
-    /**
-     * Пустой экземпляр массива
-     */
-    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    private static final Object[] EMPTY_ARRAY_DATA = {};
 
     /**
      * Текущее количество элементов в массиве.
@@ -31,29 +26,80 @@ public class Array<E extends Number> implements PlainArray<E> {
     private Object[] arrayData;
 
     public Array() {
-        this.arrayData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+        this.arrayData = new Object[DEFAULT_CAPACITY];
     }
 
     /**
      * Конструктор для создания пустого массива с указанной
      * начальной вместимостью.
+     *
      * @param userInitialCapacity вместимость массива
      */
     public Array(int userInitialCapacity) {
-        if(userInitialCapacity > 0) {
+        if (userInitialCapacity > 0) {
             this.arrayData = new Object[userInitialCapacity];
         }
         if (userInitialCapacity == 0) {
-            this.arrayData = EMPTY_ELEMENT_DATA;
+            this.arrayData = EMPTY_ARRAY_DATA;
         }
         if (userInitialCapacity < 0) {
-            throw new IllegalArgumentException(String.format("Negative capacity is not Allowed: %d", userInitialCapacity));
+            throw new IllegalArgumentException(String.format("Illegal Capacity: %d", userInitialCapacity));
         }
     }
 
     @Override
     public boolean add(E e) {
-        return false;
+        boolean addResult = false;
+        int currentIndex = size;
+
+        if (size > 0) {
+            currentIndex += 1;
+
+            if (isArrayFull(currentIndex)) {
+                arrayData = growArrayData();
+            }
+            arrayData[currentIndex] = e;
+            ++size;
+            addResult = true;
+        }
+        if (size == 0) {
+            arrayData[currentIndex] = e;
+            ++size;
+            addResult = true;
+        }
+        return addResult;
+    }
+
+    /**
+     * Осуществляет проверку:
+     * Является ли массив полностью заполненным?
+     *
+     * @param currentIndex текущий индекс элемента
+     * @return {@code true} если текущий индекс больше текущей вместимости массива
+     */
+    private boolean isArrayFull(int currentIndex) {
+        boolean isFull = false;
+
+        if (currentIndex >= arrayData.length) {
+            isFull = true;
+        }
+        return isFull;
+    }
+
+    /**
+     * Увеличивает текущий массив в 2 раза, в случае:
+     * заполнения последнего элемента в массиве
+     *
+     * @return новый массив с увеличенным кол-вом ячеек;
+     */
+    private Object[] growArrayData() {
+        int currentCapacity = arrayData.length;
+        int newCapacity = currentCapacity + DEFAULT_CAPACITY;
+
+        Object[] newArray = new Object[newCapacity];
+        System.arraycopy(arrayData, 0, newArray, 0, arrayData.length);
+
+        return newArray;
     }
 
     @Override
@@ -83,7 +129,7 @@ public class Array<E extends Number> implements PlainArray<E> {
 
     @Override
     public int size() {
-        return 0;
+        return this.size;
     }
 
     @Override
