@@ -18,7 +18,7 @@ public interface PlainArray<E> extends Iterable<E> {
      * @param e - добавляемый элемент в массив;
      * @return {@code true} если элемент был добавлен в массив;
      */
-    boolean add(int index, E e);
+    void add(int index, E e);
 
     /**
      * Добавляет элемент в указанный индекс ячейки массива.
@@ -29,14 +29,6 @@ public interface PlainArray<E> extends Iterable<E> {
      * @return E элемент, который ранее находился на данной позиции;
      */
     E set(int index, E e);
-
-    /**
-     * Возвращает объект из массива, указанный в качестве параметра.
-     *
-     * @param o искомый объект;
-     * @return E искомый элемент в массиве;
-     */
-    E get(Object o);
 
     /**
      * Возвращает объект из массива, по указанному индексу.
