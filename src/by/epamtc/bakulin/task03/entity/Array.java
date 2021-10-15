@@ -137,29 +137,32 @@ public class Array<E extends Number> implements PlainArray<E> {
     }
 
     @Override
-    public int indexOf() {
-        return 0;
+    public int indexOf(Object obj) {
+        return indexOfRange(obj, 0, size);
     }
 
     @Override
-    public boolean remove(int index) {
+    public E remove(int index) {
         checkIndex(index);
-        return false;
+        E deletedElement = get(index);
+        doArrayShift(index);
+        --size;
+        return deletedElement;
     }
 
     @Override
     public int size() {
-        return this.size;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
-    public boolean contains(Object o) {
-        return false;
+    public boolean contains(Object obj) {
+        return indexOf(obj) >= 0;
     }
 
     @Override
@@ -250,6 +253,33 @@ public class Array<E extends Number> implements PlainArray<E> {
         for(int i = size; i != 0; i-- ) {
             arrayData[i] = arrayData[(i - 1)];
         }
+    }
+
+    private void doArrayShift(int deleteIndex) {
+        int lastElementIndex = size - 1;
+        for (int i = deleteIndex; i < size; i++) {
+            arrayData[i] = arrayData[(i + 1)];
+        }
+        arrayData[lastElementIndex] = null;
+    }
+
+    private int indexOfRange(Object obj, int start, int end) {
+        Object[] currentArray = arrayData;
+        int result = -1;
+
+        if(obj == null) {
+            for (int i = start; i < end; i++) {
+                if (currentArray[i] == null) {
+                    result = i;
+                }
+            }
+        }
+        for (int i = start; i < end; i++) {
+            if(obj.equals(currentArray[i])) {
+                result = i;
+            }
+        }
+        return result;
     }
 
     /**

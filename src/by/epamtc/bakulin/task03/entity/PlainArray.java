@@ -42,15 +42,15 @@ public interface PlainArray<E> extends Iterable<E> {
      * Возвращает индекс в массиве, указанного объекта в качестве параметра
      * @return {@code -1} если объект отсутствует в массиве;
      */
-    int indexOf();
+    int indexOf(Object obj);
 
     /**
      * Удаляет объект из массива, указанный в качестве параметра.
      *
-     * @param o удаляемый объект;
-     * @return {@code true} если объект был успешно удален;
+     * @param index индекс удаляемого элемента;
+     * @return {@code e} возвращает удаленный элемент;
      */
-    boolean remove (int index);
+    E remove (int index);
 
     /**
      * Возвращает текущее количество объектов в массиве
@@ -73,6 +73,6 @@ public interface PlainArray<E> extends Iterable<E> {
      * @param o искомый объект;
      * @return {@code true} если указанный объект присутствует в массиве;
      */
-    boolean contains(Object o);
+    boolean contains(Object obj);
 
 }
