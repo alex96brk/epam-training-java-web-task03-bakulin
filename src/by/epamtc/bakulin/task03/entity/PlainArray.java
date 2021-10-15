@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.entity;
 
-public interface PlainArray<E> extends Iterable<E> {
+public interface PlainArray extends Iterable<Integer> {
 
     /**
      * Добавляет элемент в конец массива
@@ -8,7 +8,7 @@ public interface PlainArray<E> extends Iterable<E> {
      * @param e - добавляемый элемент в массив;
      * @return {@code true} если элемент был добавлен в массив;
      */
-    boolean add(E e);
+    boolean add(Integer e);
 
     /**
      * Добавляет элемент в указанный индекс, осуществляет
@@ -18,7 +18,7 @@ public interface PlainArray<E> extends Iterable<E> {
      * @param e - добавляемый элемент в массив;
      * @return {@code true} если элемент был добавлен в массив;
      */
-    void add(int index, E e);
+    void add(int index, Integer e);
 
     /**
      * Добавляет элемент в указанный индекс ячейки массива.
@@ -28,7 +28,7 @@ public interface PlainArray<E> extends Iterable<E> {
      * @param e добавляемый элемент в массив;
      * @return E элемент, который ранее находился на данной позиции;
      */
-    E set(int index, E e);
+    Integer set(int index, Integer e);
 
     /**
      * Возвращает объект из массива, по указанному индексу.
@@ -36,7 +36,7 @@ public interface PlainArray<E> extends Iterable<E> {
      * @param index integer значение порядкового номера ячейки в массиве;
      * @return E искомый элемент в массиве;
      */
-    E get(int index);
+    Integer get(int index);
 
     /**
      * Возвращает индекс в массиве, указанного объекта в качестве параметра
@@ -50,7 +50,7 @@ public interface PlainArray<E> extends Iterable<E> {
      * @param index индекс удаляемого элемента;
      * @return {@code e} возвращает удаленный элемент;
      */
-    E remove (int index);
+    Integer remove (int index);
 
     /**
      * Возвращает текущее количество объектов в массиве

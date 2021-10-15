@@ -2,7 +2,7 @@ package by.epamtc.bakulin.task03.entity;
 
 import java.util.Iterator;
 
-public class Array<E extends Number> implements PlainArray<E> {
+public class Array implements PlainArray {
 
     /**
      * Значение длины массива по умолчанию.
@@ -12,7 +12,7 @@ public class Array<E extends Number> implements PlainArray<E> {
     /**
      * Пустой экземпляр массива
      */
-    private static final Object[] EMPTY_ARRAY_DATA = {};
+    private static final Integer[] EMPTY_ARRAY_DATA = {};
 
     /**
      * Указывает начальный индекс копирования данных из старого массива
@@ -33,7 +33,7 @@ public class Array<E extends Number> implements PlainArray<E> {
      * Массив, непосредственно выполняющий функцию
      * хранилища данных.
      */
-    private Object[] arrayData;
+    private Integer[] arrayData;
 
 
     /**
@@ -41,7 +41,7 @@ public class Array<E extends Number> implements PlainArray<E> {
      * с вместимостью по умолчанию
      */
     public Array() {
-        this.arrayData = new Object[DEFAULT_CAPACITY];
+        this.arrayData = new Integer[DEFAULT_CAPACITY];
     }
 
     /**
@@ -52,7 +52,7 @@ public class Array<E extends Number> implements PlainArray<E> {
      */
     public Array(int userInitialCapacity) {
         if (userInitialCapacity > 0) {
-            this.arrayData = new Object[userInitialCapacity];
+            this.arrayData = new Integer[userInitialCapacity];
         }
         if (userInitialCapacity == 0) {
             this.arrayData = EMPTY_ARRAY_DATA;
@@ -69,7 +69,7 @@ public class Array<E extends Number> implements PlainArray<E> {
      * @return {@code true} если элемент был добавлен в массив;
      */
     @Override
-    public boolean add(E e) {
+    public boolean add(Integer e) {
         boolean addResult = false;
         int currentIndex = size;
 
@@ -92,15 +92,15 @@ public class Array<E extends Number> implements PlainArray<E> {
      * Добавляет элемент в указанный индекс, осуществляет
      * сдвиг элементов.
      *
-     * @param index - индекс в массиве для записи элемента;
-     * @param e - добавляемый элемент в массив;
+     * @param index индекс в массиве для записи элемента;
+     * @param e добавляемый элемент в массив;
      * @return {@code true} если элемент был добавлен в массив;
      */
     @Override
-    public void add(int index, E e) {
+    public void add(int index, Integer e) {
         checkIndex(index);
 
-        if(index == 0) {
+        if (index == 0) {
             doArrayShift();
         }
         if (isArrayFull(index)) {
@@ -120,18 +120,18 @@ public class Array<E extends Number> implements PlainArray<E> {
      * @return E элемент, который ранее находился на данной позиции;
      */
     @Override
-    public E set(int index, E e) {
+    public Integer set(int index, Integer e) {
         checkIndex(index);
-        E oldValue = (E)arrayData[index];
+        Integer oldValue = (Integer) arrayData[index];
         arrayData[index] = e;
 
         return oldValue;
     }
 
     @Override
-    public E get(int index) {
+    public Integer get(int index) {
         checkIndex(index);
-        E returnResult = (E)arrayData[index];
+        Integer returnResult = (Integer) arrayData[index];
 
         return returnResult;
     }
@@ -142,9 +142,9 @@ public class Array<E extends Number> implements PlainArray<E> {
     }
 
     @Override
-    public E remove(int index) {
+    public Integer remove(int index) {
         checkIndex(index);
-        E deletedElement = get(index);
+        Integer deletedElement = get(index);
         doArrayShift(index);
         --size;
         return deletedElement;
@@ -166,18 +166,72 @@ public class Array<E extends Number> implements PlainArray<E> {
     }
 
     @Override
-    public Iterator<E> iterator() {
+    public Iterator<Integer> iterator() {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = false;
+
+        if (this == obj) {
+            result = true;
+        }
+
+        if (obj == null || obj.getClass() != this.getClass()) {
+            result = false;
+        }
+        Array array = (Array) obj;
+
+        result = equalsIntegerArrayData( this.arrayData, array.arrayData);
+        return result;
+    }
+
+    private boolean equalsIntegerArrayData(Integer[] a, Integer[] b) {
+        boolean result = false;
+        if (a == b) {
+            result = true;
+        }
+        if (a == null || b == null) {
+            result = false;
+        }
+        if (a.length != b.length) {
+            result = false;
+        }
+        int iterationCounter = 0;
+        for (int i = 0; i < a.length; i++) {
+            if(a[i] == null || b[i] == null) {
+                break;
+            }
+            if (a[i].equals(b[i])) {
+                iterationCounter++;
+                continue;
+            } else {
+                result = false;
+                break;
+            }
+        }
+        if ((iterationCounter) == size && (iterationCounter) == size) {
+            result = true;
+        }
+        return result;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return 1;
     }
 
     /**
      * Служит для уменьшения количества повторяющегося кода.
      * Выполняет запись элемента в массив
+     *
      * @param index номер ячейки массива
-     * @param e элемент, помещаемый в массив
+     * @param e     элемент, помещаемый в массив
      * @return {@code true} если указанный элемент был добавлен в массив
      */
-    private boolean recordElement(int index, E e) {
+    private boolean recordElement(int index, Integer e) {
         arrayData[index] = e;
         ++size;
         return true;
@@ -206,26 +260,27 @@ public class Array<E extends Number> implements PlainArray<E> {
      *
      * @return новый массив с увеличенным кол-вом ячеек;
      */
-    private Object[] increaseArrayCapacity() {
-        Object[] newArray = generateNewArray();
+    private Integer[] increaseArrayCapacity() {
+        Integer[] newArray = generateNewArray();
 
         System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArray, START_INDEX_COPY_TO, arrayData.length);
 
         return newArray;
     }
+
     /**
      * Увеличивает текущий массив в +10 элементов, в случае:
      * если не хватает емкости текущего массива
      *
      * @return новый массив с увеличенным кол-вом ячеек;
      */
-    private Object[] increaseArrayCapacity(int currentIndex) {
-        Object[] newArr = generateNewArray();
+    private Integer[] increaseArrayCapacity(int currentIndex) {
+        Integer[] newArr = generateNewArray();
 
-        if(currentIndex == 0) {
+        if (currentIndex == 0) {
             System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArr, (START_INDEX_COPY_TO + 1), (arrayData.length - 1));
         }
-        if(currentIndex > 0) {
+        if (currentIndex > 0) {
             System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArr, START_INDEX_COPY_TO, currentIndex);
             System.arraycopy(arrayData, currentIndex, newArr, currentIndex, (arrayData.length - currentIndex));
         }
@@ -236,13 +291,14 @@ public class Array<E extends Number> implements PlainArray<E> {
     /**
      * При вызове, создает новый массив
      * с вместимостью old.length + 10
+     *
      * @return newArray.length = old.length + 10
      */
-    private Object[] generateNewArray() {
+    private Integer[] generateNewArray() {
         int currentCapacity = arrayData.length;
         int newCapacity = currentCapacity + DEFAULT_CAPACITY;
 
-        return new Object[newCapacity];
+        return new Integer[newCapacity];
     }
 
     /**
@@ -250,7 +306,7 @@ public class Array<E extends Number> implements PlainArray<E> {
      * если текущая вместимость массива способна принять как минимум 1 элемент
      */
     private void doArrayShift() {
-        for(int i = size; i != 0; i-- ) {
+        for (int i = size; i != 0; i--) {
             arrayData[i] = arrayData[(i - 1)];
         }
     }
@@ -267,7 +323,7 @@ public class Array<E extends Number> implements PlainArray<E> {
         Object[] currentArray = arrayData;
         int result = -1;
 
-        if(obj == null) {
+        if (obj == null) {
             for (int i = start; i < end; i++) {
                 if (currentArray[i] == null) {
                     result = i;
@@ -275,7 +331,7 @@ public class Array<E extends Number> implements PlainArray<E> {
             }
         }
         for (int i = start; i < end; i++) {
-            if(obj.equals(currentArray[i])) {
+            if (obj.equals(currentArray[i])) {
                 result = i;
             }
         }
@@ -286,13 +342,14 @@ public class Array<E extends Number> implements PlainArray<E> {
      * Осуществляет проверку указанного индекса на:
      * Возможность передачи отрицательного значения
      * Возможность передачи значения, большего чем вместимость массива
+     *
      * @param index указанный индекс
      */
     private void checkIndex(int index) {
         if (index < 0) {
             throw new IndexOutOfBoundsException(String.format("Illegal Index. Can not be < 0: index = %d", index));
         }
-        if(index > arrayData.length ) {
+        if (index > arrayData.length) {
             throw new IndexOutOfBoundsException(String.format("Illegal Index. Can not be larger then array.length: index = %d; array.length = %d", index, arrayData.length));
         }
     }
