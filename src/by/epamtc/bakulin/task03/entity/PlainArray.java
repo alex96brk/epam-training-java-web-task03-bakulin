@@ -70,7 +70,7 @@ public interface PlainArray<E> extends Iterable<E> {
      * Выполняет проверку текущего массива на предмет наличия
      * указанного объекта в качестве параметра.
      *
-     * @param o искомый объект;
+     * @param obj искомый объект;
      * @return {@code true} если указанный объект присутствует в массиве;
      */
     boolean contains(Object obj);
