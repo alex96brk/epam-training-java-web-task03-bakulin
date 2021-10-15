@@ -2,7 +2,6 @@ package by.epamtc.bakulin.task03.test;
 
 import by.epamtc.bakulin.task03.entity.Array;
 import by.epamtc.bakulin.task03.entity.PlainArray;
-import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;

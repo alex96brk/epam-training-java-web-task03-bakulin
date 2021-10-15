@@ -172,27 +172,33 @@ public class Array implements PlainArray {
 
     @Override
     public boolean equals(Object obj) {
-        boolean result = false;
 
         if (this == obj) {
-            result = true;
+            return true;
         }
-
         if (obj == null || obj.getClass() != this.getClass()) {
-            result = false;
+            return false;
         }
-        Array targetArray = (Array) obj;
 
-        result = equalsIntegerArrayData( this.arrayData, targetArray.arrayData);
-        return result;
+        Array targetArray = (Array) obj;
+        if (this.size != targetArray.size) {
+            return false;
+        }
+        if(equalsIntegerArrayData( this.arrayData, targetArray.arrayData)) {
+            return true;
+        }
+        return false;
     }
 
 
 
     @Override
     public int hashCode() {
+        int result = 1;
 
-        return 1;
+        result = 31 * result + size;
+        result= 31 * result + arrayData.hashCode();
+        return result;
     }
 
     /**
