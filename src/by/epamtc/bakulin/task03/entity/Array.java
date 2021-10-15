@@ -78,11 +78,11 @@ public class Array implements PlainArray {
                 arrayData = increaseArrayCapacity();
             }
 
-            addResult = recordElement(currentIndex, e);
+            addResult = writeElement(currentIndex, e);
         }
 
         if (size == 0) {
-            addResult = recordElement(currentIndex, e);
+            addResult = writeElement(currentIndex, e);
 
         }
         return addResult;
@@ -107,7 +107,7 @@ public class Array implements PlainArray {
             arrayData = increaseArrayCapacity(index);
         }
 
-        recordElement(index, e);
+        writeElement(index, e);
 
     }
 
@@ -146,7 +146,7 @@ public class Array implements PlainArray {
         checkIndex(index);
         Integer deletedElement = get(index);
         doArrayShift(index);
-        --size;
+        writeOutElement();
         return deletedElement;
     }
 
@@ -181,41 +181,13 @@ public class Array implements PlainArray {
         if (obj == null || obj.getClass() != this.getClass()) {
             result = false;
         }
-        Array array = (Array) obj;
+        Array targetArray = (Array) obj;
 
-        result = equalsIntegerArrayData( this.arrayData, array.arrayData);
+        result = equalsIntegerArrayData( this.arrayData, targetArray.arrayData);
         return result;
     }
 
-    private boolean equalsIntegerArrayData(Integer[] a, Integer[] b) {
-        boolean result = false;
-        if (a == b) {
-            result = true;
-        }
-        if (a == null || b == null) {
-            result = false;
-        }
-        if (a.length != b.length) {
-            result = false;
-        }
-        int iterationCounter = 0;
-        for (int i = 0; i < a.length; i++) {
-            if(a[i] == null || b[i] == null) {
-                break;
-            }
-            if (a[i].equals(b[i])) {
-                iterationCounter++;
-                continue;
-            } else {
-                result = false;
-                break;
-            }
-        }
-        if ((iterationCounter) == size && (iterationCounter) == size) {
-            result = true;
-        }
-        return result;
-    }
+
 
     @Override
     public int hashCode() {
@@ -231,9 +203,13 @@ public class Array implements PlainArray {
      * @param e     элемент, помещаемый в массив
      * @return {@code true} если указанный элемент был добавлен в массив
      */
-    private boolean recordElement(int index, Integer e) {
+    private boolean writeElement(int index, Integer e) {
         arrayData[index] = e;
         ++size;
+        return true;
+    }
+    private boolean writeOutElement() {
+        --size;
         return true;
     }
 
@@ -334,6 +310,42 @@ public class Array implements PlainArray {
             if (obj.equals(currentArray[i])) {
                 result = i;
             }
+        }
+        return result;
+    }
+
+    /**
+     * Выполняет поэлементную проверку двух массивов на равенство
+     * @param a Integer[] a - первый массив
+     * @param b Integer[] a - первый массив
+     * @return {@code true} если два массива поэлементно равны
+     */
+    private boolean equalsIntegerArrayData(Integer[] a, Integer[] b) {
+        boolean result = false;
+        if (a == b) {
+            result = true;
+        }
+        if (a == null || b == null) {
+            result = false;
+        }
+        if (a.length != b.length) {
+            result = false;
+        }
+        int iterationCounter = 0;
+        for (int i = 0; i < a.length; i++) {
+            if(a[i] == null || b[i] == null) {
+                break;
+            }
+            if (a[i].equals(b[i])) {
+                iterationCounter++;
+                continue;
+            } else {
+                result = false;
+                break;
+            }
+        }
+        if ((iterationCounter) == size && (iterationCounter) == size) {
+            result = true;
         }
         return result;
     }
