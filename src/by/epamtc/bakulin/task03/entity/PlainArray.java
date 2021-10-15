@@ -50,7 +50,7 @@ public interface PlainArray<E> extends Iterable<E> {
      * @param o удаляемый объект;
      * @return {@code true} если объект был успешно удален;
      */
-    boolean remove (Object o);
+    boolean remove (int index);
 
     /**
      * Возвращает текущее количество объектов в массиве

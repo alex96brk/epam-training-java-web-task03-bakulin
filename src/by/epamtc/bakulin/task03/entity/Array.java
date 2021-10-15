@@ -15,6 +15,16 @@ public class Array<E extends Number> implements PlainArray<E> {
     private static final Object[] EMPTY_ARRAY_DATA = {};
 
     /**
+     * Указывает начальный индекс копирования данных из старого массива
+     */
+    private static final int START_INDEX_COPY_FROM = 0;
+
+    /**
+     * Указывает начальный индекс копирования данных в новый массив
+     */
+    private static final int START_INDEX_COPY_TO = 0;
+
+    /**
      * Текущее количество элементов в массиве.
      */
     private int size;
@@ -25,6 +35,11 @@ public class Array<E extends Number> implements PlainArray<E> {
      */
     private Object[] arrayData;
 
+
+    /**
+     * Конструктор для создания пустого массива
+     * с вместимостью по умолчанию
+     */
     public Array() {
         this.arrayData = new Object[DEFAULT_CAPACITY];
     }
@@ -59,16 +74,15 @@ public class Array<E extends Number> implements PlainArray<E> {
         int currentIndex = size;
 
         if (size > 0) {
-            //currentIndex += 1;
-
             if (isArrayFull(currentIndex)) {
                 arrayData = increaseArrayCapacity();
             }
-            addResult = doAddElement(currentIndex, e);
+
+            addResult = recordElement(currentIndex, e);
         }
 
         if (size == 0) {
-            addResult = doAddElement(currentIndex, e);
+            addResult = recordElement(currentIndex, e);
 
         }
         return addResult;
@@ -84,12 +98,8 @@ public class Array<E extends Number> implements PlainArray<E> {
      */
     @Override
     public void add(int index, E e) {
-        if (index < 0) {
-            throw new IndexOutOfBoundsException(String.format("Illegal Index. Can not be < 0: index = %d", index));
-        }
-        if(index > arrayData.length ) {
-            throw new IndexOutOfBoundsException(String.format("Illegal Index. Can not be larger then array.length: index = %d; array.length = %d", index, arrayData.length));
-        }
+        checkIndex(index);
+
         if(index == 0) {
             doArrayShift();
         }
@@ -97,18 +107,74 @@ public class Array<E extends Number> implements PlainArray<E> {
             arrayData = increaseArrayCapacity(index);
         }
 
-        doAddElement(index, e);
+        recordElement(index, e);
 
     }
 
     /**
-     * Служит для уменьшения количества повторяющегося кода
-     * Выполняет присвоение указанной в параметре ячейки, соответствующего элемента
+     * Добавляет элемент в указанный индекс ячейки массива.
+     * В случае, если данная ячейка занята - происходит перезапись.
+     *
+     * @param index integer значение порядкового номера ячейки в массиве;
+     * @param e добавляемый элемент в массив;
+     * @return E элемент, который ранее находился на данной позиции;
+     */
+    @Override
+    public E set(int index, E e) {
+        checkIndex(index);
+        E oldValue = (E)arrayData[index];
+        arrayData[index] = e;
+
+        return oldValue;
+    }
+
+    @Override
+    public E get(int index) {
+        checkIndex(index);
+        E returnResult = (E)arrayData[index];
+
+        return returnResult;
+    }
+
+    @Override
+    public int indexOf() {
+        return 0;
+    }
+
+    @Override
+    public boolean remove(int index) {
+        checkIndex(index);
+        return false;
+    }
+
+    @Override
+    public int size() {
+        return this.size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return null;
+    }
+
+    /**
+     * Служит для уменьшения количества повторяющегося кода.
+     * Выполняет запись элемента в массив
      * @param index номер ячейки массива
      * @param e элемент, помещаемый в массив
      * @return {@code true} если указанный элемент был добавлен в массив
      */
-    private boolean doAddElement(int index, E e) {
+    private boolean recordElement(int index, E e) {
         arrayData[index] = e;
         ++size;
         return true;
@@ -138,14 +204,9 @@ public class Array<E extends Number> implements PlainArray<E> {
      * @return новый массив с увеличенным кол-вом ячеек;
      */
     private Object[] increaseArrayCapacity() {
-        int currentCapacity = arrayData.length;
-        int currentIndexCopyFrom = 0;
-        int newIndexCopyTo = 0;
+        Object[] newArray = generateNewArray();
 
-        int newCapacity = currentCapacity + DEFAULT_CAPACITY;
-
-        Object[] newArray = new Object[newCapacity];
-        System.arraycopy(arrayData, currentIndexCopyFrom, newArray, newIndexCopyTo, arrayData.length);
+        System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArray, START_INDEX_COPY_TO, arrayData.length);
 
         return newArray;
     }
@@ -156,91 +217,53 @@ public class Array<E extends Number> implements PlainArray<E> {
      * @return новый массив с увеличенным кол-вом ячеек;
      */
     private Object[] increaseArrayCapacity(int currentIndex) {
-        int currentCapacity = arrayData.length;
-        int currentIndexCopyFrom = 0;
-        int newIndexCopyTo = 0;
+        Object[] newArr = generateNewArray();
 
-        int newCapacity = currentCapacity + DEFAULT_CAPACITY;
-
-        Object[] newArr = new Object[newCapacity];
         if(currentIndex == 0) {
-            System.arraycopy(arrayData, currentIndexCopyFrom, newArr, (newIndexCopyTo + 1), (arrayData.length - 1));
+            System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArr, (START_INDEX_COPY_TO + 1), (arrayData.length - 1));
         }
         if(currentIndex > 0) {
-            System.arraycopy(arrayData, currentIndexCopyFrom, newArr, newIndexCopyTo, currentIndex);
+            System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArr, START_INDEX_COPY_TO, currentIndex);
             System.arraycopy(arrayData, currentIndex, newArr, currentIndex, (arrayData.length - currentIndex));
         }
 
         return newArr;
     }
 
-    private void doArrayShift() {
+    /**
+     * При вызове, создает новый массив
+     * с вместимостью old.length + 10
+     * @return newArray.length = old.length + 10
+     */
+    private Object[] generateNewArray() {
+        int currentCapacity = arrayData.length;
+        int newCapacity = currentCapacity + DEFAULT_CAPACITY;
 
+        return new Object[newCapacity];
+    }
+
+    /**
+     * Выполняет сдвиг элементов массива, в случае:
+     * если текущая вместимость массива способна принять как минимум 1 элемент
+     */
+    private void doArrayShift() {
         for(int i = size; i != 0; i-- ) {
             arrayData[i] = arrayData[(i - 1)];
         }
     }
 
     /**
-     * Добавляет элемент в указанный индекс ячейки массива.
-     * В случае, если данная ячейка занята - происходит перезапись.
-     *
-     * @param index integer значение порядкового номера ячейки в массиве;
-     * @param e добавляемый элемент в массив;
-     * @return E элемент, который ранее находился на данной позиции;
+     * Осуществляет проверку указанного индекса на:
+     * Возможность передачи отрицательного значения
+     * Возможность передачи значения, большего чем вместимость массива
+     * @param index указанный индекс
      */
-    @Override
-    public E set(int index, E e) {
+    private void checkIndex(int index) {
         if (index < 0) {
             throw new IndexOutOfBoundsException(String.format("Illegal Index. Can not be < 0: index = %d", index));
         }
         if(index > arrayData.length ) {
             throw new IndexOutOfBoundsException(String.format("Illegal Index. Can not be larger then array.length: index = %d; array.length = %d", index, arrayData.length));
         }
-        E oldValue = (E)arrayData[index];
-        arrayData[index] = e;
-        return oldValue;
-    }
-
-    @Override
-    public E get(int index) {
-        if (index < 0) {
-            throw new IndexOutOfBoundsException(String.format("Illegal Index. Can not be < 0: index = %d", index));
-        }
-        if(index > arrayData.length ) {
-            throw new IndexOutOfBoundsException(String.format("Illegal Index. Can not be larger then array.length: index = %d; array.length = %d", index, arrayData.length));
-        }
-        E returnResult = (E)arrayData[index];
-        return returnResult;
-    }
-
-    @Override
-    public int indexOf() {
-        return 0;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
-    }
-
-    @Override
-    public int size() {
-        return this.size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean contains(Object o) {
-        return false;
-    }
-
-    @Override
-    public Iterator<E> iterator() {
-        return null;
     }
 }
