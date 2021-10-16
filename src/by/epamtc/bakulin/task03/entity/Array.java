@@ -242,8 +242,14 @@ public class Array implements PlainArray {
      * Возвращает текущий массив.
      * @return примитивный массив int[]
      */
+    @Override
     public int[] getArrayData() {
         return unboxIntegerArray(arrayData);
+    }
+
+    @Override
+    public void setArrayData(int[] newArrayData) {
+        this.arrayData = boxIntegerArray(newArrayData);
     }
 
     /**
