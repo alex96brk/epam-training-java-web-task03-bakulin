@@ -1,6 +1,9 @@
 package by.epamtc.bakulin.task03.entity;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Array implements PlainArray {
 
@@ -63,6 +66,23 @@ public class Array implements PlainArray {
     }
 
     /**
+     * Конструктор для создания динамического массива
+     * на основе пользовательского массива
+     *
+     * @param userArray пользовательский массив int[]
+     */
+    public Array(int[] userArray) {
+        Integer[] boxedUserArray = boxIntegerArray(userArray);
+
+        if (userArray == null || userArray.length == 0) {
+            this.arrayData = EMPTY_ARRAY_DATA;
+        }
+        this.arrayData = boxedUserArray;
+        this.size = boxedUserArray.length;
+
+    }
+
+    /**
      * Добавляет элемент в конец массива
      *
      * @param e - добавляемый элемент в массив;
@@ -93,7 +113,7 @@ public class Array implements PlainArray {
      * сдвиг элементов.
      *
      * @param index индекс в массиве для записи элемента;
-     * @param e добавляемый элемент в массив;
+     * @param e     добавляемый элемент в массив;
      * @return {@code true} если элемент был добавлен в массив;
      */
     @Override
@@ -116,13 +136,13 @@ public class Array implements PlainArray {
      * В случае, если данная ячейка занята - происходит перезапись.
      *
      * @param index integer значение порядкового номера ячейки в массиве;
-     * @param e добавляемый элемент в массив;
+     * @param e     добавляемый элемент в массив;
      * @return E элемент, который ранее находился на данной позиции;
      */
     @Override
     public Integer set(int index, Integer e) {
         checkIndex(index);
-        Integer oldValue = (Integer) arrayData[index];
+        Integer oldValue = arrayData[index];
         arrayData[index] = e;
 
         return oldValue;
@@ -131,7 +151,7 @@ public class Array implements PlainArray {
     @Override
     public Integer get(int index) {
         checkIndex(index);
-        Integer returnResult = (Integer) arrayData[index];
+        Integer returnResult = arrayData[index];
 
         return returnResult;
     }
@@ -184,20 +204,24 @@ public class Array implements PlainArray {
         if (this.size != targetArray.size) {
             return false;
         }
-        if(equalsIntegerArrayData( this.arrayData, targetArray.arrayData)) {
+        if (equalsIntegerArrayData(this.arrayData, targetArray.arrayData)) {
             return true;
         }
         return false;
     }
-
-
 
     @Override
     public int hashCode() {
         int result = 1;
 
         result = 31 * result + size;
-        result= 31 * result + arrayData.hashCode();
+        result = 31 * result + arrayData.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        String result = String.format("Array{ size = %d, arrayData = %s}", size, arrayStringBuilder(this.arrayData));
         return result;
     }
 
@@ -214,6 +238,7 @@ public class Array implements PlainArray {
         ++size;
         return true;
     }
+
     private boolean writeOutElement() {
         --size;
         return true;
@@ -322,6 +347,7 @@ public class Array implements PlainArray {
 
     /**
      * Выполняет поэлементную проверку двух массивов на равенство
+     *
      * @param a Integer[] a - первый массив
      * @param b Integer[] a - первый массив
      * @return {@code true} если два массива поэлементно равны
@@ -339,7 +365,7 @@ public class Array implements PlainArray {
         }
         int iterationCounter = 0;
         for (int i = 0; i < a.length; i++) {
-            if(a[i] == null || b[i] == null) {
+            if (a[i] == null || b[i] == null) {
                 break;
             }
             if (a[i].equals(b[i])) {
@@ -354,6 +380,34 @@ public class Array implements PlainArray {
             result = true;
         }
         return result;
+    }
+
+    private Integer[] boxIntegerArray(int[] targetArray) {
+        Integer[] boxedArray = new Integer[targetArray.length];
+        for (int i = 0; i < targetArray.length; i++) {
+            boxedArray[i] = Integer.valueOf(targetArray[i]);
+        }
+        return boxedArray;
+    }
+
+    private String arrayStringBuilder(Integer[] targetArray) {
+        if (targetArray == null) {
+            return "null";
+        }
+        int indexMax = size - 1;
+        if (indexMax == -1) {
+            return "[]";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append('[');
+        for (int i = 0; ;i++) {
+            stringBuilder.append(targetArray[i]);
+            if(i == indexMax) {
+                return stringBuilder.append(']').toString();
+            }
+            stringBuilder.append(", ");
+        }
     }
 
     /**
