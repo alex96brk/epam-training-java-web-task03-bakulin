@@ -253,4 +253,18 @@ public class ArrayTest {
 
         System.out.println("Test11: Finished\n");
     }
+
+    @Test
+    public void testArrayL12() {
+        System.out.println("Test12: Started");
+        System.out.println("Reason: проверка создания динамического массива на основе примитивного");
+        System.out.println("Reason: проверка работы метода getArrayData()");
+        int[] arr1 = new int[]{1, 4, 6, 8, 3, 5};
+        PlainArray array1 = new Array(arr1);
+        System.out.println(String.format("array1: toString() -> %s", array1.toString()));
+
+        int[] arrResult = array1.getArrayData();
+        System.out.println(String.format("Result: %s", Arrays.toString(arrResult)));
+        System.out.println("Test12: Finished\n");
+    }
 }

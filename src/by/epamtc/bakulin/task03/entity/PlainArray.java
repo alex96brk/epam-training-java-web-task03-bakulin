@@ -75,4 +75,6 @@ public interface PlainArray {
      */
     boolean contains(int obj);
 
+    public int[] getArrayData();
+
 }

@@ -239,6 +239,14 @@ public class Array implements PlainArray {
     }
 
     /**
+     * Возвращает текущий массив.
+     * @return примитивный массив int[]
+     */
+    public int[] getArrayData() {
+        return unboxIntegerArray(arrayData);
+    }
+
+    /**
      * Служит для уменьшения количества повторяющегося кода.
      * Выполняет запись элемента в массив
      *
@@ -395,6 +403,14 @@ public class Array implements PlainArray {
             boxedArray[i] = Integer.valueOf(targetArray[i]);
         }
         return boxedArray;
+    }
+
+    private int[] unboxIntegerArray(Integer[] targetArray) {
+        int[] unboxedArray = new int[size];
+        for (int i = 0; i < targetArray.length; i++) {
+            unboxedArray[i] = targetArray[i];
+        }
+        return unboxedArray;
     }
 
     private String arrayStringBuilder(Integer[] targetArray) {
