@@ -148,9 +148,7 @@ public class Array implements PlainArray {
                 arrayData = increaseArrayCapacity(index);
                 writeElement(index, e);
             }
-
         }
-
     }
 
     /**
@@ -205,11 +203,6 @@ public class Array implements PlainArray {
     @Override
     public boolean contains(int obj) {
         return indexOf(obj) >= 0;
-    }
-
-    @Override
-    public Iterator<Integer> iterator() {
-        return null;
     }
 
     @Override

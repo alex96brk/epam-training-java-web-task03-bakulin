@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.entity;
 
-public interface PlainArray extends Iterable<Integer> {
+public interface PlainArray {
 
     /**
      * Добавляет элемент в конец массива
