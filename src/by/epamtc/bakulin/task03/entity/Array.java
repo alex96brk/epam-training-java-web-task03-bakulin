@@ -364,7 +364,7 @@ public class Array implements PlainArray {
      * Выполняет поэлементную проверку двух массивов на равенство
      *
      * @param a Integer[] a - первый массив
-     * @param b Integer[] a - первый массив
+     * @param b Integer[] b - второй массив
      * @return {@code true} если два массива поэлементно равны
      */
     private boolean equalsIntegerArrayData(Integer[] a, Integer[] b) {
