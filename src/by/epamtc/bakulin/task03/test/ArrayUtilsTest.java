@@ -96,4 +96,19 @@ public class ArrayUtilsTest {
         System.out.println("Test3: Quick sort - Finished\n");
     }
 
+    @Test
+    public void testArrayUtilsD1() {
+        System.out.println("Test3: Binary Search - Started");
+        int[] arr = new int[]{7, 4, 6, 8, 3, 5};
+        System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
+        PlainArray array1 = new Array(arr);
+        System.out.println(String.format("Current Array: %s", array1.toString()));
+        int searchValue = 4;
+        System.out.println(String.format("search value = %d", searchValue));
+        int resIndex = ArrayUtils.binarySearch(4, array1);
+        System.out.println(String.format("result index = %d", resIndex));
+        System.out.println(String.format("Sorted Array: %s", array1.toString()));
+        System.out.println("Test3: Binary Search - Finished\n");
+    }
+
 }
