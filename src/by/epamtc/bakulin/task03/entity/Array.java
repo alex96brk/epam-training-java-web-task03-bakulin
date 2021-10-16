@@ -82,11 +82,12 @@ public class Array implements PlainArray {
     /**
      * Добавляет элемент в конец массива
      *
-     * @param e - добавляемый элемент в массив;
+     * @param value - добавляемый элемент в массив;
      * @return {@code true} если элемент был добавлен в массив;
      */
     @Override
-    public boolean add(Integer e) {
+    public boolean add(int value) {
+        Integer e = Integer.valueOf(value);
         boolean addResult = false;
         int currentIndex = size;
 
@@ -117,14 +118,38 @@ public class Array implements PlainArray {
     public void add(int index, Integer e) {
         checkIndex(index);
 
-        if (index == 0) {
-            doArrayShift();
-        }
-        if (isArrayFull(index)) {
-            arrayData = increaseArrayCapacity(index);
-        }
+        if(index == 0) {
+            if ((size + 1) < arrayData.length) {
+                doArrayShift();
+                writeElement(index, e);
+            }
+            if ((size + 1) >= arrayData.length) {
+                arrayData = increaseArrayCapacity(index);
+                writeElement(index, e);
+            }
 
-        writeElement(index, e);
+
+        }
+        if(index > 0 && index != size) {
+            if ((size + 1) < arrayData.length) {
+                doArrayShift(index);
+                writeElement(index, e);
+            }
+            if ((size + 1) >= arrayData.length) {
+                arrayData = increaseArrayCapacity(index);
+                writeElement(index, e);
+            }
+        }
+        if(index == size) {
+            if ((size + 1) < arrayData.length) {
+                writeElement(index, e);
+            }
+            if ((size + 1) >= arrayData.length) {
+                arrayData = increaseArrayCapacity(index);
+                writeElement(index, e);
+            }
+
+        }
 
     }
 
@@ -155,14 +180,14 @@ public class Array implements PlainArray {
 
     @Override
     public int indexOf(Object obj) {
-        return indexOfRange(obj, 0, size);
+        return indexOfRange( obj, 0, size);
     }
 
     @Override
     public Integer remove(int index) {
         checkIndex(index);
         Integer deletedElement = get(index);
-        doArrayShift(index);
+        doArrayShiftRemove(index);
         writeOutElement();
         return deletedElement;
     }
@@ -178,7 +203,7 @@ public class Array implements PlainArray {
     }
 
     @Override
-    public boolean contains(Object obj) {
+    public boolean contains(int obj) {
         return indexOf(obj) >= 0;
     }
 
@@ -282,11 +307,11 @@ public class Array implements PlainArray {
         Integer[] newArr = generateNewArray();
 
         if (currentIndex == 0) {
-            System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArr, (START_INDEX_COPY_TO + 1), (arrayData.length - 1));
+            System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArr, (START_INDEX_COPY_TO + 1), arrayData.length);
         }
         if (currentIndex > 0) {
             System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArr, START_INDEX_COPY_TO, currentIndex);
-            System.arraycopy(arrayData, currentIndex, newArr, currentIndex, (arrayData.length - currentIndex));
+            System.arraycopy(arrayData, currentIndex, newArr, (currentIndex + 1), (arrayData.length - currentIndex));
         }
 
         return newArr;
@@ -315,12 +340,21 @@ public class Array implements PlainArray {
         }
     }
 
-    private void doArrayShift(int targetIndex) {
+    private void doArrayShiftRemove(int targetIndex) {
         int lastElementIndex = size - 1;
-        for (int i = targetIndex; i < size; i++) {
+        for (int i = targetIndex; i < lastElementIndex; i++) {
             arrayData[i] = arrayData[(i + 1)];
         }
         arrayData[lastElementIndex] = null;
+    }
+
+    private void doArrayShift(int targetIndex) {
+        int lastElementIndex = size;
+
+        for (int i = lastElementIndex; i >= targetIndex ; i--) {
+            arrayData[i] = arrayData[(i - 1)];
+        }
+
     }
 
     private int indexOfRange(Object obj, int start, int end) {

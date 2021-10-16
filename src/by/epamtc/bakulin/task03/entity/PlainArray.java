@@ -8,7 +8,7 @@ public interface PlainArray extends Iterable<Integer> {
      * @param e - добавляемый элемент в массив;
      * @return {@code true} если элемент был добавлен в массив;
      */
-    boolean add(Integer e);
+    boolean add(int e);
 
     /**
      * Добавляет элемент в указанный индекс, осуществляет
@@ -73,6 +73,6 @@ public interface PlainArray extends Iterable<Integer> {
      * @param obj искомый объект;
      * @return {@code true} если указанный объект присутствует в массиве;
      */
-    boolean contains(Object obj);
+    boolean contains(int obj);
 
 }
