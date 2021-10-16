@@ -111,6 +111,38 @@ public class ArrayUtils {
         arrayToSort.setArrayData(array);
     }
 
+    /**
+     * Алгоритм поиска элемента в массиве "Бинарный поиск"
+     *
+     * Временная сложность О(n)
+     * @param searchValue искомое значение
+     * @param targetArray целевой массив
+     */
+    public static int binarySearch(int searchValue, PlainArray targetArray) {
+        sortArrayQuickAsc(targetArray);
+        int[] unboxedArray = targetArray.getArrayData();
+
+        int leftBorder = 0;
+        int rightBorder = unboxedArray.length - 1;
+
+        while (leftBorder <= rightBorder) {
+            int center = leftBorder + (rightBorder - leftBorder) / 2;
+
+            if (unboxedArray[center] == searchValue) {
+                return center;
+            }
+
+            if (unboxedArray[center] > searchValue) {
+                rightBorder = center - 1;
+            }
+            if (unboxedArray[center] < searchValue) {
+                leftBorder = center + 1;
+            }
+        }
+
+        return -1;
+    }
+
     private static void quickSortManage(int[] array, int leftBorder, int rightBorder) {
         if(leftBorder < rightBorder) {
             int divideIndex = quickSortArrayDivider(array, leftBorder, rightBorder);
