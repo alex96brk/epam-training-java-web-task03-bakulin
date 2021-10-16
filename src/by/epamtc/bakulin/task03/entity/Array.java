@@ -1,7 +1,5 @@
 package by.epamtc.bakulin.task03.entity;
 
-import java.util.Iterator;
-
 public class Array implements PlainArray {
 
     /**
