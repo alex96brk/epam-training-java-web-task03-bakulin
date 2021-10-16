@@ -93,7 +93,7 @@ public class Array implements PlainArray {
 
         if (size > 0) {
             if (isArrayFull(currentIndex)) {
-                arrayData = increaseArrayCapacity();
+                arrayData = increaseArrayCapacity(size);
             }
 
             addResult = writeElement(currentIndex, e);
@@ -280,21 +280,6 @@ public class Array implements PlainArray {
             isFull = true;
         }
         return isFull;
-    }
-
-    /**
-     * Увеличивает текущий массив +10 элементов, в случае:
-     * если не хватает емкости текущего массива
-     * Для добавления элемента в конец массива
-     *
-     * @return новый массив с увеличенным кол-вом ячеек;
-     */
-    private Integer[] increaseArrayCapacity() {
-        Integer[] newArray = generateNewArray();
-
-        System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArray, START_INDEX_COPY_TO, arrayData.length);
-
-        return newArray;
     }
 
     /**
