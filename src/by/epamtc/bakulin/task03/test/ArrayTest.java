@@ -100,15 +100,17 @@ public class ArrayTest {
     public void testArray_test4() {
         System.out.println("Test04: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
-        System.out.println("Reason: проверка работы метода set() -> замена существующего элемента в массиве");
+        System.out.println("Reason: проверка работы метода set() -> замена существующего элемента в массиве\n");
         int[] arr = new int[]{1, 4, 6, 8, 3, 5};
         PlainArray array1 = new Array(arr);
 
         int a = 81;
-        int index1 = 3;
+        int index1 = 0;
         System.out.println(String.format("Attempt to add(%d) into index = %d: %s", a, index1, array1.toString()));
-        array1.set(3, a);
+        int prevValue =  array1.set(index1, a);
+        System.out.println(String.format("previous value: value = %d", prevValue));
         System.out.println(String.format("Result: %s\n", array1.toString()));
+
         System.out.println("Test04: Finished\n");
     }
 
