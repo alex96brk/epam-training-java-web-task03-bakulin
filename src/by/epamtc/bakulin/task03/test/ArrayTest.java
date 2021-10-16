@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class ArrayTest {
 
     @Test
-    public void testArray_test1() {
+    public void testArrayA1() {
         System.out.println("Test01: Started");
         System.out.println("Reason: проверка создания динамического массива на основе работы метода add() с добавлением в конец");
         int a = 78;
@@ -30,7 +30,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test2() {
+    public void testArrayB2() {
         System.out.println("Test02: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка расширения динамического массива после создания на основе примитивного массива");
@@ -51,7 +51,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test3() {
+    public void testArrayC3() {
         System.out.println("Test03: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка добавления новых элементов в начало, середину, конец динамического массива");
@@ -97,7 +97,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test4() {
+    public void testArrayD4() {
         System.out.println("Test04: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода set() -> замена существующего элемента в массиве\n");
@@ -115,7 +115,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test5() {
+    public void testArrayE5() {
         System.out.println("Test05: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода get(index)");
@@ -129,7 +129,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test6() {
+    public void testArrayF6() {
         System.out.println("Test06: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода index(obj)");
@@ -146,7 +146,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test7() {
+    public void testArrayG7() {
         System.out.println("Test07: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода remove(index)");
@@ -173,7 +173,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test8() {
+    public void testArrayH8() {
         System.out.println("Test08: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода isEmpty()");
@@ -185,7 +185,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test9() {
+    public void testArrayI9() {
         System.out.println("Test09: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода contains(obj)");
@@ -206,7 +206,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test10() {
+    public void testArrayJ10() {
         System.out.println("Test10: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы методов hashCode() и equals(obj)");
@@ -242,7 +242,7 @@ public class ArrayTest {
     }
 
     @Test
-    public void testArray_test11() {
+    public void testArrayK11() {
         System.out.println("Test11: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы методов hashCode() и equals(obj)");
