@@ -1,9 +1,6 @@
 package by.epamtc.bakulin.task03.entity;
 
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Array implements PlainArray {
 
@@ -318,9 +315,9 @@ public class Array implements PlainArray {
         }
     }
 
-    private void doArrayShift(int deleteIndex) {
+    private void doArrayShift(int targetIndex) {
         int lastElementIndex = size - 1;
-        for (int i = deleteIndex; i < size; i++) {
+        for (int i = targetIndex; i < size; i++) {
             arrayData[i] = arrayData[(i + 1)];
         }
         arrayData[lastElementIndex] = null;
