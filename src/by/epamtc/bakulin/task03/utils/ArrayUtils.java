@@ -1,5 +1,6 @@
 package by.epamtc.bakulin.task03.utils;
 
+import by.epamtc.bakulin.task03.entity.Array;
 import by.epamtc.bakulin.task03.entity.PlainArray;
 
 public class ArrayUtils {
@@ -8,6 +9,7 @@ public class ArrayUtils {
      * Алгоритм сортировки массива "Сортировка Пузырьком"
      * По возрастанию
      * Временная сложность О(n^2)
+     *
      * @param arrayToSort сортируемый массив
      */
     public static void sortArrayBubbleAsc(PlainArray arrayToSort) {
@@ -28,6 +30,7 @@ public class ArrayUtils {
      * Алгоритм сортировки массива "Сортировка Пузырьком"
      * По убыванию
      * Временная сложность О(n^2)
+     *
      * @param arrayToSort сортируемый массив
      */
     public static void sortArrayBubbleDesc(PlainArray arrayToSort) {
@@ -48,13 +51,14 @@ public class ArrayUtils {
      * Алгоритм сортировки массива "Сортировка Выбором"
      * По возрастанию
      * Временная сложность О(n^2)
+     *
      * @param arrayToSort сортируемый массив
      */
     public static void sortArraySelectionAsc(PlainArray arrayToSort) {
         int[] array = arrayToSort.getArrayData();
 
         for (int step = 0; step < array.length; step++) {
-            int minValueIndex = selectionSortMinValueSearcher(array, step);
+            int minValueIndex = findMinimalValue(array, step);
 
             int tempValue = array[step];
             array[step] = array[minValueIndex];
@@ -68,13 +72,14 @@ public class ArrayUtils {
      * Алгоритм сортировки массива "Сортировка Выбором"
      * По убыванию
      * Временная сложность О(n^2)
+     *
      * @param arrayToSort сортируемый массив
      */
     public static void sortArraySelectionDesc(PlainArray arrayToSort) {
         int[] array = arrayToSort.getArrayData();
 
         for (int step = 0; step < array.length; step++) {
-            int minValueIndex = selectionSortMaxValueSearcher(array, step);
+            int minValueIndex = findMaximalValue(array, step);
 
             int tempValue = array[step];
             array[step] = array[minValueIndex];
@@ -88,6 +93,7 @@ public class ArrayUtils {
      * Алгоритм сортировки массива "Быстрая сортировка"
      * По возрастанию
      * Временная сложность О(n log(n))
+     *
      * @param arrayToSort сортируемый массив
      */
     public static void sortArrayQuickAsc(PlainArray arrayToSort) {
@@ -97,10 +103,12 @@ public class ArrayUtils {
         quickSortManage(array, leftBorder, rightBorder);
         arrayToSort.setArrayData(array);
     }
+
     /**
      * Алгоритм сортировки массива "Быстрая сортировка"
      * По убыванию
      * Временная сложность О(n log(n))
+     *
      * @param arrayToSort сортируемый массив
      */
     public static void sortArrayQuickDesc(PlainArray arrayToSort) {
@@ -113,8 +121,9 @@ public class ArrayUtils {
 
     /**
      * Алгоритм поиска элемента в массиве "Бинарный поиск"
-     *
+     * <p>
      * Временная сложность О(n)
+     *
      * @param searchValue искомое значение
      * @param targetArray целевой массив
      */
@@ -143,9 +152,62 @@ public class ArrayUtils {
         return -1;
     }
 
+    /**
+     * Поиск минимального значения в массиве.
+     * Основан на Быстрой сортировке по возрастанию
+     *
+     * @param targetArray целевой массив
+     * @return
+     */
+    public static int findMinimalValue(PlainArray targetArray) {
+        sortArrayQuickAsc(targetArray);
+        return targetArray.get(0);
+    }
+
+    /**
+     * Поиск минимального значения в массиве.
+     * Основан на Быстрой сортировке по убыванию
+     *
+     * @param targetArray целевой массив
+     * @return
+     */
+    public static int findMaximalValue(PlainArray targetArray) {
+        sortArrayQuickDesc(targetArray);
+        return targetArray.get(0);
+    }
+
+    public static int[] findAllPrimes(PlainArray targetArray) {
+        int[] unboxedArray = targetArray.getArrayData();
+        PlainArray primes = new Array();
+        int[] result = new int[0];
+
+        for (int i = 0; i < unboxedArray.length; i++) {
+            if (isPrimeNumeric(unboxedArray[i])) {
+                primes.add(unboxedArray[i]);
+            }
+        }
+        if(!primes.isEmpty()) {
+            result = primes.getArrayData();
+        }
+        return result;
+    }
+
+    private static boolean isPrimeNumeric(int targetValue) {
+        boolean result = true;
+        int startValue = 2;
+
+        for (int i = startValue; i < targetValue; i++) {
+            if (targetValue % i == 0) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     private static void quickSortManage(int[] array, int leftBorder, int rightBorder) {
-        if(leftBorder < rightBorder) {
-            int divideIndex = quickSortArrayDivider(array, leftBorder, rightBorder);
+        if (leftBorder < rightBorder) {
+            int divideIndex = quickSortArraySeparator(array, leftBorder, rightBorder);
 
             quickSortManage(array, leftBorder, (divideIndex - 1));
             quickSortManage(array, divideIndex, rightBorder);
@@ -153,8 +215,8 @@ public class ArrayUtils {
     }
 
     private static void quickSortManageDesc(int[] array, int leftBorder, int rightBorder) {
-        if(leftBorder < rightBorder) {
-            int divideIndex = quickSortArrayDividerDesc(array, leftBorder, rightBorder);
+        if (leftBorder < rightBorder) {
+            int divideIndex = quickSortArraySeparatorDesc(array, leftBorder, rightBorder);
 
             quickSortManageDesc(array, leftBorder, (divideIndex - 1));
             quickSortManageDesc(array, divideIndex, rightBorder);
@@ -162,7 +224,7 @@ public class ArrayUtils {
     }
 
 
-    private static int quickSortArrayDivider(int[] incomingArray, int leftBorder, int rightBorder) {
+    private static int quickSortArraySeparator(int[] incomingArray, int leftBorder, int rightBorder) {
         int divideIndex = incomingArray[leftBorder + (rightBorder - leftBorder) / 2];
 
         while (leftBorder <= rightBorder) {
@@ -182,7 +244,7 @@ public class ArrayUtils {
         return leftBorder;
     }
 
-    private static int quickSortArrayDividerDesc(int[] incomingArray, int leftBorder, int rightBorder) {
+    private static int quickSortArraySeparatorDesc(int[] incomingArray, int leftBorder, int rightBorder) {
         int divideIndex = incomingArray[leftBorder + (rightBorder - leftBorder) / 2];
 
         while (leftBorder <= rightBorder) {
@@ -216,7 +278,7 @@ public class ArrayUtils {
         incomingArray[swapIndex1] = temp;
     }
 
-    private static int selectionSortMinValueSearcher(int[] array, int startIndex) {
+    private static int findMinimalValue(int[] array, int startIndex) {
         int minimalValueIndex = startIndex;
         int minimalValue = array[startIndex];
 
@@ -228,7 +290,8 @@ public class ArrayUtils {
         }
         return minimalValueIndex;
     }
-    private static int selectionSortMaxValueSearcher(int[] array, int startIndex) {
+
+    private static int findMaximalValue(int[] array, int startIndex) {
         int maxValueIndex = startIndex;
         int maxValue = array[startIndex];
 
