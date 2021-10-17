@@ -58,7 +58,7 @@ public class ArrayUtils {
         int[] array = arrayToSort.getArrayData();
 
         for (int step = 0; step < array.length; step++) {
-            int minValueIndex = findMinimalValue(array, step);
+            int minValueIndex = selectionSortMinimalValue(array, step);
 
             int tempValue = array[step];
             array[step] = array[minValueIndex];
@@ -79,7 +79,7 @@ public class ArrayUtils {
         int[] array = arrayToSort.getArrayData();
 
         for (int step = 0; step < array.length; step++) {
-            int minValueIndex = findMaximalValue(array, step);
+            int minValueIndex = selectionSortMaximalValue(array, step);
 
             int tempValue = array[step];
             array[step] = array[minValueIndex];
@@ -148,7 +148,6 @@ public class ArrayUtils {
                 leftBorder = center + 1;
             }
         }
-
         return -1;
     }
 
@@ -157,7 +156,7 @@ public class ArrayUtils {
      * Основан на Быстрой сортировке по возрастанию
      *
      * @param targetArray целевой массив
-     * @return
+     * @return минимальное значение в массиве
      */
     public static int findMinimalValue(PlainArray targetArray) {
         sortArrayQuickAsc(targetArray);
@@ -165,17 +164,57 @@ public class ArrayUtils {
     }
 
     /**
+     * Поиск минимального значения в примитивном массиве
+     *
+     * @param targetArray целевой массив
+     * @return минимальное значение в массиве
+     */
+    public static int findMinimalValue(int[] targetArray) {
+        int result = targetArray[0];
+        for (int i = 0; i < targetArray.length; i++) {
+            if (result > targetArray[i]) {
+                result = targetArray[i];
+            }
+
+        }
+        return result;
+    }
+
+    /**
      * Поиск минимального значения в массиве.
      * Основан на Быстрой сортировке по убыванию
      *
      * @param targetArray целевой массив
-     * @return
+     * @return максимальное значение в массиве
      */
     public static int findMaximalValue(PlainArray targetArray) {
         sortArrayQuickDesc(targetArray);
         return targetArray.get(0);
     }
 
+    /**
+     * Поиск минимального значения в примитивном массиве
+     *
+     * @param targetArray целевой массив
+     * @return минимальное значение в массиве
+     */
+    public static int findMaximalValue(int[] targetArray) {
+        int result = targetArray[0];
+        for (int i = 0; i < targetArray.length; i++) {
+            if (result < targetArray[i]) {
+                result = targetArray[i];
+            }
+
+        }
+        return result;
+    }
+
+    /**
+     * Осуществляет поиск всех простых чисел в текущем массиве
+     *
+     * @param targetArray целевой массив
+     * @return массив простых чисел
+     */
     public static int[] findAllPrimes(PlainArray targetArray) {
         int[] unboxedArray = targetArray.getArrayData();
         PlainArray primes = new Array();
@@ -186,10 +225,65 @@ public class ArrayUtils {
                 primes.add(unboxedArray[i]);
             }
         }
-        if(!primes.isEmpty()) {
+        if (!primes.isEmpty()) {
             result = primes.getArrayData();
         }
         return result;
+    }
+
+    /**
+     * Осуществляет поиск всех чисел Фибоначчи в текущем массиве
+     *
+     * @param targetArray целевой массив
+     * @return массив чисел Фибоначчи в текущем массиве
+     */
+    public static int[] findAllFibonacci(PlainArray targetArray) {
+        int[] result = new int[0];
+        int[] unboxedArray = targetArray.getArrayData();
+        int maxValue = findMaximalValue(unboxedArray);
+        PlainArray cache = new Array();
+
+        int[] fibonacciArray = populateFibonacciArray(maxValue);
+
+        for (int i = 0; i < unboxedArray.length; i++) {
+            int targetValue = unboxedArray[i];
+
+            for (int j = 0; j < fibonacciArray.length; j++) {
+                if (targetValue !=fibonacciArray[j]) {
+                    continue;
+                }
+                if (targetValue == fibonacciArray[j]) {
+                    cache.add(targetValue);
+                    j = 0;
+                }
+                if(targetValue != fibonacciArray[(fibonacciArray.length-1)]) {
+                    j = 0;
+                    break;
+                }
+
+            }
+        }
+
+        if (!cache.isEmpty()) {
+            result = cache.getArrayData();
+        }
+
+        return result;
+    }
+
+    private static int[] populateFibonacciArray(int border) {
+        int[] result = new int[border];
+
+        for (int i = 0; i < border; i++) {
+            result[i] = calculateFibonacci(i);
+        }
+        return result;
+    }
+
+    private static int calculateFibonacci(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        return calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
     }
 
     private static boolean isPrimeNumeric(int targetValue) {
@@ -278,11 +372,11 @@ public class ArrayUtils {
         incomingArray[swapIndex1] = temp;
     }
 
-    private static int findMinimalValue(int[] array, int startIndex) {
+    private static int selectionSortMinimalValue(int[] array, int startIndex) {
         int minimalValueIndex = startIndex;
         int minimalValue = array[startIndex];
 
-        for (int i = startIndex + 1; i < array.length; i++) {
+        for (int i = (startIndex + 1); i < array.length; i++) {
             if (array[i] < minimalValue) {
                 minimalValue = array[i];
                 minimalValueIndex = i;
@@ -291,7 +385,7 @@ public class ArrayUtils {
         return minimalValueIndex;
     }
 
-    private static int findMaximalValue(int[] array, int startIndex) {
+    private static int selectionSortMaximalValue(int[] array, int startIndex) {
         int maxValueIndex = startIndex;
         int maxValue = array[startIndex];
 
