@@ -111,4 +111,60 @@ public class ArrayUtilsTest {
         System.out.println("Test3: Binary Search - Finished\n");
     }
 
+    @Test
+    public void testArrayUtilsE1() {
+        System.out.println("Test3: Search Minimal value - Started");
+        int[] arr = new int[]{7, 4, 6, 8, 3, 5};
+        System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
+        PlainArray array1 = new Array(arr);
+        System.out.println(String.format("Current Array: %s", array1.toString()));
+
+        int minimalValue = ArrayUtils.findMinimalValue(array1);
+        System.out.println(String.format("minimal value = %d", minimalValue));
+
+        System.out.println("Test3: Search Minimal value - Finished\n");
+    }
+
+    @Test
+    public void testArrayUtilsF1() {
+        System.out.println("Test3: Search Maximal value - Started");
+        int[] arr = new int[]{7, 4, 6, 8, 3, 5};
+        System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
+        PlainArray array1 = new Array(arr);
+        System.out.println(String.format("Current Array: %s", array1.toString()));
+
+        int maximalValue = ArrayUtils.findMaximalValue(array1);
+        System.out.println(String.format("maximal value = %d", maximalValue));
+
+        System.out.println("Test3: Search Maximal value - Finished\n");
+    }
+
+    @Test
+    public void testArrayUtilsG1() {
+        System.out.println("Test3: Find All Prime Numbers - Started");
+        int[] arr = new int[]{7, 4, 6, 8, 3, 5};
+        System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
+        PlainArray array1 = new Array(arr);
+        System.out.println(String.format("Current Array: %s", array1.toString()));
+
+        int[] primes = ArrayUtils.findAllPrimes(array1);
+        System.out.println(String.format("primes: = %s", Arrays.toString(primes)));
+
+        System.out.println("Test3: Find All Prime Numbers - Finished\n");
+    }
+
+    @Test
+    public void testArrayUtilsG2() {
+        System.out.println("Test3: Find All Prime Numbers - Started");
+        int[] arr = new int[]{84, 4, 6, 8, 36, 52};
+        System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
+        PlainArray array1 = new Array(arr);
+        System.out.println(String.format("Current Array: %s", array1.toString()));
+
+        int[] primes = ArrayUtils.findAllPrimes(array1);
+        System.out.println(String.format("primes: = %s", Arrays.toString(primes)));
+
+        System.out.println("Test3: Find All Prime Numbers - Finished\n");
+    }
+
 }
