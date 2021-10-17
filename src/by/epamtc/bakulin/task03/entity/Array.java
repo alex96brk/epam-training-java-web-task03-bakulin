@@ -413,7 +413,7 @@ public class Array implements PlainArray {
 
     private int[] unboxIntegerArray(Integer[] targetArray) {
         int[] unboxedArray = new int[size];
-        for (int i = 0; i < targetArray.length; i++) {
+        for (int i = 0; i < unboxedArray.length; i++) {
             unboxedArray[i] = targetArray[i];
         }
         return unboxedArray;
