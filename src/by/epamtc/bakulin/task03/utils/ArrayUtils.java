@@ -271,6 +271,48 @@ public class ArrayUtils {
         return result;
     }
 
+    /**
+     * Выполняет реверс значений примитивного массива
+     *
+     * @param targetArray целевой массив
+     * @return отраженный массив
+     */
+    public static void arrayReverse(int[] targetArray) {
+        int cache = 0;
+        int reverseIndex = 0;
+
+        for (int i = 0; i < targetArray.length / 2; i++) {
+            cache = targetArray[i];
+            reverseIndex = targetArray.length - 1 - i;
+
+            targetArray[i] = targetArray[reverseIndex];
+            targetArray[reverseIndex] = cache;
+        }
+
+    }
+
+    /**
+     * Выполняет реверс значений PlainArray <- Array
+     *
+     * @param array целевой массив
+     * @return отраженный массив
+     */
+    public static void arrayReverse(PlainArray array) {
+        int[] targetArray = array.getArrayData();
+        int cache = 0;
+        int reverseIndex = 0;
+
+        for (int i = 0; i < targetArray.length / 2; i++) {
+            cache = targetArray[i];
+            reverseIndex = targetArray.length - 1 - i;
+
+            targetArray[i] = targetArray[reverseIndex];
+            targetArray[reverseIndex] = cache;
+        }
+        array.setArrayData(targetArray);
+
+    }
+
     private static int[] populateFibonacciArray(int border) {
         int[] result = new int[border];
 
