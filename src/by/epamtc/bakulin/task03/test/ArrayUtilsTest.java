@@ -165,5 +165,18 @@ public class ArrayUtilsTest {
         System.out.println("Test10: Find All Fibonacci Numbers - Finished\n");
     }
 
+    @Test
+    public void testArrayUtilsG3() {
+        int[] arr = new int[]{7, 3, 4, 6, 8, 5, 1,4, 3};
+        System.out.println(String.format("(array): %s", Arrays.toString(arr)));
+        ArrayUtils.arrayReverse(arr);
+        System.out.println(String.format("(array) reverse: %s", Arrays.toString(arr)));
+
+        PlainArray array1 = new Array(arr);
+        System.out.println(String.format("(Attempt to add(int[] array): %s", Arrays.toString(arr)));
+        System.out.println(String.format("(Added array): %s", array1.toString()));
+        ArrayUtils.arrayReverse(array1);
+        System.out.println(String.format("(Reversed array): %s", array1.toString()));
+    }
 
 }
