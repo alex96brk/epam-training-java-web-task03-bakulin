@@ -145,7 +145,6 @@ public class ArrayUtils {
 
     /**
      * Поиск минимального значения в массиве.
-     * Основан на Быстрой сортировке по возрастанию
      *
      * @param targetArray целевой массив
      * @return минимальное значение в массиве
@@ -183,11 +182,10 @@ public class ArrayUtils {
     }
 
     /**
-     * Поиск минимального значения в массиве.
-     * Основан на Быстрой сортировке по убыванию
+     * Поиск максимального значения в массиве.
      *
      * @param targetArray целевой массив
-     * @return максимальное значение в массиве
+     * @return максимального значение в массиве
      */
     public static int findMaximalValue(PlainArray targetArray) {
         int result = targetArray.get(0);
@@ -329,8 +327,9 @@ public class ArrayUtils {
     /**
      * Выполняет поиск уникальных элементов по критерию:
      * Получить все трехзначные числа, в десятичной записи которых нет одинаковых цифр
-     * @param targetArray
-     * @return
+     *
+     * @param targetArray целевой массив
+     * @return PlainArray
      */
     public static PlainArray findAllUniqueValues(PlainArray targetArray) {
         PlainArray result = new Array();
