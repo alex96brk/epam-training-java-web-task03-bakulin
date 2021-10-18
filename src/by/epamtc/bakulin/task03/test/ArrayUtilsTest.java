@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.util.Arrays;
+import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ArrayUtilsTest {
@@ -183,7 +184,7 @@ public class ArrayUtilsTest {
 
     @Test
     public void testArrayUtilsH1() {
-        System.out.println("Test11: Find All Unique Values - Started");
+        System.out.println("Test13: Find All Unique Values - Started");
 
         int[] arr = new int[]{775, 345, 447, 651, 977, 355, 181};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
@@ -192,9 +193,26 @@ public class ArrayUtilsTest {
         PlainArray uniqueValues = ArrayUtils.findAllUniqueValues(array1);
         System.out.println(String.format("Unique values: %s", uniqueValues));
 
-        System.out.println("Test11: Find All Unique Values - Finished");
+        System.out.println("Test13: Find All Unique Values - Finished");
 
+    }
 
+    @Test
+    public void testArrayUtilsI1() {
+        System.out.println("Test13: Populate existing Array from TXT file - Started");
+        int[] arr = new int[]{775, 345, 447, 651, 977, 355, 181};
+        PlainArray array = new Array(arr);
+        ArrayUtils.populateIntegerArrayFromTxtFile(array, "E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 0);
+        System.out.println(array);
+        System.out.println("Test13: Populate existing Array from TXT file - Started");
+    }
+
+    @Test
+    public void testArrayUtilsI2()
+        System.out.println("Test13: Populate new Array from TXT file - Started");
+        PlainArray array = ArrayUtils.populateIntegerArrayFromTxtFile("E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 1);
+        System.out.println(array);
+        System.out.println("Test13: Populate new Array from TXT file - Started");
     }
 
 
