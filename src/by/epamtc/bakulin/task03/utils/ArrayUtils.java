@@ -390,19 +390,15 @@ public class ArrayUtils {
         return result;
     }
 
-    private static int[] populateFibonacciArray(int border) {
-        int[] result = new int[border];
+    private static int[] populateFibonacciArray(int n) {
+        int[] fibonacci = new int[n + 1];
+        fibonacci[0] = 0;
+        fibonacci[1] = 1;
 
-        for (int i = 0; i < border; i++) {
-            result[i] = calculateFibonacci(i);
+        for (int i = 2; i < n; i++) {
+            fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
         }
-        return result;
-    }
-
-    private static int calculateFibonacci(int n) {
-        if (n == 0) return 0;
-        if (n == 1) return 1;
-        return calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
+        return fibonacci;
     }
 
     private static boolean isPrimeNumeric(int targetValue) {
