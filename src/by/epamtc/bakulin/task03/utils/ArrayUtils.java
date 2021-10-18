@@ -3,6 +3,10 @@ package by.epamtc.bakulin.task03.utils;
 import by.epamtc.bakulin.task03.entity.Array;
 import by.epamtc.bakulin.task03.entity.PlainArray;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArrayUtils {
 
     /**
@@ -155,7 +159,7 @@ public class ArrayUtils {
         for (int i = 0; i < targetArray.size(); i++) {
             int target = targetArray.get(i);
 
-            if(result > target) {
+            if (result > target) {
                 result = target;
             }
         }
@@ -260,14 +264,14 @@ public class ArrayUtils {
             int targetValue = unboxedArray[i];
 
             for (int j = 0; j < fibonacciArray.length; j++) {
-                if (targetValue !=fibonacciArray[j]) {
+                if (targetValue != fibonacciArray[j]) {
                     continue;
                 }
                 if (targetValue == fibonacciArray[j]) {
                     cache.add(targetValue);
                     j = 0;
                 }
-                if(targetValue != fibonacciArray[(fibonacciArray.length-1)]) {
+                if (targetValue != fibonacciArray[(fibonacciArray.length - 1)]) {
                     j = 0;
                     break;
                 }
@@ -338,7 +342,7 @@ public class ArrayUtils {
             int value = targetArray.get(i);
             int[] dismemberedValue = dismemberNumeric(value);
 
-            if(isNumericOrderUnique(dismemberedValue)) {
+            if (isNumericOrderUnique(dismemberedValue)) {
                 result.add(value);
             }
         }
@@ -348,23 +352,82 @@ public class ArrayUtils {
     /**
      * Заполняет указанный массив случайными числами
      * На основе линейного конгруэнтного метода генерации случайных чисел
-     * @param incrementC приращение функции
-     * @param baseNumber начальное значение для генерации случайных чисел
-     * @param arraySize количество генерируемых случайных чисел (arraySize - 1)
+     *
+     * @param incrementC  приращение функции
+     * @param baseNumber  начальное значение для генерации случайных чисел
+     * @param arraySize   количество генерируемых случайных чисел (arraySize - 1)
      * @param targetArray целевой массив для заполнения
      */
     public static void populateIntegerArrayRandom(int incrementC, int baseNumber, int arraySize, PlainArray targetArray) {
         int primeValueA = 31;
         int naturalModule = 127;
-        PlainRandomGenerator randomGenerator = new PlainRandomGenerator(primeValueA, incrementC, naturalModule,baseNumber);
+        PlainRandomGenerator randomGenerator = new PlainRandomGenerator(primeValueA, incrementC, naturalModule, baseNumber);
         for (int i = 0; i < arraySize; i++) {
             targetArray.add(randomGenerator.calculateRandom());
         }
 
     }
 
+    public static PlainArray populateIntegerArrayFromTxtFile(String path, int lineIndex) {
+        PlainArray array = new Array();
+        String stringData = getDataFromFile(path).get(lineIndex);
+        int[] integerArray = parseStringToIntegerArray(stringData);
+
+        for (int i = 0; i < integerArray.length; i++) {
+            array.add(integerArray[i]);
+        }
+        return array;
+    }
+
+    public static void populateIntegerArrayFromTxtFile(PlainArray targetArray, String path, int lineIndex) {
+        String stringData = getDataFromFile(path).get(lineIndex);
+        int[] integerArray = parseStringToIntegerArray(stringData);
+
+        for (int i = 0; i < integerArray.length; i++) {
+            targetArray.add(integerArray[i]);
+        }
+    }
+
+    private static int[] parseStringToIntegerArray(String targetValue) {
+        String[] strings = targetValue.replaceAll("\\[", "").replaceAll(" ", "").replaceAll("\\]", "").split(",");
+        int[] result = new int[strings.length];
+
+        for(int i = 0; i < result.length; i++) {
+            result[i] = Integer.valueOf(strings[i]);
+        }
+        return result;
+    }
+
+
+    private static List<String> getDataFromFile(String path) {
+        BufferedReader bufferedReader = null;
+        List<String> data = new ArrayList<>();
+        try {
+            File textFile = new File(path);
+            if (!textFile.exists()) {
+                throw new FileNotFoundException(String.format("File not found: %s", path));
+            }
+            bufferedReader = new BufferedReader(new FileReader(path));
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null) {
+                data.add(line);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        return data;
+    }
+
     /**
      * Проверяет взаимное равенство элементов массива
+     *
      * @param numericFrame массив, состоящий из чисел-элементов n-значного числа
      * @return {@code true} если все элементы массива уникальны
      */
@@ -374,11 +437,11 @@ public class ArrayUtils {
 
         for (int i = 0; i < numericFrame.length; i++) {
             for (int j = i + 1; j < numericFrame.length; j++) {
-                if(numericFrame[i] != numericFrame[j]) {
+                if (numericFrame[i] != numericFrame[j]) {
                     counter++;
                     continue;
                 }
-                if(numericFrame[i] == numericFrame[j]) {
+                if (numericFrame[i] == numericFrame[j]) {
                     break;
                 }
             }
@@ -392,6 +455,7 @@ public class ArrayUtils {
     /**
      * Выполняет расчленение числа на единицы и помещает их в массив
      * Например 365 -> {5,6,3}
+     *
      * @param targetNumeric целевое значение
      * @return int[]
      */
