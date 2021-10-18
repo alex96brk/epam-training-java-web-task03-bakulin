@@ -167,7 +167,8 @@ public class ArrayUtilsTest {
 
     @Test
     public void testArrayUtilsG3() {
-        int[] arr = new int[]{7, 3, 4, 6, 8, 5, 1,4, 3};
+        System.out.println("Test12: Array Reverse - Started");
+        int[] arr = new int[]{7, 3, 4, 6, 8, 5, 1, 4, 3};
         System.out.println(String.format("(array): %s", Arrays.toString(arr)));
         ArrayUtils.arrayReverse(arr);
         System.out.println(String.format("(array) reverse: %s", Arrays.toString(arr)));
@@ -177,6 +178,25 @@ public class ArrayUtilsTest {
         System.out.println(String.format("(Added array): %s", array1.toString()));
         ArrayUtils.arrayReverse(array1);
         System.out.println(String.format("(Reversed array): %s", array1.toString()));
+        System.out.println("Test12: Array Reverse - Finished");
     }
+
+    @Test
+    public void testArrayUtilsH1() {
+        System.out.println("Test11: Find All Unique Values - Started");
+
+        int[] arr = new int[]{775, 345, 447, 651, 977, 355, 181};
+        System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
+        PlainArray array1 = new Array(arr);
+
+        PlainArray uniqueValues = ArrayUtils.findAllUniqueValues(array1);
+        System.out.println(String.format("Unique values: %s", uniqueValues));
+
+        System.out.println("Test11: Find All Unique Values - Finished");
+
+
+    }
+
+
 
 }
