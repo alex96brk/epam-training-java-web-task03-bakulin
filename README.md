@@ -3,7 +3,7 @@
 ### Задание: Task03
 ### Навигация по репозиторию:
 ### Задание 1:
-Создание типа Array [`-> (см. DynamicIntegerArray)`](https://github.com/alex96brk/epam-training-java-web-task03-bakulin/blob/non-generic/src/by/epamtc/bakulin/task03/entity/DynamicIntegerArray.java), который является классом оболочкой над массивом целого типа.  
+Создание типа Array [`-> (см. DynamicIntegerArray)`](https://github.com/alex96brk/epam-training-java-web-task03-bakulin/blob/non-generic/src/by/epamtc/bakulin/task03/entity/DynamicIntegerArray.java), который является классом оболочкой над массивом целого типа.
 В данном типе должны быть реализованы конструкторы (позволяющие несколькими способами создавать объекты типа), get-ы, set-ы и переопределенные методы класса Object (toString(), equals(), hasCode()).
 Программа должна иметь следующие возможности:
 1. Сортировать массив тремя способами. [`-> (см. IntegerArrayUtils, line: 18-112)`](https://github.com/alex96brk/epam-training-java-web-task03-bakulin/blob/non-generic/src/by/epamtc/bakulin/task03/utils/IntegerArrayUtils.java)
