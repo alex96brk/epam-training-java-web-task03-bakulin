@@ -326,6 +326,71 @@ public class ArrayUtils {
 
     }
 
+    /**
+     * Выполняет поиск уникальных элементов по критерию:
+     * Получить все трехзначные числа, в десятичной записи которых нет одинаковых цифр
+     * @param targetArray
+     * @return
+     */
+    public static PlainArray findAllUniqueValues(PlainArray targetArray) {
+        PlainArray result = new Array();
+
+        for (int i = 0; i < targetArray.size(); i++) {
+            int value = targetArray.get(i);
+            int[] dismemberedValue = dismemberNumeric(value);
+
+            if(isNumericOrderUnique(dismemberedValue)) {
+                result.add(value);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Проверяет взаимное равенство элементов массива
+     * @param numericFrame массив, состоящий из чисел-элементов n-значного числа
+     * @return {@code true} если все элементы массива уникальны
+     */
+    private static boolean isNumericOrderUnique(int[] numericFrame) {
+        boolean result = false;
+        int counter = 0;
+
+        for (int i = 0; i < numericFrame.length; i++) {
+            for (int j = i + 1; j < numericFrame.length; j++) {
+                if(numericFrame[i] != numericFrame[j]) {
+                    counter++;
+                    continue;
+                }
+                if(numericFrame[i] == numericFrame[j]) {
+                    break;
+                }
+            }
+        }
+        if (counter == numericFrame.length) {
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Выполняет расчленение числа на единицы и помещает их в массив
+     * Например 365 -> {5,6,3}
+     * @param targetNumeric целевое значение
+     * @return int[]
+     */
+    private static int[] dismemberNumeric(int targetNumeric) {
+        int numericOrder = Integer.toString(targetNumeric).length();
+        int[] result = new int[numericOrder];
+
+        int cache = targetNumeric;
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = cache % 10;
+            cache = (cache - result[i]) / 10;
+        }
+        return result;
+    }
+
     private static int[] populateFibonacciArray(int border) {
         int[] result = new int[border];
 
