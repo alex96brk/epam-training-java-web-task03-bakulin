@@ -346,6 +346,24 @@ public class ArrayUtils {
     }
 
     /**
+     * Заполняет указанный массив случайными числами
+     * На основе линейного конгруэнтного метода генерации случайных чисел
+     * @param incrementC приращение функции
+     * @param baseNumber начальное значение для генерации случайных чисел
+     * @param arraySize количество генерируемых случайных чисел (arraySize - 1)
+     * @param targetArray целевой массив для заполнения
+     */
+    public static void populateIntegerArrayRandom(int incrementC, int baseNumber, int arraySize, PlainArray targetArray) {
+        int primeValueA = 31;
+        int naturalModule = 127;
+        PlainRandomGenerator randomGenerator = new PlainRandomGenerator(primeValueA, incrementC, naturalModule,baseNumber);
+        for (int i = 0; i < arraySize; i++) {
+            targetArray.add(randomGenerator.calculateRandom());
+        }
+
+    }
+
+    /**
      * Проверяет взаимное равенство элементов массива
      * @param numericFrame массив, состоящий из чисел-элементов n-значного числа
      * @return {@code true} если все элементы массива уникальны
