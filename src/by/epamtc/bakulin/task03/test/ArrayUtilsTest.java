@@ -208,7 +208,7 @@ public class ArrayUtilsTest {
     }
 
     @Test
-    public void testArrayUtilsI2()
+    public void testArrayUtilsI2() {
         System.out.println("Test13: Populate new Array from TXT file - Started");
         PlainArray array = ArrayUtils.populateIntegerArrayFromTxtFile("E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 1);
         System.out.println(array);
