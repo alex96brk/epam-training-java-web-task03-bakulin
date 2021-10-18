@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.entity;
 
-public interface PlainArray {
+public interface IntegerArray {
 
     /**
      * Добавляет элемент в конец массива

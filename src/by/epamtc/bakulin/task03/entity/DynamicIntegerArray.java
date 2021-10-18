@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.entity;
 
-public class Array implements PlainArray {
+public class DynamicIntegerArray implements IntegerArray {
 
     /**
      * Значение длины массива по умолчанию.
@@ -38,7 +38,7 @@ public class Array implements PlainArray {
      * Конструктор для создания пустого массива
      * с вместимостью по умолчанию
      */
-    public Array() {
+    public DynamicIntegerArray() {
         this.arrayData = new Integer[DEFAULT_CAPACITY];
     }
 
@@ -48,7 +48,7 @@ public class Array implements PlainArray {
      *
      * @param userInitialCapacity вместимость массива
      */
-    public Array(int userInitialCapacity) {
+    public DynamicIntegerArray(int userInitialCapacity) {
         if (userInitialCapacity > 0) {
             this.arrayData = new Integer[userInitialCapacity];
         }
@@ -66,7 +66,7 @@ public class Array implements PlainArray {
      *
      * @param userArray пользовательский массив int[]
      */
-    public Array(int[] userArray) {
+    public DynamicIntegerArray(int[] userArray) {
         Integer[] boxedUserArray = boxIntegerArray(userArray);
 
         if (userArray == null || userArray.length == 0) {
@@ -213,7 +213,7 @@ public class Array implements PlainArray {
             return false;
         }
 
-        Array targetArray = (Array) obj;
+        DynamicIntegerArray targetArray = (DynamicIntegerArray) obj;
         if (this.size != targetArray.size) {
             return false;
         }

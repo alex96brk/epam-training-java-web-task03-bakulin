@@ -1,8 +1,8 @@
 package by.epamtc.bakulin.task03.runner;
 
-import by.epamtc.bakulin.task03.entity.Array;
-import by.epamtc.bakulin.task03.entity.PlainArray;
-import by.epamtc.bakulin.task03.utils.ArrayUtils;
+import by.epamtc.bakulin.task03.entity.DynamicIntegerArray;
+import by.epamtc.bakulin.task03.entity.IntegerArray;
+import by.epamtc.bakulin.task03.utils.IntegerArrayUtils;
 
 import java.util.Arrays;
 
@@ -42,34 +42,34 @@ public class SubTask1Runner {
             printConsoleMessage(String.format("\t[ACCEPTED]: arrayLength = %d\n", arrayLength));
         }
         printConsoleMessage("\t[ЗАПОЛНИТЕ МАССИВ]:\n");
-        PlainArray array1 = populateIntegerArray(arrayLength);
+        IntegerArray array1 = populateIntegerArray(arrayLength);
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
 
-        int minValue = ArrayUtils.findMinimalValue(array1);
+        int minValue = IntegerArrayUtils.findMinimalValue(array1);
         printConsoleMessage(String.format("\t[МИНИМАЛЬНОЕ ЧИСЛО В МАССИВЕ]: value = %d\n", minValue));
 
-        int maxValue = ArrayUtils.findMaximalValue(array1);
+        int maxValue = IntegerArrayUtils.findMaximalValue(array1);
         printConsoleMessage(String.format("\t[МАКСИМАЛЬНОЕ ЧИСЛО В МАССИВЕ]: value = %d\n", maxValue));
 
-        int[] primes = ArrayUtils.findAllPrimes(array1);
+        int[] primes = IntegerArrayUtils.findAllPrimes(array1);
         printConsoleMessage(String.format("\t[ПРОСТЫЕ ЧИСЛА В МАССИВЕ]: value = %s\n", Arrays.toString(primes)));
 
-        int[] fibonacci = ArrayUtils.findAllFibonacci(array1);
+        int[] fibonacci = IntegerArrayUtils.findAllFibonacci(array1);
         printConsoleMessage(String.format("\t[ЧИСЛА Фибоначчи В МАССИВЕ]: value = %s\n", Arrays.toString(fibonacci)));
 
-        PlainArray uniqueValues = ArrayUtils.findAllUniqueValues(array1);
+        IntegerArray uniqueValues = IntegerArrayUtils.findAllUniqueValues(array1);
         printConsoleMessage(String.format("\t[УНИКАЛЬНЫЕ 3-ЗНАЧНЫЕ ЧИСЛА В МАССИВЕ]: uniqueValues = %s\n", uniqueValues));
 
         printConsoleMessage("\t[ВВЕДИТЕ ИСКОМОЕ ЧИСЛО]:\n");
         int searchValue = enterInteger("searchValue");
-        int result = ArrayUtils.binarySearch(searchValue, array1);
+        int result = IntegerArrayUtils.binarySearch(searchValue, array1);
         printConsoleMessage(String.format("\t[ОТСОРТИРОВАННЫЙ МАССИВ]: %s\n", array1));
         printConsoleMessage(String.format("\t[ПОИСК]: 'БИНАРНЫЙ' index = %d\n", result));
 
-        ArrayUtils.sortArrayQuickAsc(array1);
+        IntegerArrayUtils.sortArrayQuickAsc(array1);
         printConsoleMessage(String.format("\t[СОРТИРОВКА МАССИВА ПО ВОЗРАСТАНИЮ]: 'БЫСТРАЯ' %s\n", array1));
 
-        ArrayUtils.sortArrayQuickDesc(array1);
+        IntegerArrayUtils.sortArrayQuickDesc(array1);
         printConsoleMessage(String.format("\t[СОРТИРОВКА МАССИВА ПО УБЫВАНИЮ]: 'БЫСТРАЯ' %s\n", array1));
 
         printConsoleMessage("\t[FINISH]: RUN1\n");
@@ -80,34 +80,34 @@ public class SubTask1Runner {
         int[] targetArray = new int[] {23,114,65,78,235,45,69,187,11,3,4};
         printConsoleMessage(String.format("\t[СУЩЕСТВУЮЩИЙ МАССИВ]: %s\n", Arrays.toString(targetArray)));
 
-        PlainArray array1 = new Array(targetArray);
+        IntegerArray array1 = new DynamicIntegerArray(targetArray);
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
 
-        int minValue = ArrayUtils.findMinimalValue(array1);
+        int minValue = IntegerArrayUtils.findMinimalValue(array1);
         printConsoleMessage(String.format("\t[МИНИМАЛЬНОЕ ЧИСЛО В МАССИВЕ]: value = %d\n", minValue));
 
-        int maxValue = ArrayUtils.findMaximalValue(array1);
+        int maxValue = IntegerArrayUtils.findMaximalValue(array1);
         printConsoleMessage(String.format("\t[МАКСИМАЛЬНОЕ ЧИСЛО В МАССИВЕ]: value = %d\n", maxValue));
 
-        int[] primes = ArrayUtils.findAllPrimes(array1);
+        int[] primes = IntegerArrayUtils.findAllPrimes(array1);
         printConsoleMessage(String.format("\t[ПРОСТЫЕ ЧИСЛА В МАССИВЕ]: value = %s\n", Arrays.toString(primes)));
 
-        int[] fibonacci = ArrayUtils.findAllFibonacci(array1);
+        int[] fibonacci = IntegerArrayUtils.findAllFibonacci(array1);
         printConsoleMessage(String.format("\t[ЧИСЛА Фибоначчи В МАССИВЕ]: value = %s\n", Arrays.toString(fibonacci)));
 
-        PlainArray uniqueValues = ArrayUtils.findAllUniqueValues(array1);
+        IntegerArray uniqueValues = IntegerArrayUtils.findAllUniqueValues(array1);
         printConsoleMessage(String.format("\t[УНИКАЛЬНЫЕ 3-ЗНАЧНЫЕ ЧИСЛА В МАССИВЕ]: uniqueValues = %s\n", uniqueValues));
 
         printConsoleMessage("\t[ВВЕДИТЕ ИСКОМОЕ ЧИСЛО]:\n");
         int searchValue = enterInteger("searchValue");
-        int result = ArrayUtils.binarySearch(searchValue, array1);
+        int result = IntegerArrayUtils.binarySearch(searchValue, array1);
         printConsoleMessage(String.format("\t[ОТСОРТИРОВАННЫЙ МАССИВ]: %s\n", array1));
         printConsoleMessage(String.format("\t[ПОИСК]: 'БИНАРНЫЙ' index = %d\n", result));
 
-        ArrayUtils.sortArraySelectionAsc(array1);
+        IntegerArrayUtils.sortArraySelectionAsc(array1);
         printConsoleMessage(String.format("\t[СОРТИРОВКА МАССИВА ПО ВОЗРАСТАНИЮ]: 'ВЫБОРОМ' %s\n", array1));
 
-        ArrayUtils.sortArraySelectionDesc(array1);
+        IntegerArrayUtils.sortArraySelectionDesc(array1);
         printConsoleMessage(String.format("\t[СОРТИРОВКА МАССИВА ПО УБЫВАНИЮ]: 'ВЫБОРОМ' %s\n", array1));
 
         printConsoleMessage("\t[FINISH]: RUN2\n");
@@ -116,13 +116,13 @@ public class SubTask1Runner {
     public static void run3() {
         printConsoleMessage("\t[START]: RUN3\n");
         printConsoleMessage("\t[ЗАПОЛНЕНИЕ МАССИВА СЛУЧАЙНЫМИ ЧИСЛАМИ]: STARTED\n");
-        PlainArray array1 = new Array();
+        IntegerArray array1 = new DynamicIntegerArray();
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
 
-        ArrayUtils.populateIntegerArrayRandom(51, 5, 10, array1);
+        IntegerArrayUtils.populateIntegerArrayRandom(51, 5, 10, array1);
         printConsoleMessage(String.format("\t[ЗАПОЛНЕННЫЙ МАССИВ]: %s\n", array1));
 
-        ArrayUtils.populateIntegerArrayRandom(45, 5, 10, array1);
+        IntegerArrayUtils.populateIntegerArrayRandom(45, 5, 10, array1);
         printConsoleMessage(String.format("\t[ЗАПОЛНЕННЫЙ МАССИВ]: %s\n", array1));
         printConsoleMessage("\t[FINISH]: RUN3\n");
     }
@@ -133,13 +133,13 @@ public class SubTask1Runner {
 
         printConsoleMessage("\t[РАНЕЕ ЗАПОЛНЕННЫЙ МАССИВ]: STARTED\n");
         int[] plainArray = new int[] {23,114};
-        PlainArray array1 = new Array(plainArray);
+        IntegerArray array1 = new DynamicIntegerArray(plainArray);
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
-        ArrayUtils.populateIntegerArrayFromTxtFile(array1, "E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 0);
+        IntegerArrayUtils.populateIntegerArrayFromTxtFile(array1, "E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 0);
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
 
         printConsoleMessage("\t[ПУСТОЙ МАССИВ]: STARTED\n");
-        PlainArray array2 = ArrayUtils.populateIntegerArrayFromTxtFile("E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 1);
+        IntegerArray array2 = IntegerArrayUtils.populateIntegerArrayFromTxtFile("E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 1);
         printConsoleMessage(String.format("\t[ЗАПОЛНЕННЫЙ МАССИВ]: %s\n", array2));
 
         printConsoleMessage("\t[FINISH]: RUN3\n");

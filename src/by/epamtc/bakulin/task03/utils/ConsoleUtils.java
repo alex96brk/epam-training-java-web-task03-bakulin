@@ -1,7 +1,7 @@
 package by.epamtc.bakulin.task03.utils;
 
-import by.epamtc.bakulin.task03.entity.Array;
-import by.epamtc.bakulin.task03.entity.PlainArray;
+import by.epamtc.bakulin.task03.entity.DynamicIntegerArray;
+import by.epamtc.bakulin.task03.entity.IntegerArray;
 
 import java.util.Scanner;
 
@@ -51,8 +51,8 @@ public class ConsoleUtils {
         return inputValue;
     }
 
-    public static PlainArray populateIntegerArray(int arraySize) {
-        PlainArray ints = new Array();
+    public static IntegerArray populateIntegerArray(int arraySize) {
+        IntegerArray ints = new DynamicIntegerArray();
         printConsoleMessage(String.format("\tPopulate integer array[] of size = %d\n", arraySize));
         for (int i = 0; i < arraySize; i++) {
             int userValue = enterInteger(String.format("array[%d]", i));

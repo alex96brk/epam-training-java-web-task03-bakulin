@@ -1,13 +1,13 @@
 package by.epamtc.bakulin.task03.utils;
 
-import by.epamtc.bakulin.task03.entity.Array;
-import by.epamtc.bakulin.task03.entity.PlainArray;
+import by.epamtc.bakulin.task03.entity.DynamicIntegerArray;
+import by.epamtc.bakulin.task03.entity.IntegerArray;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrayUtils {
+public class IntegerArrayUtils {
 
     /**
      * Алгоритм сортировки массива "Сортировка Пузырьком"
@@ -15,7 +15,7 @@ public class ArrayUtils {
      *
      * @param arrayToSort сортируемый массив
      */
-    public static void sortArrayBubbleAsc(PlainArray arrayToSort) {
+    public static void sortArrayBubbleAsc(IntegerArray arrayToSort) {
         int[] array = arrayToSort.getArrayData();
         for (int i = array.length - 1; i >= 0; i--) {
             for (int j = 0; j < i; j++) {
@@ -35,7 +35,7 @@ public class ArrayUtils {
      *
      * @param arrayToSort сортируемый массив
      */
-    public static void sortArrayBubbleDesc(PlainArray arrayToSort) {
+    public static void sortArrayBubbleDesc(IntegerArray arrayToSort) {
         int[] array = arrayToSort.getArrayData();
         for (int i = 0; i <= (array.length - 1); i++) {
             for (int j = (array.length - 1); j > i; j--) {
@@ -55,7 +55,7 @@ public class ArrayUtils {
      *
      * @param arrayToSort сортируемый массив
      */
-    public static void sortArraySelectionAsc(PlainArray arrayToSort) {
+    public static void sortArraySelectionAsc(IntegerArray arrayToSort) {
         int[] array = arrayToSort.getArrayData();
 
         for (int step = 0; step < array.length; step++) {
@@ -75,7 +75,7 @@ public class ArrayUtils {
      *
      * @param arrayToSort сортируемый массив
      */
-    public static void sortArraySelectionDesc(PlainArray arrayToSort) {
+    public static void sortArraySelectionDesc(IntegerArray arrayToSort) {
         int[] array = arrayToSort.getArrayData();
 
         for (int step = 0; step < array.length; step++) {
@@ -95,7 +95,7 @@ public class ArrayUtils {
      *
      * @param arrayToSort сортируемый массив
      */
-    public static void sortArrayQuickAsc(PlainArray arrayToSort) {
+    public static void sortArrayQuickAsc(IntegerArray arrayToSort) {
         int[] array = arrayToSort.getArrayData();
         int leftBorder = 0;
         int rightBorder = (array.length - 1);
@@ -109,7 +109,7 @@ public class ArrayUtils {
      *
      * @param arrayToSort сортируемый массив
      */
-    public static void sortArrayQuickDesc(PlainArray arrayToSort) {
+    public static void sortArrayQuickDesc(IntegerArray arrayToSort) {
         int[] array = arrayToSort.getArrayData();
         int leftBorder = 0;
         int rightBorder = (array.length - 1);
@@ -123,7 +123,7 @@ public class ArrayUtils {
      * @param searchValue искомое значение
      * @param targetArray целевой массив
      */
-    public static int binarySearch(int searchValue, PlainArray targetArray) {
+    public static int binarySearch(int searchValue, IntegerArray targetArray) {
         sortArrayQuickAsc(targetArray);
         int[] unboxedArray = targetArray.getArrayData();
 
@@ -153,7 +153,7 @@ public class ArrayUtils {
      * @param targetArray целевой массив
      * @return минимальное значение в массиве
      */
-    public static int findMinimalValue(PlainArray targetArray) {
+    public static int findMinimalValue(IntegerArray targetArray) {
         int result = targetArray.get(0);
 
         for (int i = 0; i < targetArray.size(); i++) {
@@ -191,7 +191,7 @@ public class ArrayUtils {
      * @param targetArray целевой массив
      * @return максимального значение в массиве
      */
-    public static int findMaximalValue(PlainArray targetArray) {
+    public static int findMaximalValue(IntegerArray targetArray) {
         int result = targetArray.get(0);
 
         for (int i = 0; i < targetArray.size(); i++) {
@@ -229,8 +229,8 @@ public class ArrayUtils {
      * @param targetArray целевой массив
      * @return массив простых чисел
      */
-    public static int[] findAllPrimes(PlainArray targetArray) {
-        PlainArray primes = new Array();
+    public static int[] findAllPrimes(IntegerArray targetArray) {
+        IntegerArray primes = new DynamicIntegerArray();
         int[] result = new int[0];
 
         for (int i = 0; i < targetArray.size(); i++) {
@@ -252,11 +252,11 @@ public class ArrayUtils {
      * @param targetArray целевой массив
      * @return массив чисел Фибоначчи в текущем массиве
      */
-    public static int[] findAllFibonacci(PlainArray targetArray) {
+    public static int[] findAllFibonacci(IntegerArray targetArray) {
         int[] result = new int[0];
         int[] unboxedArray = targetArray.getArrayData();
         int maxValue = findMaximalValue(unboxedArray);
-        PlainArray cache = new Array();
+        IntegerArray cache = new DynamicIntegerArray();
 
         int[] fibonacciArray = populateFibonacciArray(maxValue);
 
@@ -312,7 +312,7 @@ public class ArrayUtils {
      * @param array целевой массив
      * @return отраженный массив
      */
-    public static void arrayReverse(PlainArray array) {
+    public static void arrayReverse(IntegerArray array) {
         int[] targetArray = array.getArrayData();
         int cache = 0;
         int reverseIndex = 0;
@@ -335,8 +335,8 @@ public class ArrayUtils {
      * @param targetArray целевой массив
      * @return PlainArray
      */
-    public static PlainArray findAllUniqueValues(PlainArray targetArray) {
-        PlainArray result = new Array();
+    public static IntegerArray findAllUniqueValues(IntegerArray targetArray) {
+        IntegerArray result = new DynamicIntegerArray();
 
         for (int i = 0; i < targetArray.size(); i++) {
             int value = targetArray.get(i);
@@ -358,7 +358,7 @@ public class ArrayUtils {
      * @param arraySize   количество генерируемых случайных чисел (arraySize - 1)
      * @param targetArray целевой массив для заполнения
      */
-    public static void populateIntegerArrayRandom(int incrementC, int baseNumber, int arraySize, PlainArray targetArray) {
+    public static void populateIntegerArrayRandom(int incrementC, int baseNumber, int arraySize, IntegerArray targetArray) {
         int primeValueA = 31;
         int naturalModule = 127;
         PlainRandomGenerator randomGenerator = new PlainRandomGenerator(primeValueA, incrementC, naturalModule, baseNumber);
@@ -374,8 +374,8 @@ public class ArrayUtils {
      * @param lineIndex номер строки в текстовом документе, с которой будут считаны данные
      * @return новый PlainArray, заполненный числами из файла
      */
-    public static PlainArray populateIntegerArrayFromTxtFile(String path, int lineIndex) {
-        PlainArray array = new Array();
+    public static IntegerArray populateIntegerArrayFromTxtFile(String path, int lineIndex) {
+        IntegerArray array = new DynamicIntegerArray();
         String stringData = getDataFromFile(path).get(lineIndex);
         int[] integerArray = parseStringToIntegerArray(stringData);
 
@@ -391,7 +391,7 @@ public class ArrayUtils {
      * @param path путь к файлу
      * @param lineIndex номер строки в текстовом документе, с которой будут считаны данные
      */
-    public static void populateIntegerArrayFromTxtFile(PlainArray targetArray, String path, int lineIndex) {
+    public static void populateIntegerArrayFromTxtFile(IntegerArray targetArray, String path, int lineIndex) {
         String stringData = getDataFromFile(path).get(lineIndex);
         int[] integerArray = parseStringToIntegerArray(stringData);
 
