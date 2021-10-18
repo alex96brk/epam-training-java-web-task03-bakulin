@@ -22,9 +22,15 @@ public class SubTask1Runner {
                 "6. Получить все трехзначные числа, в десятичной записи которых нет одинаковых цифр.\n" +
                 "7. Заполнения элементов массива и с консоли, и с файла и с помощью генерации случайных чисел.");
         printConsoleMessage("[STARTED]:\n");
-        //run1();
-        //run2();
+
+        run1();
+
+        run2();
+
         run3();
+
+        run4();
+
         printConsoleMessage("[FINISHED];\n");
     }
     public static void run1() {
@@ -118,6 +124,24 @@ public class SubTask1Runner {
 
         ArrayUtils.populateIntegerArrayRandom(45, 5, 10, array1);
         printConsoleMessage(String.format("\t[ЗАПОЛНЕННЫЙ МАССИВ]: %s\n", array1));
+        printConsoleMessage("\t[FINISH]: RUN3\n");
+    }
+
+    public static void run4() {
+        printConsoleMessage("\t[START]: RUN3\n");
+        printConsoleMessage("\t[ЗАПОЛНЕНИЕ МАССИВА ЧИСЛАМИ ИЗ ФАЙЛА]: STARTED\n");
+
+        printConsoleMessage("\t[РАНЕЕ ЗАПОЛНЕННЫЙ МАССИВ]: STARTED\n");
+        int[] plainArray = new int[] {23,114};
+        PlainArray array1 = new Array(plainArray);
+        printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
+        ArrayUtils.populateIntegerArrayFromTxtFile(array1, "E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 0);
+        printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
+
+        printConsoleMessage("\t[ПУСТОЙ МАССИВ]: STARTED\n");
+        PlainArray array2 = ArrayUtils.populateIntegerArrayFromTxtFile("E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 1);
+        printConsoleMessage(String.format("\t[ЗАПОЛНЕННЫЙ МАССИВ]: %s\n", array2));
+
         printConsoleMessage("\t[FINISH]: RUN3\n");
     }
 }
