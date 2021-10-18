@@ -368,6 +368,12 @@ public class ArrayUtils {
 
     }
 
+    /**
+     * Создает массив PlainArray, заполненный числами из файла.txt
+     * @param path путь к файлу
+     * @param lineIndex номер строки в текстовом документе, с которой будут считаны данные
+     * @return новый PlainArray, заполненный числами из файла
+     */
     public static PlainArray populateIntegerArrayFromTxtFile(String path, int lineIndex) {
         PlainArray array = new Array();
         String stringData = getDataFromFile(path).get(lineIndex);
@@ -379,6 +385,12 @@ public class ArrayUtils {
         return array;
     }
 
+    /**
+     * Заполняет существующий массив числами из файла.txt
+     * @param targetArray целевой массив
+     * @param path путь к файлу
+     * @param lineIndex номер строки в текстовом документе, с которой будут считаны данные
+     */
     public static void populateIntegerArrayFromTxtFile(PlainArray targetArray, String path, int lineIndex) {
         String stringData = getDataFromFile(path).get(lineIndex);
         int[] integerArray = parseStringToIntegerArray(stringData);
