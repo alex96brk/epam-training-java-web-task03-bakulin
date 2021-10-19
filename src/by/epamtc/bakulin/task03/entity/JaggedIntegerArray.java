@@ -32,6 +32,14 @@ public class JaggedIntegerArray {
     }
 
     /**
+     * Присвоить данные зубчатому массиву
+     * @return int[][] jagged
+     */
+    public void setArrayData(int[][] arrayData) {
+        this.arrayData = arrayData;
+    }
+
+    /**
      * Возвращает размер квадратной матрицы
      * @return
      */
