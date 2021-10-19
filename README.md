@@ -1,4 +1,4 @@
-# EPAM Java Web Dewelopment Training
+# EPAM Java Web Development Training
 ### Студент: Bakulin Alexey (Бакулин Алексей)
 ### Задание: Task03
 ### Навигация по репозиторию:
