@@ -1,35 +1,49 @@
 package by.epamtc.bakulin.task03.entity;
 
-import by.epamtc.bakulin.task03.utils.ConsoleUtils;
 import by.epamtc.bakulin.task03.utils.PlainRandomGenerator;
 
 public class JaggedIntegerArray {
 
+    /**
+     * Двумерный массив
+     */
     private int[][] arrayData;
+
+    /**
+     * Размер квадратной матрицы
+     */
     private int matrixSize;
 
-
-    public static void main(String[] args) {
-
-    }
-
+    /**
+     * Конструктор для создания пустого зубчатого массива
+     * @param matrixRange
+     */
     public JaggedIntegerArray(int matrixRange) {
         this.matrixSize = matrixRange;
         this.arrayData = generateJaggedArray(matrixRange);
     }
 
+    /**
+     * Вызов двумерного массива
+     * @return int[][] jagged
+     */
     public int[][] getArrayData() {
         return this.arrayData;
     }
 
-    public int getRows() {
+    /**
+     * Возвращает размер квадратной матрицы
+     * @return
+     */
+    public int getJaggedArraySize() {
         return matrixSize;
     }
 
-    public int getColumns() {
-        return matrixSize;
-    }
-
+    /**
+     * Заполняет зубчатый массив случайными числами
+     * @param randomStartValue начальный аргумент для генерации случайных числе
+     * @param increment инкремент функции генерации случайных чисел
+     */
     public void populateJaggedArrayRandomNumerics(int randomStartValue, int increment) {
         PlainRandomGenerator randomGenerator = new PlainRandomGenerator(31, increment, 127, randomStartValue);
 
@@ -41,6 +55,11 @@ public class JaggedIntegerArray {
         }
     }
 
+    /**
+     * Генерирует зубчатый массив
+     * @param matrixRange размер квадратной матрицы
+     * @return зубчатый массив int[][]
+     */
     private static int[][] generateJaggedArray(int matrixRange) {
         int[][] result = new int[matrixRange][];
 
