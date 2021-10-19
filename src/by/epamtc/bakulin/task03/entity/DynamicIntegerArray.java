@@ -74,7 +74,6 @@ public class DynamicIntegerArray implements IntegerArray {
         }
         this.arrayData = boxedUserArray;
         this.size = boxedUserArray.length;
-
     }
 
     /**
@@ -96,7 +95,6 @@ public class DynamicIntegerArray implements IntegerArray {
 
             addResult = writeElement(currentIndex, e);
         }
-
         if (size == 0) {
             addResult = writeElement(currentIndex, e);
 
@@ -125,9 +123,8 @@ public class DynamicIntegerArray implements IntegerArray {
                 arrayData = increaseArrayCapacity(index);
                 writeElement(index, e);
             }
-
-
         }
+
         if(index > 0 && index != size) {
             if ((size + 1) < arrayData.length) {
                 doArrayShift(index);
@@ -138,6 +135,7 @@ public class DynamicIntegerArray implements IntegerArray {
                 writeElement(index, e);
             }
         }
+
         if(index == size) {
             if ((size + 1) < arrayData.length) {
                 writeElement(index, e);
@@ -322,7 +320,7 @@ public class DynamicIntegerArray implements IntegerArray {
 
     /**
      * Выполняет сдвиг элементов массива, в случае:
-     * если текущая вместимость массива способна принять как минимум 1 элемент
+     * если массив не полностью заполнен
      */
     private void doArrayShift() {
         for (int i = size; i != 0; i--) {
@@ -397,7 +395,7 @@ public class DynamicIntegerArray implements IntegerArray {
                 break;
             }
         }
-        if ((iterationCounter) == size && (iterationCounter) == size) {
+        if ((iterationCounter) == size ) {
             result = true;
         }
         return result;
