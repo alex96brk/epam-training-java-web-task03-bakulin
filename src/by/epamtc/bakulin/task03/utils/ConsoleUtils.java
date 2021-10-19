@@ -2,7 +2,9 @@ package by.epamtc.bakulin.task03.utils;
 
 import by.epamtc.bakulin.task03.entity.DynamicIntegerArray;
 import by.epamtc.bakulin.task03.entity.IntegerArray;
+import by.epamtc.bakulin.task03.entity.JaggedIntegerArray;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ConsoleUtils {
@@ -59,6 +61,13 @@ public class ConsoleUtils {
             ints.add(userValue);
         }
         return ints;
+    }
+
+    public static void printJaggedArray(JaggedIntegerArray jaggedIntegerArray) {
+        int[][] jagged = jaggedIntegerArray.getArrayData();
+        for (int i = 0; i < jagged.length; i++) {
+            System.out.println(Arrays.toString(jagged[i]));
+        }
     }
 
     public static void printConsoleMessage(String message, String variableParameterName) {
