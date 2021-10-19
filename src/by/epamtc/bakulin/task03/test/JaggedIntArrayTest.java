@@ -42,19 +42,4 @@ public class JaggedIntArrayTest {
         ConsoleUtils.printConsoleMessage("Test: Finished\n");
     }
 
-    @Test
-    public void test() {
-        int[] ints = new int[] {3,5,6,7,2,9,4};
-        for (int i = 0; i < (ints.length - 1); i++) {
-
-            for (int j = (ints.length - 1); j > i; j--) {
-                if (ints[j] < ints[(j - 1)]) {
-                    int buffer = ints[j];
-                    ints[j] = ints[(j - 1)];
-                    ints[(j - 1)] = buffer;
-                }
-            }
-        }
-        System.out.println(Arrays.toString(ints));
-    }
 }
