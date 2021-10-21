@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.test;
 
-import by.epamtc.bakulin.task03.entity.DynamicIntegerArray;
+import by.epamtc.bakulin.task03.entity.DynamicArray;
 import by.epamtc.bakulin.task03.entity.Array;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class IntegerArrayTest {
         int a = 78;
         Integer b = 23;
 
-        Array array1 = new DynamicIntegerArray();
+        Array<Integer> array1 = new DynamicArray<>();
         array1.add(17);
         array1.add(a);
         array1.add(b);
@@ -34,9 +34,9 @@ public class IntegerArrayTest {
         System.out.println("Test02: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка расширения динамического массива после создания на основе примитивного массива");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicIntegerArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Result: %s\n", array1.toString()));
 
         int a = 15;
@@ -55,9 +55,9 @@ public class IntegerArrayTest {
         System.out.println("Test03: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка добавления новых элементов в начало, середину, конец динамического массива");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
 
-        Array array1 = new DynamicIntegerArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
 
         int a = 81;
         int index1 = 3;
@@ -101,8 +101,8 @@ public class IntegerArrayTest {
         System.out.println("Test04: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода set() -> замена существующего элемента в массиве\n");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
-        Array array1 = new DynamicIntegerArray(arr);
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
+        Array<Integer> array1 = new DynamicArray<>(arr);
 
         int a = 81;
         int index1 = 0;
@@ -119,8 +119,8 @@ public class IntegerArrayTest {
         System.out.println("Test05: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода get(index)");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
-        Array array1 = new DynamicIntegerArray(arr);
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current array: %s", array1.toString()));
         for (int i = 0; i < array1.size(); i++) {
             System.out.println(array1.get(i));
@@ -133,8 +133,8 @@ public class IntegerArrayTest {
         System.out.println("Test06: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода index(obj)");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
-        Array array1 = new DynamicIntegerArray(arr);
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current array: %s", array1.toString()));
         int obj1 = 1;
         int obj2 = 4;
@@ -150,8 +150,8 @@ public class IntegerArrayTest {
         System.out.println("Test07: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода remove(index)");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
-        Array array1 = new DynamicIntegerArray(arr);
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current array: %s", array1.toString()));
 
         int deleteIndex1 = 0;
@@ -178,7 +178,7 @@ public class IntegerArrayTest {
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода isEmpty()");
 
-        DynamicIntegerArray array1 = new DynamicIntegerArray();
+        DynamicArray<Integer> array1 = new DynamicArray<>();
         System.out.println(String.format("array: %s", array1.toString()));
         System.out.println(String.format("isEmpty: %b", array1.isEmpty()));
         System.out.println("Test08: Finished\n");
@@ -190,8 +190,8 @@ public class IntegerArrayTest {
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода contains(obj)");
 
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
-        Array array1 = new DynamicIntegerArray(arr);
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("array: %s\n", array1.toString()));
 
         int targetValue1 = 3;
@@ -211,20 +211,20 @@ public class IntegerArrayTest {
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы методов hashCode() и equals(obj)");
 
-        int[] arr1 = new int[]{1, 4, 6, 8, 3, 5};
-        Array array1 = new DynamicIntegerArray(arr1);
+        Integer[] arr1 = new Integer[]{1, 4, 6, 8, 3, 5};
+        Array<Integer> array1 = new DynamicArray<>(arr1);
         System.out.println(String.format("array1: %s", array1.toString()));
 
 
-        Array array2 = array1;
+        Array<Integer> array2 = array1;
         System.out.println(String.format("array2: %s", array2.toString()));
 
-        int[] arr3 = new int[]{1, 4, 6, 8, 3, 5};
-        Array array3 = new DynamicIntegerArray(arr3);
+        Integer[] arr3 = new Integer[]{1, 4, 6, 8, 3, 5};
+        Array<Integer> array3 = new DynamicArray<>(arr3);
         System.out.println(String.format("array3: %s", array3.toString()));
 
-        int[] arr4 = new int[]{1, 4, 6, 10, 40, 70};
-        Array array4 = new DynamicIntegerArray(arr4);
+        Integer[] arr4 = new Integer[]{1, 4, 6, 10, 40, 70};
+        Array<Integer> array4 = new DynamicArray<>(arr4);
         System.out.println(String.format("array4: %s\n", array4.toString()));
 
         System.out.println(String.format("hashcode array1: val = %d", array1.hashCode()));
@@ -247,8 +247,8 @@ public class IntegerArrayTest {
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы методов hashCode() и equals(obj)");
 
-        int[] arr1 = new int[]{1, 4, 6, 8, 3, 5};
-        Array array1 = new DynamicIntegerArray(arr1);
+        Integer[] arr1 = new Integer[]{1, 4, 6, 8, 3, 5};
+        Array<Integer> array1 = new DynamicArray<Integer>(arr1);
         System.out.println(String.format("array1: toString() -> %s", array1.toString()));
 
         System.out.println("Test11: Finished\n");
@@ -259,11 +259,11 @@ public class IntegerArrayTest {
         System.out.println("Test12: Started");
         System.out.println("Reason: проверка создания динамического массива на основе примитивного");
         System.out.println("Reason: проверка работы метода getArrayData()");
-        int[] arr1 = new int[]{1, 4, 6, 8, 3, 5};
-        Array array1 = new DynamicIntegerArray(arr1);
+        Integer[] arr1 = new Integer[]{1, 4, 6, 8, 3, 5};
+        Array<Integer> array1 = new DynamicArray<>(arr1);
         System.out.println(String.format("array1: toString() -> %s", array1.toString()));
 
-        int[] arrResult = array1.getArrayData();
+        Integer[] arrResult = (Integer[])array1.getArrayData();
         System.out.println(String.format("Result: %s", Arrays.toString(arrResult)));
         System.out.println("Test12: Finished\n");
     }
