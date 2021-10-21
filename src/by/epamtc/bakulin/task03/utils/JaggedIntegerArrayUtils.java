@@ -4,22 +4,17 @@ import by.epamtc.bakulin.task03.entity.JaggedIntegerArray;
 
 public class JaggedIntegerArrayUtils {
 
-    public static void main(String[] args) {
-        int[] array = new int[] {2,4,5};
-        System.out.println(calculateRowSum(array));
-    }
-
     /**
      * Сортирует зубчатый массив
      * в порядке возрастания сумм элементов строки.
+     *
      * @param jaggedIntegerArray целевой зубчатый массив
-     * @return int[][] массив отсортированных сумм строк
      */
-    public static int[] sortJaggedArrayByMaxSumRowsValues(JaggedIntegerArray jaggedIntegerArray) {
+    public static void sortJaggedArrayByMaxSumRowsElementsAsc(JaggedIntegerArray jaggedIntegerArray) {
         int[] sums = populateSumArray(jaggedIntegerArray);
         int[][] jagged = jaggedIntegerArray.getArrayData();
 
-        for (int i = 0; i < (jagged.length - 1 ); i++) {
+        for (int i = 0; i < (jagged.length - 1); i++) {
             for (int j = (jagged.length - 1); j > i; j--) {
                 if (sums[j] < sums[(j - 1)]) {
                     int buffer = sums[j];
@@ -35,7 +30,38 @@ public class JaggedIntegerArrayUtils {
             }
         }
         jaggedIntegerArray.setArrayData(jagged);
-        return sums;
+    }
+
+    /**
+     * Сортирует зубчатый массив
+     * в порядке возрастания элементов строки.
+     *
+     * @param jaggedIntegerArray целевой зубчатый массив
+     */
+    public static void sortJaggedArrayRowElementsAsc(JaggedIntegerArray jaggedIntegerArray) {
+        int[][] jagged = jaggedIntegerArray.getArrayData();
+
+        for (int i = 0; i < jagged.length - 1; i++) {
+            sortArray(jagged[i]);
+        }
+        jaggedIntegerArray.setArrayData(jagged);
+    }
+
+    /**
+     * Сортировка массива 'Пузырьком'
+     * @param targetArray целевой одинарный массив
+     */
+    private static void sortArray(int[] targetArray) {
+        for (int i = (targetArray.length - 1); i >=0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (targetArray[j] > targetArray[j + 1]) {
+                    int buffer = targetArray[j];
+
+                    targetArray[j] = targetArray[j + 1];
+                    targetArray[j + 1] = buffer;
+                }
+            }
+        }
     }
 
     private static int[] populateSumArray(JaggedIntegerArray jaggedIntegerArray) {
@@ -52,6 +78,7 @@ public class JaggedIntegerArrayUtils {
 
     /**
      * Вычисляет сумму элементов массива (строки в зубчатом массиве)
+     *
      * @param row массив(строка в зубчатом массиве)
      * @return int sum - сумма элементов массива(строки)
      */

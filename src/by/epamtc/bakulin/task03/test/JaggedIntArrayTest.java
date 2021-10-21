@@ -34,12 +34,25 @@ public class JaggedIntArrayTest {
         jaggedIntegerArray.populateJaggedArrayRandomNumerics(5, 7);
         ConsoleUtils.printJaggedArray(jaggedIntegerArray);
 
-        int[] sums = JaggedIntegerArrayUtils.sortJaggedArrayByMaxSumRowsValues(jaggedIntegerArray);
+        JaggedIntegerArrayUtils.sortJaggedArrayByMaxSumRowsElementsAsc(jaggedIntegerArray);
         ConsoleUtils.printConsoleMessage("\nSorted jagged array ascending row sums:\n");
-        System.out.println(String.format("sums: %s", Arrays.toString(sums)));
         ConsoleUtils.printJaggedArray(jaggedIntegerArray);
 
         ConsoleUtils.printConsoleMessage("Test: Finished\n");
     }
+
+    @Test
+    public void jaggedIntegerArrayUtilsClassTest1() {
+        int matrixDimension = 5;
+        JaggedIntegerArray jaggedIntegerArray = new JaggedIntegerArray(matrixDimension);
+        jaggedIntegerArray.populateJaggedArrayRandomNumerics(5, 7);
+        ConsoleUtils.printJaggedArray(jaggedIntegerArray);
+        System.out.println("Sorted rows ascending:");
+
+        JaggedIntegerArrayUtils.sortJaggedArrayRowElementsAsc(jaggedIntegerArray);
+        ConsoleUtils.printJaggedArray(jaggedIntegerArray);
+    }
+
+
 
 }
