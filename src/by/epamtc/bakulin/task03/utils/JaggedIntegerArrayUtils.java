@@ -34,15 +34,14 @@ public class JaggedIntegerArrayUtils {
 
     /**
      * Сортирует зубчатый массив
-     * в порядке возрастания элементов строки.
      *
      * @param jaggedIntegerArray целевой зубчатый массив
+     * @param isAscending {@code true} сортировать по возрастанию
      */
-    public static void sortJaggedArrayRowElementsAsc(JaggedIntegerArray jaggedIntegerArray) {
+    public static void sortJaggedArrayRowElements(JaggedIntegerArray jaggedIntegerArray, boolean isAscending) {
         int[][] jagged = jaggedIntegerArray.getArrayData();
-
         for (int i = 0; i < jagged.length - 1; i++) {
-            sortArray(jagged[i]);
+            sortArray(jagged[i], isAscending);
         }
         jaggedIntegerArray.setArrayData(jagged);
     }
@@ -51,15 +50,24 @@ public class JaggedIntegerArrayUtils {
      * Сортировка массива 'Пузырьком'
      * @param targetArray целевой одинарный массив
      */
-    private static void sortArray(int[] targetArray) {
+    private static void sortArray(int[] targetArray, boolean isAscending) {
         for (int i = (targetArray.length - 1); i >=0; i--) {
             for (int j = 0; j < i; j++) {
-                if (targetArray[j] > targetArray[j + 1]) {
-                    int buffer = targetArray[j];
-
-                    targetArray[j] = targetArray[j + 1];
-                    targetArray[j + 1] = buffer;
+                if (isAscending) {
+                    if (targetArray[j] > targetArray[j + 1]) {
+                        int buffer = targetArray[j];
+                        targetArray[j] = targetArray[j + 1];
+                        targetArray[j + 1] = buffer;
+                    }
                 }
+                if (!isAscending) {
+                    if (targetArray[j] < targetArray[j + 1]) {
+                        int buffer = targetArray[j];
+                        targetArray[j] = targetArray[j + 1];
+                        targetArray[j + 1] = buffer;
+                    }
+                }
+
             }
         }
     }
