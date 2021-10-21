@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.entity;
 
-public interface Array {
+public interface Array<E> {
 
     /**
      * Добавляет элемент в конец массива
@@ -8,7 +8,7 @@ public interface Array {
      * @param e - добавляемый элемент в массив;
      * @return {@code true} если элемент был добавлен в массив;
      */
-    boolean add(int e);
+    boolean add(E e);
 
     /**
      * Добавляет элемент в указанный индекс, осуществляет
@@ -18,7 +18,7 @@ public interface Array {
      * @param e - добавляемый элемент в массив;
      * @return {@code true} если элемент был добавлен в массив;
      */
-    void add(int index, Integer e);
+    void add(int index, E e);
 
     /**
      * Добавляет элемент в указанный индекс ячейки массива.
@@ -28,7 +28,7 @@ public interface Array {
      * @param e добавляемый элемент в массив;
      * @return E элемент, который ранее находился на данной позиции;
      */
-    Integer set(int index, Integer e);
+    E set(int index, E e);
 
     /**
      * Возвращает объект из массива, по указанному индексу.
@@ -36,7 +36,7 @@ public interface Array {
      * @param index integer значение порядкового номера ячейки в массиве;
      * @return E искомый элемент в массиве;
      */
-    Integer get(int index);
+    E get(int index);
 
     /**
      * Возвращает индекс в массиве, указанного объекта в качестве параметра
@@ -50,7 +50,7 @@ public interface Array {
      * @param index индекс удаляемого элемента;
      * @return {@code e} возвращает удаленный элемент;
      */
-    Integer remove (int index);
+    E remove (int index);
 
     /**
      * Возвращает текущее количество объектов в массиве
@@ -75,8 +75,8 @@ public interface Array {
      */
     boolean contains(int obj);
 
-    int[] getArrayData();
+    Object[] getArrayData();
 
-    void setArrayData(int[] newArrayData);
+    void setArrayData(E[] newArrayData);
 
 }
