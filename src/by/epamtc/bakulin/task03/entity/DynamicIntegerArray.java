@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.entity;
 
-public class DynamicIntegerArray implements IntegerArray {
+public class DynamicIntegerArray implements Array {
 
     /**
      * Значение длины массива по умолчанию.

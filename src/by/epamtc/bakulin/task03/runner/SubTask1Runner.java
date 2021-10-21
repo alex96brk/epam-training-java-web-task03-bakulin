@@ -1,7 +1,7 @@
 package by.epamtc.bakulin.task03.runner;
 
 import by.epamtc.bakulin.task03.entity.DynamicIntegerArray;
-import by.epamtc.bakulin.task03.entity.IntegerArray;
+import by.epamtc.bakulin.task03.entity.Array;
 import by.epamtc.bakulin.task03.utils.IntegerArrayUtils;
 
 import java.util.Arrays;
@@ -42,7 +42,7 @@ public class SubTask1Runner {
             printConsoleMessage(String.format("\t[ACCEPTED]: arrayLength = %d\n", arrayLength));
         }
         printConsoleMessage("\t[ЗАПОЛНИТЕ МАССИВ]:\n");
-        IntegerArray array1 = populateIntegerArray(arrayLength);
+        Array array1 = populateIntegerArray(arrayLength);
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
 
         int minValue = IntegerArrayUtils.findMinimalValue(array1);
@@ -57,7 +57,7 @@ public class SubTask1Runner {
         int[] fibonacci = IntegerArrayUtils.findAllFibonacci(array1);
         printConsoleMessage(String.format("\t[ЧИСЛА Фибоначчи В МАССИВЕ]: value = %s\n", Arrays.toString(fibonacci)));
 
-        IntegerArray uniqueValues = IntegerArrayUtils.findAllUniqueValues(array1);
+        Array uniqueValues = IntegerArrayUtils.findAllUniqueValues(array1);
         printConsoleMessage(String.format("\t[УНИКАЛЬНЫЕ 3-ЗНАЧНЫЕ ЧИСЛА В МАССИВЕ]: uniqueValues = %s\n", uniqueValues));
 
         printConsoleMessage("\t[ВВЕДИТЕ ИСКОМОЕ ЧИСЛО]:\n");
@@ -80,7 +80,7 @@ public class SubTask1Runner {
         int[] targetArray = new int[] {23,114,65,78,235,45,69,187,11,3,4};
         printConsoleMessage(String.format("\t[СУЩЕСТВУЮЩИЙ МАССИВ]: %s\n", Arrays.toString(targetArray)));
 
-        IntegerArray array1 = new DynamicIntegerArray(targetArray);
+        Array array1 = new DynamicIntegerArray(targetArray);
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
 
         int minValue = IntegerArrayUtils.findMinimalValue(array1);
@@ -95,7 +95,7 @@ public class SubTask1Runner {
         int[] fibonacci = IntegerArrayUtils.findAllFibonacci(array1);
         printConsoleMessage(String.format("\t[ЧИСЛА Фибоначчи В МАССИВЕ]: value = %s\n", Arrays.toString(fibonacci)));
 
-        IntegerArray uniqueValues = IntegerArrayUtils.findAllUniqueValues(array1);
+        Array uniqueValues = IntegerArrayUtils.findAllUniqueValues(array1);
         printConsoleMessage(String.format("\t[УНИКАЛЬНЫЕ 3-ЗНАЧНЫЕ ЧИСЛА В МАССИВЕ]: uniqueValues = %s\n", uniqueValues));
 
         printConsoleMessage("\t[ВВЕДИТЕ ИСКОМОЕ ЧИСЛО]:\n");
@@ -116,7 +116,7 @@ public class SubTask1Runner {
     public static void run3() {
         printConsoleMessage("\t[START]: RUN3\n");
         printConsoleMessage("\t[ЗАПОЛНЕНИЕ МАССИВА СЛУЧАЙНЫМИ ЧИСЛАМИ]: STARTED\n");
-        IntegerArray array1 = new DynamicIntegerArray();
+        Array array1 = new DynamicIntegerArray();
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
 
         IntegerArrayUtils.populateIntegerArrayRandom(51, 5, 10, array1);
@@ -133,13 +133,13 @@ public class SubTask1Runner {
 
         printConsoleMessage("\t[РАНЕЕ ЗАПОЛНЕННЫЙ МАССИВ]: STARTED\n");
         int[] plainArray = new int[] {23,114};
-        IntegerArray array1 = new DynamicIntegerArray(plainArray);
+        Array array1 = new DynamicIntegerArray(plainArray);
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
         IntegerArrayUtils.populateIntegerArrayFromTxtFile(array1, "E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 0);
         printConsoleMessage(String.format("\t[ТЕКУЩИЙ МАССИВ]: %s\n", array1));
 
         printConsoleMessage("\t[ПУСТОЙ МАССИВ]: STARTED\n");
-        IntegerArray array2 = IntegerArrayUtils.populateIntegerArrayFromTxtFile("E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 1);
+        Array array2 = IntegerArrayUtils.populateIntegerArrayFromTxtFile("E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 1);
         printConsoleMessage(String.format("\t[ЗАПОЛНЕННЫЙ МАССИВ]: %s\n", array2));
 
         printConsoleMessage("\t[FINISH]: RUN3\n");
