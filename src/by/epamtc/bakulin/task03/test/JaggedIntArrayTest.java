@@ -7,8 +7,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import java.util.Arrays;
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JaggedIntArrayTest {
 
@@ -49,7 +47,7 @@ public class JaggedIntArrayTest {
         ConsoleUtils.printJaggedArray(jaggedIntegerArray);
         System.out.println("Sorted rows ascending:");
 
-        JaggedIntegerArrayUtils.sortJaggedArrayRowElementsAsc(jaggedIntegerArray);
+        JaggedIntegerArrayUtils.sortJaggedArrayRowElements(jaggedIntegerArray, false);
         ConsoleUtils.printJaggedArray(jaggedIntegerArray);
     }
 
