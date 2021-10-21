@@ -214,6 +214,12 @@ public class DynamicArray<E extends Number> implements Array<E> {
         return false;
     }
 
+    @Override
+    public String toString() {
+        String result = String.format("Array{ size = %d, arrayData = %s}", size, arrayStringBuilder(this.arrayData));
+        return result;
+    }
+
     private boolean equalsArrayData(Object[] a, Object[] b) {
         boolean result = false;
         if (a == b) {

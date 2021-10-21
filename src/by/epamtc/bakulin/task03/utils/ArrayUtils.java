@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.utils;
 
-import by.epamtc.bakulin.task03.entity.DynamicIntegerArray;
+import by.epamtc.bakulin.task03.entity.DynamicArray;
 import by.epamtc.bakulin.task03.entity.Array;
 
 import java.io.*;
@@ -16,7 +16,7 @@ public class IntegerArrayUtils {
      * @param arrayToSort сортируемый массив
      */
     public static void sortArrayBubbleAsc(Array arrayToSort) {
-        int[] array = arrayToSort.getArrayData();
+        Integer[] array = (Integer[]) arrayToSort.getArrayData();
         for (int i = array.length - 1; i >= 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (array[j] > array[j + 1]) {
@@ -230,7 +230,7 @@ public class IntegerArrayUtils {
      * @return массив простых чисел
      */
     public static int[] findAllPrimes(Array targetArray) {
-        Array primes = new DynamicIntegerArray();
+        Array primes = new DynamicArray();
         int[] result = new int[0];
 
         for (int i = 0; i < targetArray.size(); i++) {
@@ -256,7 +256,7 @@ public class IntegerArrayUtils {
         int[] result = new int[0];
         int[] unboxedArray = targetArray.getArrayData();
         int maxValue = findMaximalValue(unboxedArray);
-        Array cache = new DynamicIntegerArray();
+        Array cache = new DynamicArray();
 
         int[] fibonacciArray = populateFibonacciArray(maxValue);
 
@@ -336,7 +336,7 @@ public class IntegerArrayUtils {
      * @return PlainArray
      */
     public static Array findAllUniqueValues(Array targetArray) {
-        Array result = new DynamicIntegerArray();
+        Array result = new DynamicArray();
 
         for (int i = 0; i < targetArray.size(); i++) {
             int value = targetArray.get(i);
@@ -375,7 +375,7 @@ public class IntegerArrayUtils {
      * @return новый PlainArray, заполненный числами из файла
      */
     public static Array populateIntegerArrayFromTxtFile(String path, int lineIndex) {
-        Array array = new DynamicIntegerArray();
+        Array array = new DynamicArray();
         String stringData = getDataFromFile(path).get(lineIndex);
         int[] integerArray = parseStringToIntegerArray(stringData);
 
