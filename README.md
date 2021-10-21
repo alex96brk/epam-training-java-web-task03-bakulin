@@ -16,6 +16,6 @@
 ### Задание 2:
 Дан непрямоугольный целочисленный массив (jagged array) [`-> (см. JaggedIntegerArray`](https://github.com/alex96brk/epam-training-java-web-task03-bakulin/blob/non-generic/src/by/epamtc/bakulin/task03/entity/JaggedIntegerArray.java). Реализовать алгоритм "пузырьковой" сортировки, таким образом, чтобы была возможность упорядочить строки матрицы:
 1. в порядке возрастания (убывания) сумм элементов строк матрицы; [`-> (см. JaggedIntegerArrayUtils, line: 18-39)`](https://github.com/alex96brk/epam-training-java-web-task03-bakulin/blob/non-generic/src/by/epamtc/bakulin/task03/utils/JaggedIntegerArrayUtils.java)
-2. в порядке возрастания (убывания) максимальных элементов строк матрицы; [`-> (см. JaggedIntegerArrayUtils, line: в работе)`]
-3. в порядке возрастания (убывания) минимальных элементов строк матрицы. [`-> (см. JaggedIntegerArrayUtils, line: в работе)`]
+2. в порядке возрастания (убывания) максимальных элементов строк матрицы; [`-> (см. JaggedIntegerArrayUtils, line: в 41-46)`](https://github.com/alex96brk/epam-training-java-web-task03-bakulin/blob/non-generic/src/by/epamtc/bakulin/task03/utils/JaggedIntegerArrayUtils.java)
+3. в порядке возрастания (убывания) минимальных элементов строк матрицы. [`-> (см. JaggedIntegerArrayUtils, line: в 41-46)`](https://github.com/alex96brk/epam-training-java-web-task03-bakulin/blob/non-generic/src/by/epamtc/bakulin/task03/utils/JaggedIntegerArrayUtils.java)
 Для сортировки методы класса Array не использовать! Основное требование избежать повтора кода!!!!!
