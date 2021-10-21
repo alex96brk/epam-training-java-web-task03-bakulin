@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.entity;
 
-public class DynamicIntegerArray implements Array {
+public class DynamicArray<E extends Number> implements Array<E> {
 
     /**
      * Значение длины массива по умолчанию.
@@ -31,15 +31,14 @@ public class DynamicIntegerArray implements Array {
      * Массив, непосредственно выполняющий функцию
      * хранилища данных.
      */
-    private Integer[] arrayData;
-
+    private Object[] arrayData;
 
     /**
      * Конструктор для создания пустого массива
      * с вместимостью по умолчанию
      */
-    public DynamicIntegerArray() {
-        this.arrayData = new Integer[DEFAULT_CAPACITY];
+    public DynamicArray() {
+        this.arrayData = new Object[DEFAULT_CAPACITY];
     }
 
     /**
@@ -48,9 +47,9 @@ public class DynamicIntegerArray implements Array {
      *
      * @param userInitialCapacity вместимость массива
      */
-    public DynamicIntegerArray(int userInitialCapacity) {
+    public DynamicArray(int userInitialCapacity) {
         if (userInitialCapacity > 0) {
-            this.arrayData = new Integer[userInitialCapacity];
+            this.arrayData = new Object[userInitialCapacity];
         }
         if (userInitialCapacity == 0) {
             this.arrayData = EMPTY_ARRAY_DATA;
@@ -66,25 +65,18 @@ public class DynamicIntegerArray implements Array {
      *
      * @param userArray пользовательский массив int[]
      */
-    public DynamicIntegerArray(int[] userArray) {
-        Integer[] boxedUserArray = boxIntegerArray(userArray);
+    public DynamicArray(E[] userArray) {
 
         if (userArray == null || userArray.length == 0) {
             this.arrayData = EMPTY_ARRAY_DATA;
         }
-        this.arrayData = boxedUserArray;
-        this.size = boxedUserArray.length;
+        this.arrayData = userArray;
+        this.size = userArray.length;
     }
 
-    /**
-     * Добавляет элемент в конец массива
-     *
-     * @param value - добавляемый элемент в массив;
-     * @return {@code true} если элемент был добавлен в массив;
-     */
+
     @Override
-    public boolean add(int value) {
-        Integer e = Integer.valueOf(value);
+    public boolean add(E e) {
         boolean addResult = false;
         int currentIndex = size;
 
@@ -92,7 +84,6 @@ public class DynamicIntegerArray implements Array {
             if (isArrayFull(currentIndex)) {
                 arrayData = increaseArrayCapacity(size);
             }
-
             addResult = writeElement(currentIndex, e);
         }
         if (size == 0) {
@@ -102,16 +93,8 @@ public class DynamicIntegerArray implements Array {
         return addResult;
     }
 
-    /**
-     * Добавляет элемент в указанный индекс, осуществляет
-     * сдвиг элементов.
-     *
-     * @param index индекс в массиве для записи элемента;
-     * @param e     добавляемый элемент в массив;
-     * @return {@code true} если элемент был добавлен в массив;
-     */
     @Override
-    public void add(int index, Integer e) {
+    public void add(int index, E e) {
         checkIndex(index);
 
         if(index == 0) {
@@ -147,29 +130,18 @@ public class DynamicIntegerArray implements Array {
         }
     }
 
-    /**
-     * Добавляет элемент в указанный индекс ячейки массива.
-     * В случае, если данная ячейка занята - происходит перезапись.
-     *
-     * @param index integer значение порядкового номера ячейки в массиве;
-     * @param e     добавляемый элемент в массив;
-     * @return E элемент, который ранее находился на данной позиции;
-     */
     @Override
-    public Integer set(int index, Integer e) {
+    public E set(int index, E e) {
         checkIndex(index);
-        Integer oldValue = arrayData[index];
+        E oldValue = elementData(index);
         arrayData[index] = e;
-
         return oldValue;
     }
 
     @Override
-    public Integer get(int index) {
+    public E get(int index) {
         checkIndex(index);
-        Integer returnResult = arrayData[index];
-
-        return returnResult;
+        return elementData(index);
     }
 
     @Override
@@ -178,9 +150,9 @@ public class DynamicIntegerArray implements Array {
     }
 
     @Override
-    public Integer remove(int index) {
+    public E remove(int index) {
         checkIndex(index);
-        Integer deletedElement = get(index);
+        E deletedElement = elementData(index);
         doArrayShiftRemove(index);
         writeOutElement();
         return deletedElement;
@@ -188,7 +160,7 @@ public class DynamicIntegerArray implements Array {
 
     @Override
     public int size() {
-        return size;
+        return this.size;
     }
 
     @Override
@@ -201,24 +173,18 @@ public class DynamicIntegerArray implements Array {
         return indexOf(obj) >= 0;
     }
 
+    /**
+     * Возвращает текущий массив.
+     * @return примитивный массив int[]
+     */
     @Override
-    public boolean equals(Object obj) {
+    public Object[] getArrayData() {
+        return this.arrayData;
+    }
 
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-
-        DynamicIntegerArray targetArray = (DynamicIntegerArray) obj;
-        if (this.size != targetArray.size) {
-            return false;
-        }
-        if (equalsIntegerArrayData(this.arrayData, targetArray.arrayData)) {
-            return true;
-        }
-        return false;
+    @Override
+    public void setArrayData(E[] newArrayData) {
+        this.arrayData = newArrayData;
     }
 
     @Override
@@ -231,23 +197,51 @@ public class DynamicIntegerArray implements Array {
     }
 
     @Override
-    public String toString() {
-        String result = String.format("Array{ size = %d, arrayData = %s}", size, arrayStringBuilder(this.arrayData));
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        DynamicArray targetArray = (DynamicArray) obj;
+        if (this.size != targetArray.size) {
+            return false;
+        }
+        if (equalsArrayData(this.arrayData, targetArray.arrayData)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean equalsArrayData(Object[] a, Object[] b) {
+        boolean result = false;
+        if (a == b) {
+            result = true;
+        }
+        if (a == null || b == null) {
+            result = false;
+        }
+        if (a.length != b.length) {
+            result = false;
+        }
+        int iterationCounter = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == null || b[i] == null) {
+                break;
+            }
+            if (a[i].equals(b[i])) {
+                iterationCounter++;
+                continue;
+            } else {
+                result = false;
+                break;
+            }
+        }
+        if ((iterationCounter) == size ) {
+            result = true;
+        }
         return result;
-    }
-
-    /**
-     * Возвращает текущий массив.
-     * @return примитивный массив int[]
-     */
-    @Override
-    public int[] getArrayData() {
-        return unboxIntegerArray(arrayData);
-    }
-
-    @Override
-    public void setArrayData(int[] newArrayData) {
-        this.arrayData = boxIntegerArray(newArrayData);
     }
 
     /**
@@ -258,7 +252,7 @@ public class DynamicIntegerArray implements Array {
      * @param e     элемент, помещаемый в массив
      * @return {@code true} если указанный элемент был добавлен в массив
      */
-    private boolean writeElement(int index, Integer e) {
+    private boolean writeElement(int index, E e) {
         arrayData[index] = e;
         ++size;
         return true;
@@ -291,8 +285,8 @@ public class DynamicIntegerArray implements Array {
      *
      * @return новый массив с увеличенным кол-вом ячеек;
      */
-    private Integer[] increaseArrayCapacity(int currentIndex) {
-        Integer[] newArr = generateNewArray();
+    private Object[] increaseArrayCapacity(int currentIndex) {
+        Object[] newArr = generateNewArray();
 
         if (currentIndex == 0) {
             System.arraycopy(arrayData, START_INDEX_COPY_FROM, newArr, (START_INDEX_COPY_TO + 1), arrayData.length);
@@ -311,11 +305,11 @@ public class DynamicIntegerArray implements Array {
      *
      * @return newArray.length = old.length + 10
      */
-    private Integer[] generateNewArray() {
+    private Object[] generateNewArray() {
         int currentCapacity = arrayData.length;
         int newCapacity = currentCapacity + DEFAULT_CAPACITY;
 
-        return new Integer[newCapacity];
+        return new Object[newCapacity];
     }
 
     /**
@@ -364,60 +358,7 @@ public class DynamicIntegerArray implements Array {
         return result;
     }
 
-    /**
-     * Выполняет поэлементную проверку двух массивов на равенство
-     *
-     * @param a Integer[] a - первый массив
-     * @param b Integer[] b - второй массив
-     * @return {@code true} если два массива поэлементно равны
-     */
-    private boolean equalsIntegerArrayData(Integer[] a, Integer[] b) {
-        boolean result = false;
-        if (a == b) {
-            result = true;
-        }
-        if (a == null || b == null) {
-            result = false;
-        }
-        if (a.length != b.length) {
-            result = false;
-        }
-        int iterationCounter = 0;
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] == null || b[i] == null) {
-                break;
-            }
-            if (a[i].equals(b[i])) {
-                iterationCounter++;
-                continue;
-            } else {
-                result = false;
-                break;
-            }
-        }
-        if ((iterationCounter) == size ) {
-            result = true;
-        }
-        return result;
-    }
-
-    private Integer[] boxIntegerArray(int[] targetArray) {
-        Integer[] boxedArray = new Integer[targetArray.length];
-        for (int i = 0; i < targetArray.length; i++) {
-            boxedArray[i] = Integer.valueOf(targetArray[i]);
-        }
-        return boxedArray;
-    }
-
-    private int[] unboxIntegerArray(Integer[] targetArray) {
-        int[] unboxedArray = new int[size];
-        for (int i = 0; i < unboxedArray.length; i++) {
-            unboxedArray[i] = targetArray[i];
-        }
-        return unboxedArray;
-    }
-
-    private String arrayStringBuilder(Integer[] targetArray) {
+    private String arrayStringBuilder(Object[] targetArray) {
         if (targetArray == null) {
             return "null";
         }
@@ -451,5 +392,9 @@ public class DynamicIntegerArray implements Array {
         if (index > arrayData.length) {
             throw new IndexOutOfBoundsException(String.format("Illegal Index. Can not be larger then array.length: index = %d; array.length = %d", index, arrayData.length));
         }
+    }
+
+    private E elementData(int index) {
+        return (E) arrayData[index];
     }
 }
