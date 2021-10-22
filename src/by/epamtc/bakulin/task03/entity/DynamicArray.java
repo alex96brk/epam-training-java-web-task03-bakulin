@@ -178,8 +178,8 @@ public class DynamicArray<E extends Number> implements Array<E> {
      * @return примитивный массив int[]
      */
     @Override
-    public Object[] getArrayData() {
-        return this.arrayData;
+    public E[] getArrayData() {
+        return (E[])this.arrayData;
     }
 
     @Override

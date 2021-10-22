@@ -75,7 +75,7 @@ public interface Array<E> {
      */
     boolean contains(int obj);
 
-    Object[] getArrayData();
+    <E> E[] getArrayData();
 
     void setArrayData(E[] newArrayData);
 
