@@ -10,15 +10,7 @@ import java.util.List;
 public class ArrayUtils {
 
     public static  <E extends Number&Comparable> void sort(Array<E> array, SortType s) {
-        if(s == SortType.BUBBLE) {
-            bubbleSort(array, true);
-        }
-        if(s == SortType.SELECTION) {
-
-        }
-        if(s == SortType.QUICK) {
-
-        }
+        sort(array, s, true);
     }
 
     public static  <E extends Number&Comparable> void sort(Array<E> array, SortType s, boolean isAsc) {
