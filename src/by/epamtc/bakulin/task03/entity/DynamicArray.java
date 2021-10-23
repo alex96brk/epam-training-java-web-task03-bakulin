@@ -10,7 +10,7 @@ public class DynamicArray<E extends Number> implements Array<E> {
     /**
      * Пустой экземпляр массива
      */
-    private static final Integer[] EMPTY_ARRAY_DATA = {};
+    private static final Object[] EMPTY_ARRAY_DATA = {};
 
     /**
      * Указывает начальный индекс копирования данных из старого массива
