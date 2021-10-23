@@ -1,5 +1,10 @@
 package by.epamtc.bakulin.task03.entity;
 
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
+
 public class DynamicArray<E extends Number> implements Array<E> {
 
     /**
@@ -32,6 +37,8 @@ public class DynamicArray<E extends Number> implements Array<E> {
      * хранилища данных.
      */
     private Object[] arrayData;
+
+    private int modCounter = 0;
 
     /**
      * Конструктор для создания пустого массива
@@ -220,6 +227,67 @@ public class DynamicArray<E extends Number> implements Array<E> {
         return result;
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        return new ArrayIterator();
+    }
+
+    private class ArrayIterator implements Iterator<E> {
+        //next element to return
+        int cursor = 0;
+        //last returned element
+        int lastReturn = -1;
+
+        int expectedModCounter = modCounter;
+
+        ArrayIterator() {}
+
+        @Override
+        public boolean hasNext() {
+            return cursor != size();
+        }
+
+        @Override
+        public E next() {
+            checkModificationCounter();
+            try {
+                int i = cursor;
+                E next = get(i);
+                lastReturn = i;
+                cursor = i + 1;
+                return next;
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                checkModificationCounter();
+                throw new NoSuchElementException();
+            }
+        }
+
+        @Override
+        public void remove() {
+            if (lastReturn < 0) {
+                throw new IllegalStateException();
+            }
+            checkModificationCounter();
+
+            try {
+                DynamicArray.this.remove(lastReturn);
+                if (lastReturn < cursor) {
+                    cursor--;
+                }
+                lastReturn = -1;
+                expectedModCounter = modCounter;
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                throw new ConcurrentModificationException();
+            }
+        }
+
+        void checkModificationCounter() {
+            if (modCounter != expectedModCounter) {
+                throw new ConcurrentModificationException();
+            }
+        }
+    }
+
     private boolean equalsArrayData(Object[] a, Object[] b) {
         boolean result = false;
         if (a == b) {
@@ -403,4 +471,6 @@ public class DynamicArray<E extends Number> implements Array<E> {
     private E elementData(int index) {
         return (E) arrayData[index];
     }
+
+
 }
