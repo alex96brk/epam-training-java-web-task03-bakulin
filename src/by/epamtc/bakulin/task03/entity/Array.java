@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.entity;
 
-public interface Array<E> {
+public interface Array<E> extends Iterable<E> {
 
     /**
      * Добавляет элемент в конец массива
