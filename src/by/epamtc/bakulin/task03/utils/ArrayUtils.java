@@ -1,47 +1,46 @@
 package by.epamtc.bakulin.task03.utils;
 
-import by.epamtc.bakulin.task03.entity.DynamicArray;
 import by.epamtc.bakulin.task03.entity.Array;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class ArrayUtils {
 
-    public static  <E extends Number&Comparable> void sort(Array<E> array, SortType s) {
-        sort(array, s, true);
+    public static <E extends Number & Comparable> void sort(Array<E> array, SortType sortType) {
+        sort(array, sortType, true);
     }
 
-    public static  <E extends Number&Comparable> void sort(Array<E> array, SortType s, boolean isAsc) {
-        if(s == SortType.BUBBLE) {
-            bubbleSort(array, isAsc);
+    public static <E extends Number & Comparable> void sort(Array<E> array, SortType sortType, boolean isAscending) {
+        if (sortType == SortType.BUBBLE) {
+            bubbleSort(array, isAscending);
         }
-        if(s == SortType.SELECTION) {
-
+        if (sortType == SortType.SELECTION) {
+            selectionSort(array, isAscending);
         }
-        if(s == SortType.QUICK) {
+        if (sortType == SortType.QUICK) {
 
         }
     }
 
     /**
      * Алгоритм сортировки массива "Сортировка Пузырьком"
-     * @param array сортируемый массив
-     * @param isAsc boolean аргумент true, если сортировка по возрастанию
+     *
+     * @param array       сортируемый массив
+     * @param isAscending boolean аргумент true, если сортировка по возрастанию
      */
-    private static <E extends Number&Comparable> void bubbleSort(Array<E> array, boolean isAsc) {
+    private static <E extends Number & Comparable> void bubbleSort(Array<E> array, boolean isAscending) {
         E[] elementArray = array.getArrayData();
         for (int i = elementArray.length - 1; i >= 0; i--) {
             for (int j = 0; j < i; j++) {
-                if (isAsc) {
-                    if (elementArray[j].compareTo(elementArray[j + 1]) > 0 ) {
+                if (isAscending) {
+                    if (elementArray[j].compareTo(elementArray[j + 1]) > 0) {
                         E buffer = elementArray[j];
                         elementArray[j] = elementArray[j + 1];
                         elementArray[j + 1] = buffer;
                     }
                 } else {
-                    if (elementArray[j].compareTo(elementArray[j + 1]) < 0 ) {
+                    if (elementArray[j].compareTo(elementArray[j + 1]) < 0) {
                         E buffer = elementArray[j];
                         elementArray[j] = elementArray[j + 1];
                         elementArray[j + 1] = buffer;
@@ -52,46 +51,51 @@ public class ArrayUtils {
         array.setArrayData(elementArray);
     }
 
+    private static <E extends Number & Comparable> void selectionSort(Array<E> array, boolean isAscending) {
+        E[] elementArray = array.getArrayData();
+        for (int step = 0; step < elementArray.length; step++) {
+            if (isAscending) {
+                int minValueIndex = selectionSortMinimalValue(elementArray, step);
+                E tempValue = elementArray[step];
+                elementArray[step] = elementArray[minValueIndex];
+                elementArray[minValueIndex] = tempValue;
+            } else {
+                int maxValueIndex = selectionSortMaximalValue(elementArray, step);
+                E tempValue = elementArray[step];
+                elementArray[step] = elementArray[maxValueIndex];
+                elementArray[maxValueIndex] = tempValue;
+            }
+        }
+        array.setArrayData(elementArray);
+    }
 
-//    /**
-//     * Алгоритм сортировки массива "Сортировка Пузырьком"
-//     * По возрастанию
-//     *
-//     * @param arrayToSort сортируемый массив
-//     */
-//    public static void sortArrayBubbleAsc(Array arrayToSort) {
-//        Number[] array = (Number[]) arrayToSort.getArrayData();
-//        for (int i = array.length - 1; i >= 0; i--) {
-//            for (int j = 0; j < i; j++) {
-//                if (array[j] > array[j + 1]) {
-//                    int buffer = array[j];
-//                    array[j] = array[j + 1];
-//                    array[j + 1] = buffer;
-//                }
-//            }
-//        }
-//        arrayToSort.setArrayData(array);
-//    }
-//
-//    /**
-//     * Алгоритм сортировки массива "Сортировка Пузырьком"
-//     * По убыванию
-//     *
-//     * @param arrayToSort сортируемый массив
-//     */
-//    public static void sortArrayBubbleDesc(Array arrayToSort) {
-//        Integer[] array = arrayToSort.getArrayData();
-//        for (int i = 0; i <= (array.length - 1); i++) {
-//            for (int j = (array.length - 1); j > i; j--) {
-//                if (array[j] > array[j - 1]) {
-//                    int buffer = array[j];
-//                    array[j] = array[j - 1];
-//                    array[j - 1] = buffer;
-//                }
-//            }
-//        }
-//        arrayToSort.setArrayData(array);
-//    }
+    private static <E extends Number & Comparable> int selectionSortMinimalValue(E[] targetArray, int startIndex) {
+        int minimalValueIndex = startIndex;
+        E minimalValue = targetArray[startIndex];
+
+        for (int i = (startIndex + 1); i < targetArray.length; i++) {
+            if (targetArray[i].compareTo(minimalValue) < 0) {
+                minimalValue = targetArray[i];
+                minimalValueIndex = i;
+            }
+        }
+        return minimalValueIndex;
+    }
+
+    private static <E extends Number & Comparable> int selectionSortMaximalValue(E[] targetArray, int startIndex) {
+        int maxValueIndex = startIndex;
+        E maxValue = targetArray[startIndex];
+
+        for (int i = (startIndex + 1); i < targetArray.length; i++) {
+            if (targetArray[i].compareTo(maxValue) > 0) {
+                maxValue = targetArray[i];
+                maxValueIndex = i;
+            }
+        }
+        return maxValueIndex;
+    }
+
+
 //
 //    /**
 //     * Алгоритм сортировки массива "Сортировка Выбором"
