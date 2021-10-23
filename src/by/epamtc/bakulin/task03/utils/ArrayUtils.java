@@ -51,6 +51,12 @@ public class ArrayUtils {
         array.setArrayData(elementArray);
     }
 
+    /**
+     * Алгоритм сортировки массива "Сортировка Выбором"
+     *
+     * @param array       сортируемый массив
+     * @param isAscending boolean аргумент true, если сортировка по возрастанию
+     */
     private static <E extends Number & Comparable> void selectionSort(Array<E> array, boolean isAscending) {
         E[] elementArray = array.getArrayData();
         for (int step = 0; step < elementArray.length; step++) {
@@ -68,7 +74,7 @@ public class ArrayUtils {
         }
         array.setArrayData(elementArray);
     }
-
+//попробовать сократить в 2 раза
     private static <E extends Number & Comparable> int selectionSortMinimalValue(E[] targetArray, int startIndex) {
         int minimalValueIndex = startIndex;
         E minimalValue = targetArray[startIndex];
@@ -95,47 +101,6 @@ public class ArrayUtils {
         return maxValueIndex;
     }
 
-
-//
-//    /**
-//     * Алгоритм сортировки массива "Сортировка Выбором"
-//     * По возрастанию
-//     *
-//     * @param arrayToSort сортируемый массив
-//     */
-//    public static void sortArraySelectionAsc(Array arrayToSort) {
-//        int[] array = arrayToSort.getArrayData();
-//
-//        for (int step = 0; step < array.length; step++) {
-//            int minValueIndex = selectionSortMinimalValue(array, step);
-//
-//            int tempValue = array[step];
-//            array[step] = array[minValueIndex];
-//
-//            array[minValueIndex] = tempValue;
-//        }
-//        arrayToSort.setArrayData(array);
-//    }
-//
-//    /**
-//     * Алгоритм сортировки массива "Сортировка Выбором"
-//     * По убыванию
-//     *
-//     * @param arrayToSort сортируемый массив
-//     */
-//    public static void sortArraySelectionDesc(Array arrayToSort) {
-//        int[] array = arrayToSort.getArrayData();
-//
-//        for (int step = 0; step < array.length; step++) {
-//            int minValueIndex = selectionSortMaximalValue(array, step);
-//
-//            int tempValue = array[step];
-//            array[step] = array[minValueIndex];
-//
-//            array[minValueIndex] = tempValue;
-//        }
-//        arrayToSort.setArrayData(array);
-//    }
 //
 //    /**
 //     * Алгоритм сортировки массива "Быстрая сортировка"
