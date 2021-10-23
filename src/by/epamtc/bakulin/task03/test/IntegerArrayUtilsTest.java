@@ -40,16 +40,16 @@ public class IntegerArrayUtilsTest {
 
         System.out.println("Test1: Bubble sort - Finished\n");
     }
-/**
+
     @Test
     public void testArrayUtilsB1() {
         System.out.println("Test3: Selection sort Ascending - Started");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current Array: %s", array1.toString()));
 
-        ArrayUtils.sortArraySelectionAsc(array1);
+        ArrayUtils.sort(array1, SortType.SELECTION);
         System.out.println(String.format("Sorted Array Ascending: %s", array1.toString()));
 
         System.out.println("Test3: Selection sort - Finished\n");
@@ -57,18 +57,18 @@ public class IntegerArrayUtilsTest {
 
     @Test
     public void testArrayUtilsB2() {
-        System.out.println("Test4: Selection sort Descending - Started");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
+        System.out.println("Test3: Selection sort Descending - Started");
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current Array: %s", array1.toString()));
 
-        ArrayUtils.sortArraySelectionDesc(array1);
+        ArrayUtils.sort(array1, SortType.SELECTION, false);
         System.out.println(String.format("Sorted Array Descending: %s", array1.toString()));
 
-        System.out.println("Test4: Selection sort - Finished\n");
+        System.out.println("Test3: Selection sort - Finished\n");
     }
-
+/**
     @Test
     public void testArrayUtilsC1() {
         System.out.println("Test5: Quick sort Ascending - Started");
