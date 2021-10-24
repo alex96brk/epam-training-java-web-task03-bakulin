@@ -22,6 +22,47 @@ public class ArrayUtils {
     }
 
     /**
+     * Алгоритм поиска элемента в массиве "Бинарный поиск"
+     * Перегруженный метод для сортированного массива
+     * @param searchValue искомое значение
+     * @param targetArray целевой массив
+     */
+    public static <E extends Number & Comparable> int binarySearch(E searchValue, Array<E> targetArray) {
+        return binarySearch(searchValue, targetArray, false);
+    }
+
+    /**
+     * Алгоритм поиска элемента в массиве "Бинарный поиск"
+     * Перегруженный метод для не сортированного массива
+     * @param searchValue искомое значение
+     * @param targetArray целевой массив
+     */
+    public static <E extends Number & Comparable> int binarySearch(E searchValue, Array<E> targetArray, boolean isSorted) {
+        if (!isSorted) {
+            sort(targetArray, SortType.QUICK);
+        }
+        E[] unboxedArray = targetArray.getArrayData();
+        int leftBorder = 0;
+        int rightBorder = unboxedArray.length - 1;
+
+        while (leftBorder <= rightBorder) {
+            int center = leftBorder + (rightBorder - leftBorder) / 2;
+
+            if (unboxedArray[center].compareTo(searchValue) == 0) {
+                return center;
+            }
+
+            if (unboxedArray[center].compareTo(searchValue) > 0) {
+                rightBorder = center - 1;
+            }
+            if (unboxedArray[center].compareTo(searchValue) < 0) {
+                leftBorder = center + 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Алгоритм сортировки массива "Сортировка Пузырьком"
      *
      * @param array       сортируемый массив
