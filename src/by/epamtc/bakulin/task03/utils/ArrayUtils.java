@@ -1,6 +1,9 @@
 package by.epamtc.bakulin.task03.utils;
 
 import by.epamtc.bakulin.task03.entity.Array;
+import by.epamtc.bakulin.task03.entity.DynamicArray;
+
+import java.util.Objects;
 
 
 public class ArrayUtils {
@@ -24,6 +27,7 @@ public class ArrayUtils {
     /**
      * Алгоритм поиска элемента в массиве "Бинарный поиск"
      * Перегруженный метод для сортированного массива
+     *
      * @param searchValue искомое значение
      * @param targetArray целевой массив
      */
@@ -34,6 +38,7 @@ public class ArrayUtils {
     /**
      * Алгоритм поиска элемента в массиве "Бинарный поиск"
      * Перегруженный метод для не сортированного массива
+     *
      * @param searchValue искомое значение
      * @param targetArray целевой массив
      */
@@ -61,6 +66,40 @@ public class ArrayUtils {
         }
         return -1;
     }
+
+    /**
+     * Осуществляет поиск всех простых чисел в текущем массиве
+     *
+     * @param targetArray целевой массив
+     * @return массив простых чисел
+     */
+    public static Array<Integer> findAllPrimes(Array<Integer> targetArray) {
+        Array<Integer> primes = new DynamicArray<>();
+        for (int i = 0; i < targetArray.size(); i++) {
+            Integer value = targetArray.get(i);
+            if (isPrimeNumeric(value)) {
+                primes.add(value);
+            }
+        }
+        return primes;
+    }
+
+//    public static int[] findAllPrimes(IntegerArray targetArray) {
+//        IntegerArray primes = new DynamicIntegerArray();
+//        int[] result = new int[0];
+//
+//        for (int i = 0; i < targetArray.size(); i++) {
+//            int value = targetArray.get(i);
+//
+//            if (isPrimeNumeric(value)) {
+//                primes.add(value);
+//            }
+//        }
+//        if (!primes.isEmpty()) {
+//            result = primes.getArrayData();
+//        }
+//        return result;
+//    }
 
     /**
      * Поиск минимального значения в массиве.
@@ -95,6 +134,19 @@ public class ArrayUtils {
 
             if (result.compareTo(target) < 0) {
                 result = target;
+            }
+        }
+        return result;
+    }
+
+    private static <E extends Number & Comparable> boolean isPrimeNumeric(Integer targetValue) {
+        boolean result = true;
+        int startValue = 2;
+
+        for (int i = startValue; i < targetValue; i++) {
+            if (targetValue % i == 0) {
+                result = false;
+                break;
             }
         }
         return result;
@@ -179,7 +231,7 @@ public class ArrayUtils {
     /**
      * Алгоритм сортировки массива "Быстрая сортировка"
      *
-     * @param array сортируемый массив
+     * @param array       сортируемый массив
      * @param isAscending boolean аргумент true, если сортировка по возрастанию
      */
     private static <E extends Number & Comparable> void quickSort(Array<E> array, boolean isAscending) {
@@ -235,66 +287,7 @@ public class ArrayUtils {
 
 
 //
-//    /**
-//     * Поиск максимального значения в массиве.
-//     *
-//     * @param targetArray целевой массив
-//     * @return максимального значение в массиве
-//     */
-//    public static int findMaximalValue(Array targetArray) {
-//        int result = targetArray.get(0);
-//
-//        for (int i = 0; i < targetArray.size(); i++) {
-//            int target = targetArray.get(i);
-//
-//            if (result < target) {
-//                result = target;
-//            }
-//        }
-//        return result;
-//    }
-//
-//    /**
-//     * Поиск минимального значения в примитивном массиве
-//     *
-//     * @param targetArray целевой массив
-//     * @return минимальное значение в массиве
-//     */
-//    public static int findMaximalValue(int[] targetArray) {
-//        int result = targetArray[0];
-//
-//        for (int i = 0; i < targetArray.length; i++) {
-//            int target = targetArray[i];
-//
-//            if (result < target) {
-//                result = target;
-//            }
-//        }
-//        return result;
-//    }
-//
-//    /**
-//     * Осуществляет поиск всех простых чисел в текущем массиве
-//     *
-//     * @param targetArray целевой массив
-//     * @return массив простых чисел
-//     */
-//    public static int[] findAllPrimes(Array targetArray) {
-//        Array primes = new DynamicArray();
-//        int[] result = new int[0];
-//
-//        for (int i = 0; i < targetArray.size(); i++) {
-//            int value = targetArray.get(i);
-//
-//            if (isPrimeNumeric(value)) {
-//                primes.add(value);
-//            }
-//        }
-//        if (!primes.isEmpty()) {
-//            result = primes.getArrayData();
-//        }
-//        return result;
-//    }
+
 //
 //    /**
 //     * Осуществляет поиск всех чисел Фибоначчи в текущем массиве
