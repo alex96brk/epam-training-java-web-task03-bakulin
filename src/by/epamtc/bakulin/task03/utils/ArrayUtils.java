@@ -63,6 +63,45 @@ public class ArrayUtils {
     }
 
     /**
+     * Поиск минимального значения в массиве.
+     *
+     * @param targetArray целевой массив
+     * @return минимальное значение в массиве
+     */
+    public static <E extends Number & Comparable> E findMinimalValue(Array<E> targetArray) {
+        E result = targetArray.get(0);
+
+        for (int i = 0; i < targetArray.size(); i++) {
+            E target = targetArray.get(i);
+
+            if (result.compareTo(target) > 0) {
+                result = target;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Поиск максимального значения в массиве.
+     *
+     * @param targetArray целевой массив
+     * @return максимального значение в массиве
+     */
+    public static <E extends Number & Comparable> E findMaximalValue(Array<E> targetArray) {
+        E result = targetArray.get(0);
+
+        for (int i = 0; i < targetArray.size(); i++) {
+            E target = targetArray.get(i);
+
+            if (result.compareTo(target) < 0) {
+                result = target;
+            }
+        }
+        return result;
+    }
+
+
+    /**
      * Алгоритм сортировки массива "Сортировка Пузырьком"
      *
      * @param array       сортируемый массив
@@ -195,74 +234,6 @@ public class ArrayUtils {
     }
 
 
-//
-//    /**
-//     * Алгоритм поиска элемента в массиве "Бинарный поиск"
-//     *
-//     * @param searchValue искомое значение
-//     * @param targetArray целевой массив
-//     */
-//    public static int binarySearch(int searchValue, Array targetArray) {
-//        sortArrayQuickAsc(targetArray);
-//        int[] unboxedArray = targetArray.getArrayData();
-//
-//        int leftBorder = 0;
-//        int rightBorder = unboxedArray.length - 1;
-//
-//        while (leftBorder <= rightBorder) {
-//            int center = leftBorder + (rightBorder - leftBorder) / 2;
-//
-//            if (unboxedArray[center] == searchValue) {
-//                return center;
-//            }
-//
-//            if (unboxedArray[center] > searchValue) {
-//                rightBorder = center - 1;
-//            }
-//            if (unboxedArray[center] < searchValue) {
-//                leftBorder = center + 1;
-//            }
-//        }
-//        return -1;
-//    }
-//
-//    /**
-//     * Поиск минимального значения в массиве.
-//     *
-//     * @param targetArray целевой массив
-//     * @return минимальное значение в массиве
-//     */
-//    public static int findMinimalValue(Array targetArray) {
-//        int result = targetArray.get(0);
-//
-//        for (int i = 0; i < targetArray.size(); i++) {
-//            int target = targetArray.get(i);
-//
-//            if (result > target) {
-//                result = target;
-//            }
-//        }
-//        return result;
-//    }
-//
-//    /**
-//     * Поиск минимального значения в примитивном массиве
-//     *
-//     * @param targetArray целевой массив
-//     * @return минимальное значение в массиве
-//     */
-//    public static int findMinimalValue(int[] targetArray) {
-//        int result = targetArray[0];
-//
-//        for (int i = 0; i < targetArray.length; i++) {
-//            int target = targetArray[i];
-//
-//            if (result > target) {
-//                result = target;
-//            }
-//        }
-//        return result;
-//    }
 //
 //    /**
 //     * Поиск максимального значения в массиве.
