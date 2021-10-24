@@ -84,23 +84,6 @@ public class ArrayUtils {
         return primes;
     }
 
-//    public static int[] findAllPrimes(IntegerArray targetArray) {
-//        IntegerArray primes = new DynamicIntegerArray();
-//        int[] result = new int[0];
-//
-//        for (int i = 0; i < targetArray.size(); i++) {
-//            int value = targetArray.get(i);
-//
-//            if (isPrimeNumeric(value)) {
-//                primes.add(value);
-//            }
-//        }
-//        if (!primes.isEmpty()) {
-//            result = primes.getArrayData();
-//        }
-//        return result;
-//    }
-
     /**
      * Поиск минимального значения в массиве.
      *
