@@ -68,16 +68,16 @@ public class IntegerArrayUtilsTest {
 
         System.out.println("Test3: Selection sort - Finished\n");
     }
-/**
+
     @Test
     public void testArrayUtilsC1() {
         System.out.println("Test5: Quick sort Ascending - Started");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current Array: %s", array1.toString()));
 
-        ArrayUtils.sortArrayQuickAsc(array1);
+        ArrayUtils.sort(array1, SortType.QUICK);
         System.out.println(String.format("Sorted Array Ascending: %s", array1.toString()));
 
         System.out.println("Test5: Quick sort - Finished\n");
@@ -85,18 +85,18 @@ public class IntegerArrayUtilsTest {
 
     @Test
     public void testArrayUtilsC2() {
-        System.out.println("Test6: Quick sort Descending - Started");
-        int[] arr = new int[]{1, 4, 6, 8, 3, 5};
+        System.out.println("Test5: Quick sort Descending - Started");
+        Integer[] arr = new Integer[]{1, 4, 6, 8, 3, 5};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current Array: %s", array1.toString()));
 
-        ArrayUtils.sortArrayQuickDesc(array1);
+        ArrayUtils.sort(array1, SortType.QUICK, false);
         System.out.println(String.format("Sorted Array Descending: %s", array1.toString()));
 
-        System.out.println("Test6: Quick sort - Finished\n");
+        System.out.println("Test5: Quick sort - Finished\n");
     }
-
+/**
     @Test
     public void testArrayUtilsD1() {
         System.out.println("Test7: Binary Search - Started");
