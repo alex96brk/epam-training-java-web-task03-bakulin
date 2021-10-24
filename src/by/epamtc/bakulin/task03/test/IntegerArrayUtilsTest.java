@@ -127,13 +127,13 @@ public class IntegerArrayUtilsTest {
         System.out.println(String.format("result index = %d", resIndex));
         System.out.println("Test7: Binary Search - Finished\n");
     }
-/**
+
     @Test
     public void testArrayUtilsE1() {
         System.out.println("Test8: Search Minimal value - Started");
-        int[] arr = new int[]{7, 4, 6, 8, 3, 5};
+        Integer[] arr = new Integer[]{7, 4, 6, 8, 3, 5};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current Array: %s", array1.toString()));
 
         int minimalValue = ArrayUtils.findMinimalValue(array1);
@@ -145,9 +145,9 @@ public class IntegerArrayUtilsTest {
     @Test
     public void testArrayUtilsF1() {
         System.out.println("Test9: Search Maximal value - Started");
-        int[] arr = new int[]{7, 4, 6, 8, 3, 5};
+        Integer[] arr = new Integer[]{7, 4, 6, 8, 3, 5};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current Array: %s", array1.toString()));
 
         int maximalValue = ArrayUtils.findMaximalValue(array1);
@@ -155,7 +155,7 @@ public class IntegerArrayUtilsTest {
 
         System.out.println("Test9: Search Maximal value - Finished\n");
     }
-
+/**
     @Test
     public void testArrayUtilsG1() {
         System.out.println("Test10: Find All Prime Numbers - Started");
