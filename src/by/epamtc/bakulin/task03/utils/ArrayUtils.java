@@ -2,8 +2,6 @@ package by.epamtc.bakulin.task03.utils;
 
 import by.epamtc.bakulin.task03.entity.Array;
 
-import java.io.*;
-
 
 public class ArrayUtils {
 
@@ -19,7 +17,7 @@ public class ArrayUtils {
             selectionSort(array, isAscending);
         }
         if (sortType == SortType.QUICK) {
-
+            quickSort(array, isAscending);
         }
     }
 
@@ -61,74 +59,101 @@ public class ArrayUtils {
         E[] elementArray = array.getArrayData();
         for (int step = 0; step < elementArray.length; step++) {
             if (isAscending) {
-                int minValueIndex = selectionSortMinimalValue(elementArray, step);
+                int minValueIndex = selectionSortIndex(elementArray, step, isAscending);
                 E tempValue = elementArray[step];
                 elementArray[step] = elementArray[minValueIndex];
                 elementArray[minValueIndex] = tempValue;
-            } else {
-                int maxValueIndex = selectionSortMaximalValue(elementArray, step);
+            }
+            if (!isAscending) {
+                int maxValueIndex = selectionSortIndex(elementArray, step, isAscending);
                 E tempValue = elementArray[step];
                 elementArray[step] = elementArray[maxValueIndex];
                 elementArray[maxValueIndex] = tempValue;
             }
+
         }
         array.setArrayData(elementArray);
     }
-//попробовать сократить в 2 раза
-    private static <E extends Number & Comparable> int selectionSortMinimalValue(E[] targetArray, int startIndex) {
-        int minimalValueIndex = startIndex;
-        E minimalValue = targetArray[startIndex];
+
+    private static <E extends Number & Comparable> int selectionSortIndex(E[] targetArray, int startIndex, boolean isAscending) {
+        int valueIndex = startIndex;
+        E value = targetArray[startIndex];
 
         for (int i = (startIndex + 1); i < targetArray.length; i++) {
-            if (targetArray[i].compareTo(minimalValue) < 0) {
-                minimalValue = targetArray[i];
-                minimalValueIndex = i;
+            if (isAscending) {
+                if (targetArray[i].compareTo(value) < 0) {
+                    value = targetArray[i];
+                    valueIndex = i;
+                }
+            }
+            if (!isAscending) {
+                if (targetArray[i].compareTo(valueIndex) > 0) {
+                    value = targetArray[i];
+                    valueIndex = i;
+                }
             }
         }
-        return minimalValueIndex;
+        return valueIndex;
     }
 
-    private static <E extends Number & Comparable> int selectionSortMaximalValue(E[] targetArray, int startIndex) {
-        int maxValueIndex = startIndex;
-        E maxValue = targetArray[startIndex];
+    /**
+     * Алгоритм сортировки массива "Быстрая сортировка"
+     *
+     * @param array сортируемый массив
+     * @param isAscending boolean аргумент true, если сортировка по возрастанию
+     */
+    private static <E extends Number & Comparable> void quickSort(Array<E> array, boolean isAscending) {
+        E[] elementArray = array.getArrayData();
+        int leftBorder = 0;
+        int rightBorder = elementArray.length - 1;
+        quickSortManage(elementArray, leftBorder, rightBorder, isAscending);
+        array.setArrayData(elementArray);
+    }
 
-        for (int i = (startIndex + 1); i < targetArray.length; i++) {
-            if (targetArray[i].compareTo(maxValue) > 0) {
-                maxValue = targetArray[i];
-                maxValueIndex = i;
+    private static <E extends Number & Comparable> void quickSortManage(E[] targetArray, int leftBorder, int rightBorder, boolean isAscending) {
+        if (leftBorder < rightBorder) {
+            int divideIndex = quickSortArraySeparator(targetArray, leftBorder, rightBorder, isAscending);
+            quickSortManage(targetArray, leftBorder, (divideIndex - 1), isAscending);
+            quickSortManage(targetArray, divideIndex, rightBorder, isAscending);
+        }
+    }
+
+    private static <E extends Number & Comparable> int quickSortArraySeparator(E[] targetArray, int leftBorder, int rightBorder, boolean isAscending) {
+        E divideElement = targetArray[leftBorder + (rightBorder - leftBorder) / 2];
+
+        while (leftBorder <= rightBorder) {
+            if (isAscending) {
+                while (targetArray[leftBorder].compareTo(divideElement) < 0) {
+                    leftBorder++;
+                }
+                while ((targetArray[rightBorder].compareTo(divideElement)) > 0) {
+                    rightBorder--;
+                }
+            }
+            if (!isAscending) {
+                while (targetArray[leftBorder].compareTo(divideElement) > 0) {
+                    leftBorder++;
+                }
+                while ((targetArray[rightBorder].compareTo(divideElement)) < 0) {
+                    rightBorder--;
+                }
+            }
+            if (leftBorder <= rightBorder) {
+                quickSortArraySwapper(targetArray, rightBorder, leftBorder);
+                leftBorder++;
+                rightBorder--;
             }
         }
-        return maxValueIndex;
+        return leftBorder;
     }
 
-//
-//    /**
-//     * Алгоритм сортировки массива "Быстрая сортировка"
-//     * По возрастанию
-//     *
-//     * @param arrayToSort сортируемый массив
-//     */
-//    public static void sortArrayQuickAsc(Array arrayToSort) {
-//        int[] array = arrayToSort.getArrayData();
-//        int leftBorder = 0;
-//        int rightBorder = (array.length - 1);
-//        quickSortManage(array, leftBorder, rightBorder);
-//        arrayToSort.setArrayData(array);
-//    }
-//
-//    /**
-//     * Алгоритм сортировки массива "Быстрая сортировка"
-//     * По убыванию
-//     *
-//     * @param arrayToSort сортируемый массив
-//     */
-//    public static void sortArrayQuickDesc(Array arrayToSort) {
-//        int[] array = arrayToSort.getArrayData();
-//        int leftBorder = 0;
-//        int rightBorder = (array.length - 1);
-//        quickSortManageDesc(array, leftBorder, rightBorder);
-//        arrayToSort.setArrayData(array);
-//    }
+    private static <E extends Number & Comparable> void quickSortArraySwapper(E[] targetArray, int swapIndex1, int swapIndex2) {
+        E temp = targetArray[swapIndex1];
+        targetArray[swapIndex1] = targetArray[swapIndex2];
+        targetArray[swapIndex2] = temp;
+    }
+
+
 //
 //    /**
 //     * Алгоритм поиска элемента в массиве "Бинарный поиск"
