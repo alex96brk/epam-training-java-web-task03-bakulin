@@ -96,13 +96,13 @@ public class IntegerArrayUtilsTest {
 
         System.out.println("Test5: Quick sort - Finished\n");
     }
-/**
+
     @Test
     public void testArrayUtilsD1() {
         System.out.println("Test7: Binary Search - Started");
-        int[] arr = new int[]{7, 4, 6, 8, 3, 5};
+        Integer[] arr = new Integer[]{7, 4, 6, 8, 3, 5};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current Array: %s", array1.toString()));
         int searchValue = 4;
         System.out.println(String.format("search value = %d", searchValue));
@@ -111,7 +111,23 @@ public class IntegerArrayUtilsTest {
         System.out.println(String.format("Sorted Array: %s", array1.toString()));
         System.out.println("Test7: Binary Search - Finished\n");
     }
+    @Test
+    public void testArrayUtilsD2() {
+        System.out.println("Test7.1: Binary Search Pre-sorted array - Started");
+        Integer[] arr = new Integer[]{7, 4, 6, 8, 3, 5};
+        System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
 
+        Array<Integer> array1 = new DynamicArray<>(arr);
+        ArrayUtils.sort(array1, SortType.QUICK);
+        System.out.println(String.format("Current sorted Array: %s", array1.toString()));
+
+        int searchValue = 4;
+        System.out.println(String.format("search value = %d", searchValue));
+        int resIndex = ArrayUtils.binarySearch(4, array1, true);
+        System.out.println(String.format("result index = %d", resIndex));
+        System.out.println("Test7: Binary Search - Finished\n");
+    }
+/**
     @Test
     public void testArrayUtilsE1() {
         System.out.println("Test8: Search Minimal value - Started");
