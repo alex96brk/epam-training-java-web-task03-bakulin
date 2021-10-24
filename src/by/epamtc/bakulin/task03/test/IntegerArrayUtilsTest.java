@@ -155,21 +155,21 @@ public class IntegerArrayUtilsTest {
 
         System.out.println("Test9: Search Maximal value - Finished\n");
     }
-/**
+
     @Test
     public void testArrayUtilsG1() {
         System.out.println("Test10: Find All Prime Numbers - Started");
-        int[] arr = new int[]{7, 4, 6, 8, 3, 5};
+        Integer[] arr = new Integer[]{7, 4, 6, 8, 3, 5};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
         System.out.println(String.format("Current Array: %s", array1.toString()));
 
-        int[] primes = ArrayUtils.findAllPrimes(array1);
-        System.out.println(String.format("primes: = %s", Arrays.toString(primes)));
+        Array<Integer> primes = ArrayUtils.findAllPrimes(array1);
+        System.out.println(String.format("primes: = %s", primes));
 
         System.out.println("Test10: Find All Prime Numbers - Finished\n");
     }
-
+/**
     @Test
     public void testArrayUtilsG2() {
         System.out.println("Test11: Find All Fibonacci Numbers - Started");
