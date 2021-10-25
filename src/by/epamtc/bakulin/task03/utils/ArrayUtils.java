@@ -71,6 +71,26 @@ public class ArrayUtils {
     }
 
     /**
+     * Выполняет реверс элементов массива
+     *
+     * @param array целевой массив
+     * @return отраженный массив
+     */
+    public static <E extends Number & Comparable> void arrayReverse(Array<E> array) {
+        E[] targetArray = array.getArrayData();
+        int reverseIndex = 0;
+
+        for (int i = 0; i < targetArray.length / 2; i++) {
+            E cache = targetArray[i];
+            reverseIndex = targetArray.length - 1 - i;
+            targetArray[i] = targetArray[reverseIndex];
+            targetArray[reverseIndex] = cache;
+        }
+        array.setArrayData(targetArray);
+
+    }
+
+    /**
      * Осуществляет поиск всех простых чисел в текущем массиве
      *
      * @param targetArray целевой массив
@@ -134,7 +154,6 @@ public class ArrayUtils {
     public static Array<Integer> findAllFibonacci(Array<Integer> targetArray) {
         Array<Integer> result = new DynamicArray<>();
         Integer maxValue = findMaximalValue(targetArray);
-
         Integer[] fibonacciArray = populateFibonacciArray(maxValue);
 
         for (int i = 0; i < targetArray.size(); i++) {
@@ -162,7 +181,7 @@ public class ArrayUtils {
      * Получить все трехзначные числа, в десятичной записи которых нет одинаковых цифр
      *
      * @param targetArray целевой массив
-     * @return PlainArray
+     * @return Array
      */
     public static Array<Integer> findAllUniqueValues(Array<Integer> targetArray) {
         Array<Integer> result = new DynamicArray<>();
@@ -188,35 +207,14 @@ public class ArrayUtils {
     }
 
     /**
-     * Выполняет реверс значений PlainArray <- Array
-     *
-     * @param array целевой массив
-     * @return отраженный массив
-     */
-    public static <E extends Number & Comparable> void arrayReverse(Array<E> array) {
-        E[] targetArray = array.getArrayData();
-        int reverseIndex = 0;
-
-        for (int i = 0; i < targetArray.length / 2; i++) {
-            E cache = targetArray[i];
-            reverseIndex = targetArray.length - 1 - i;
-            targetArray[i] = targetArray[reverseIndex];
-            targetArray[reverseIndex] = cache;
-        }
-        array.setArrayData(targetArray);
-
-    }
-
-
-    /**
-     * Создает массив PlainArray, заполненный числами из файла.txt
+     * Создает массив Array, заполненный числами из файла.txt
      *
      * @param path      путь к файлу
      * @param lineIndex номер строки в текстовом документе, с которой будут считаны данные
-     * @return новый PlainArray, заполненный числами из файла
+     * @return новый Array, заполненный числами из файла
      */
-    public static Array populateIntegerArrayFromTxtFile(String path, int lineIndex) {
-        Array array = new DynamicArray();
+    public static Array<Integer> populateIntegerArrayFromTxtFile(String path, int lineIndex) {
+        Array<Integer> array = new DynamicArray<>();
         String stringData = getDataFromFile(path).get(lineIndex);
         int[] integerArray = parseStringToIntegerArray(stringData);
 
@@ -241,109 +239,6 @@ public class ArrayUtils {
             targetArray.add(integerArray[i]);
         }
     }
-
-    private static int[] parseStringToIntegerArray(String targetValue) {
-        String[] strings = targetValue.replaceAll("\\[", "").replaceAll(" ", "").replaceAll("\\]", "").split(",");
-        int[] result = new int[strings.length];
-
-        for (int i = 0; i < result.length; i++) {
-            result[i] = Integer.valueOf(strings[i]);
-        }
-        return result;
-    }
-
-
-    private static List<String> getDataFromFile(String path) {
-        BufferedReader bufferedReader = null;
-        List<String> data = new ArrayList<>();
-        try {
-            File textFile = new File(path);
-            if (!textFile.exists()) {
-                throw new FileNotFoundException(String.format("File not found: %s", path));
-            }
-            bufferedReader = new BufferedReader(new FileReader(path));
-            String line = null;
-            while ((line = bufferedReader.readLine()) != null) {
-                data.add(line);
-            }
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        } finally {
-            try {
-                bufferedReader.close();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-        return data;
-    }
-
-    /**
-     * Выполняет расчленение числа на единицы и помещает их в массив
-     * Например 365 -> {5,6,3}
-     *
-     * @param targetNumeric целевое значение
-     * @return int[]
-     */
-    private static int[] dismemberNumeric(int targetNumeric) {
-        int numericOrder = Integer.toString(targetNumeric).length();
-        int[] result = new int[numericOrder];
-
-        int cache = targetNumeric;
-
-        for (int i = 0; i < result.length; i++) {
-            result[i] = cache % 10;
-            cache = (cache - result[i]) / 10;
-        }
-        return result;
-    }
-
-    private static boolean isNumericOrderUnique(int[] numericFrame) {
-        boolean result = false;
-        int counter = 0;
-
-        for (int i = 0; i < numericFrame.length; i++) {
-            for (int j = i + 1; j < numericFrame.length; j++) {
-                if (numericFrame[i] != numericFrame[j]) {
-                    counter++;
-                    continue;
-                }
-                if (numericFrame[i] == numericFrame[j]) {
-                    break;
-                }
-            }
-        }
-        if (counter == numericFrame.length) {
-            result = true;
-        }
-        return result;
-    }
-
-    private static Integer[] populateFibonacciArray(Integer n) {
-        Integer[] fibonacci = new Integer[n + 1];
-        fibonacci[0] = 0;
-        fibonacci[1] = 1;
-
-        for (int i = 2; i < n; i++) {
-            fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
-        }
-        return fibonacci;
-    }
-
-    private static <E extends Number & Comparable> boolean isPrimeNumeric(Integer targetValue) {
-        boolean result = true;
-        int startValue = 2;
-
-        for (int i = startValue; i < targetValue; i++) {
-            if (targetValue % i == 0) {
-                result = false;
-                break;
-            }
-        }
-        return result;
-    }
-
 
     /**
      * Алгоритм сортировки массива "Сортировка Пузырьком"
@@ -444,7 +339,6 @@ public class ArrayUtils {
 
     private static <E extends Number & Comparable> int quickSortArraySeparator(E[] targetArray, int leftBorder, int rightBorder, boolean isAscending) {
         E divideElement = targetArray[leftBorder + (rightBorder - leftBorder) / 2];
-
         while (leftBorder <= rightBorder) {
             if (isAscending) {
                 while (targetArray[leftBorder].compareTo(divideElement) < 0) {
@@ -477,249 +371,104 @@ public class ArrayUtils {
         targetArray[swapIndex2] = temp;
     }
 
+    private static int[] parseStringToIntegerArray(String targetValue) {
+        String[] strings = targetValue.replaceAll("\\[", "").replaceAll(" ", "").replaceAll("\\]", "").split(",");
+        int[] result = new int[strings.length];
 
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Integer.valueOf(strings[i]);
+        }
+        return result;
+    }
 
+    /**
+     * Выполняет расчленение числа на единицы и помещает их в массив
+     * Например 365 -> {5,6,3}
+     *
+     * @param targetNumeric целевое значение
+     * @return int[]
+     */
+    private static int[] dismemberNumeric(int targetNumeric) {
+        int numericOrder = Integer.toString(targetNumeric).length();
+        int[] result = new int[numericOrder];
 
+        int cache = targetNumeric;
 
+        for (int i = 0; i < result.length; i++) {
+            result[i] = cache % 10;
+            cache = (cache - result[i]) / 10;
+        }
+        return result;
+    }
 
-//
-//    /**
-//     * Создает массив PlainArray, заполненный числами из файла.txt
-//     * @param path путь к файлу
-//     * @param lineIndex номер строки в текстовом документе, с которой будут считаны данные
-//     * @return новый PlainArray, заполненный числами из файла
-//     */
-//    public static Array populateIntegerArrayFromTxtFile(String path, int lineIndex) {
-//        Array array = new DynamicArray();
-//        String stringData = getDataFromFile(path).get(lineIndex);
-//        int[] integerArray = parseStringToIntegerArray(stringData);
-//
-//        for (int i = 0; i < integerArray.length; i++) {
-//            array.add(integerArray[i]);
-//        }
-//        return array;
-//    }
-//
-//    /**
-//     * Заполняет существующий массив числами из файла.txt
-//     * @param targetArray целевой массив
-//     * @param path путь к файлу
-//     * @param lineIndex номер строки в текстовом документе, с которой будут считаны данные
-//     */
-//    public static void populateIntegerArrayFromTxtFile(Array targetArray, String path, int lineIndex) {
-//        String stringData = getDataFromFile(path).get(lineIndex);
-//        int[] integerArray = parseStringToIntegerArray(stringData);
-//
-//        for (int i = 0; i < integerArray.length; i++) {
-//            targetArray.add(integerArray[i]);
-//        }
-//    }
-//
-//    private static int[] parseStringToIntegerArray(String targetValue) {
-//        String[] strings = targetValue.replaceAll("\\[", "").replaceAll(" ", "").replaceAll("\\]", "").split(",");
-//        int[] result = new int[strings.length];
-//
-//        for(int i = 0; i < result.length; i++) {
-//            result[i] = Integer.valueOf(strings[i]);
-//        }
-//        return result;
-//    }
-//
-//
-//    private static List<String> getDataFromFile(String path) {
-//        BufferedReader bufferedReader = null;
-//        List<String> data = new ArrayList<>();
-//        try {
-//            File textFile = new File(path);
-//            if (!textFile.exists()) {
-//                throw new FileNotFoundException(String.format("File not found: %s", path));
-//            }
-//            bufferedReader = new BufferedReader(new FileReader(path));
-//            String line = null;
-//            while ((line = bufferedReader.readLine()) != null) {
-//                data.add(line);
-//            }
-//
-//        } catch (Exception exception) {
-//            exception.printStackTrace();
-//        } finally {
-//            try {
-//                bufferedReader.close();
-//            } catch (IOException ioException) {
-//                ioException.printStackTrace();
-//            }
-//        }
-//        return data;
-//    }
-//
-//    /**
-//     * Проверяет взаимное равенство элементов массива
-//     *
-//     * @param numericFrame массив, состоящий из чисел-элементов n-значного числа
-//     * @return {@code true} если все элементы массива уникальны
-//     */
-//    private static boolean isNumericOrderUnique(int[] numericFrame) {
-//        boolean result = false;
-//        int counter = 0;
-//
-//        for (int i = 0; i < numericFrame.length; i++) {
-//            for (int j = i + 1; j < numericFrame.length; j++) {
-//                if (numericFrame[i] != numericFrame[j]) {
-//                    counter++;
-//                    continue;
-//                }
-//                if (numericFrame[i] == numericFrame[j]) {
-//                    break;
-//                }
-//            }
-//        }
-//        if (counter == numericFrame.length) {
-//            result = true;
-//        }
-//        return result;
-//    }
-//
-//    /**
-//     * Выполняет расчленение числа на единицы и помещает их в массив
-//     * Например 365 -> {5,6,3}
-//     *
-//     * @param targetNumeric целевое значение
-//     * @return int[]
-//     */
-//    private static int[] dismemberNumeric(int targetNumeric) {
-//        int numericOrder = Integer.toString(targetNumeric).length();
-//        int[] result = new int[numericOrder];
-//
-//        int cache = targetNumeric;
-//
-//        for (int i = 0; i < result.length; i++) {
-//            result[i] = cache % 10;
-//            cache = (cache - result[i]) / 10;
-//        }
-//        return result;
-//    }
-//
-//    private static int[] populateFibonacciArray(int n) {
-//        int[] fibonacci = new int[n + 1];
-//        fibonacci[0] = 0;
-//        fibonacci[1] = 1;
-//
-//        for (int i = 2; i < n; i++) {
-//            fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
-//        }
-//        return fibonacci;
-//    }
-//
-//    private static boolean isPrimeNumeric(int targetValue) {
-//        boolean result = true;
-//        int startValue = 2;
-//
-//        for (int i = startValue; i < targetValue; i++) {
-//            if (targetValue % i == 0) {
-//                result = false;
-//                break;
-//            }
-//        }
-//        return result;
-//    }
-//
-//    private static void quickSortManage(int[] targetArray, int leftBorder, int rightBorder) {
-//        if (leftBorder < rightBorder) {
-//            int divideIndex = quickSortArraySeparator(targetArray, leftBorder, rightBorder);
-//
-//            quickSortManage(targetArray, leftBorder, (divideIndex - 1));
-//            quickSortManage(targetArray, divideIndex, rightBorder);
-//        }
-//    }
-//
-//    private static void quickSortManageDesc(int[] targetArray, int leftBorder, int rightBorder) {
-//        if (leftBorder < rightBorder) {
-//            int divideIndex = quickSortArraySeparatorDesc(targetArray, leftBorder, rightBorder);
-//
-//            quickSortManageDesc(targetArray, leftBorder, (divideIndex - 1));
-//            quickSortManageDesc(targetArray, divideIndex, rightBorder);
-//        }
-//    }
-//
-//
-//    private static int quickSortArraySeparator(int[] targetArray, int leftBorder, int rightBorder) {
-//        int divideIndex = targetArray[leftBorder + (rightBorder - leftBorder) / 2];
-//
-//        while (leftBorder <= rightBorder) {
-//            while (targetArray[leftBorder] < divideIndex) {
-//                leftBorder++;
-//            }
-//            while ((targetArray[rightBorder] > divideIndex)) {
-//                rightBorder--;
-//            }
-//            if (leftBorder <= rightBorder) {
-//                quickSortArraySwapper(targetArray, rightBorder, leftBorder);
-//
-//                leftBorder++;
-//                rightBorder--;
-//            }
-//        }
-//        return leftBorder;
-//    }
-//
-//    private static int quickSortArraySeparatorDesc(int[] targetArray, int leftBorder, int rightBorder) {
-//        int divideIndex = targetArray[leftBorder + (rightBorder - leftBorder) / 2];
-//
-//        while (leftBorder <= rightBorder) {
-//            while (targetArray[leftBorder] > divideIndex) {
-//                leftBorder++;
-//            }
-//            while ((targetArray[rightBorder] < divideIndex)) {
-//                rightBorder--;
-//            }
-//            if (leftBorder <= rightBorder) {
-//                quickSortArraySwapperDesc(targetArray, rightBorder, leftBorder);
-//
-//                leftBorder++;
-//                rightBorder--;
-//            }
-//        }
-//        return leftBorder;
-//    }
-//
-//    private static void quickSortArraySwapper(int[] targetArray, int swapIndex1, int swapIndex2) {
-//        int temp = targetArray[swapIndex1];
-//
-//        targetArray[swapIndex1] = targetArray[swapIndex2];
-//        targetArray[swapIndex2] = temp;
-//    }
-//
-//    private static void quickSortArraySwapperDesc(int[] targetArray, int swapIndex1, int swapIndex2) {
-//        int temp = targetArray[swapIndex2];
-//
-//        targetArray[swapIndex2] = targetArray[swapIndex1];
-//        targetArray[swapIndex1] = temp;
-//    }
-//
-//    private static int selectionSortMinimalValue(int[] targetArray, int startIndex) {
-//        int minimalValueIndex = startIndex;
-//        int minimalValue = targetArray[startIndex];
-//
-//        for (int i = (startIndex + 1); i < targetArray.length; i++) {
-//            if (targetArray[i] < minimalValue) {
-//                minimalValue = targetArray[i];
-//                minimalValueIndex = i;
-//            }
-//        }
-//        return minimalValueIndex;
-//    }
-//
-//    private static int selectionSortMaximalValue(int[] targetArray, int startIndex) {
-//        int maxValueIndex = startIndex;
-//        int maxValue = targetArray[startIndex];
-//
-//        for (int i = (startIndex + 1); i < targetArray.length; i++) {
-//            if (targetArray[i] > maxValue) {
-//                maxValue = targetArray[i];
-//                maxValueIndex = i;
-//            }
-//        }
-//        return maxValueIndex;
-//    }
-//
+    private static boolean isNumericOrderUnique(int[] numericFrame) {
+        boolean result = false;
+        int counter = 0;
+
+        for (int i = 0; i < numericFrame.length; i++) {
+            for (int j = i + 1; j < numericFrame.length; j++) {
+                if (numericFrame[i] != numericFrame[j]) {
+                    counter++;
+                    continue;
+                }
+                if (numericFrame[i] == numericFrame[j]) {
+                    break;
+                }
+            }
+        }
+        if (counter == numericFrame.length) {
+            result = true;
+        }
+        return result;
+    }
+
+    private static Integer[] populateFibonacciArray(Integer n) {
+        Integer[] fibonacci = new Integer[n + 1];
+        fibonacci[0] = 0;
+        fibonacci[1] = 1;
+
+        for (int i = 2; i < n; i++) {
+            fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
+        }
+        return fibonacci;
+    }
+
+    private static <E extends Number & Comparable> boolean isPrimeNumeric(Integer targetValue) {
+        boolean result = true;
+        int startValue = 2;
+
+        for (int i = startValue; i < targetValue; i++) {
+            if (targetValue % i == 0) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private static List<String> getDataFromFile(String path) {
+        BufferedReader bufferedReader = null;
+        List<String> data = new ArrayList<>();
+        try {
+            File textFile = new File(path);
+            if (!textFile.exists()) {
+                throw new FileNotFoundException(String.format("File not found: %s", path));
+            }
+            bufferedReader = new BufferedReader(new FileReader(path));
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null) {
+                data.add(line);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        return data;
+    }
 }
