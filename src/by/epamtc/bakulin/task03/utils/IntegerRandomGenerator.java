@@ -1,6 +1,6 @@
 package by.epamtc.bakulin.task03.utils;
 
-public class PlainRandomGenerator {
+public class IntegerRandomGenerator {
     /**
      * В основу работы класса заложен - Линейный конгруэнтный метод генерации случайных чисел
      * (Самый простой и широко употребляемый)
@@ -11,7 +11,7 @@ public class PlainRandomGenerator {
     private final Integer module;
     private Integer randomX;
 
-    public PlainRandomGenerator(Integer primeA, Integer funIncrementC, Integer module, Integer randomX) {
+    public IntegerRandomGenerator(Integer primeA, Integer funIncrementC, Integer module, Integer randomX) {
         this.primeA = primeA;
         this.funIncrementC = funIncrementC;
         this.module = module;
