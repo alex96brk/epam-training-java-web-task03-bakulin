@@ -154,6 +154,68 @@ public class ArrayUtils {
         return result;
     }
 
+    /**
+     * Выполняет поиск уникальных элементов по критерию:
+     * Получить все трехзначные числа, в десятичной записи которых нет одинаковых цифр
+     *
+     * @param targetArray целевой массив
+     * @return PlainArray
+     */
+    public static Array<Integer> findAllUniqueValues(Array<Integer> targetArray) {
+        Array<Integer> result = new DynamicArray<>();
+
+        for (int i = 0; i < targetArray.size(); i++) {
+            int value = targetArray.get(i);
+            int[] dismemberedValue = dismemberNumeric(value);
+
+            if (isNumericOrderUnique(dismemberedValue)) {
+                result.add(value);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Выполняет расчленение числа на единицы и помещает их в массив
+     * Например 365 -> {5,6,3}
+     *
+     * @param targetNumeric целевое значение
+     * @return int[]
+     */
+    private static int[] dismemberNumeric(int targetNumeric) {
+        int numericOrder = Integer.toString(targetNumeric).length();
+        int[] result = new int[numericOrder];
+
+        int cache = targetNumeric;
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = cache % 10;
+            cache = (cache - result[i]) / 10;
+        }
+        return result;
+    }
+
+    private static boolean isNumericOrderUnique(int[] numericFrame) {
+        boolean result = false;
+        int counter = 0;
+
+        for (int i = 0; i < numericFrame.length; i++) {
+            for (int j = i + 1; j < numericFrame.length; j++) {
+                if (numericFrame[i] != numericFrame[j]) {
+                    counter++;
+                    continue;
+                }
+                if (numericFrame[i] == numericFrame[j]) {
+                    break;
+                }
+            }
+        }
+        if (counter == numericFrame.length) {
+            result = true;
+        }
+        return result;
+    }
+
     private static Integer[] populateFibonacciArray(Integer n) {
         Integer[] fibonacci = new Integer[n + 1];
         fibonacci[0] = 0;
@@ -312,45 +374,6 @@ public class ArrayUtils {
     }
 
 
-//    /**
-//     * Осуществляет поиск всех чисел Фибоначчи в текущем массиве
-//     *
-//     * @param targetArray целевой массив
-//     * @return массив чисел Фибоначчи в текущем массиве
-//     */
-//    public static int[] findAllFibonacci(Array targetArray) {
-//        int[] result = new int[0];
-//        int[] unboxedArray = targetArray.getArrayData();
-//        int maxValue = findMaximalValue(unboxedArray);
-//        Array cache = new DynamicArray();
-//
-//        int[] fibonacciArray = populateFibonacciArray(maxValue);
-//
-//        for (int i = 0; i < unboxedArray.length; i++) {
-//            int targetValue = unboxedArray[i];
-//
-//            for (int j = 0; j < fibonacciArray.length; j++) {
-//                if (targetValue != fibonacciArray[j]) {
-//                    continue;
-//                }
-//                if (targetValue == fibonacciArray[j]) {
-//                    cache.add(targetValue);
-//                    j = 0;
-//                }
-//                if (targetValue != fibonacciArray[(fibonacciArray.length - 1)]) {
-//                    j = 0;
-//                    break;
-//                }
-//
-//            }
-//        }
-//
-//        if (!cache.isEmpty()) {
-//            result = cache.getArrayData();
-//        }
-//
-//        return result;
-//    }
 //
 //    /**
 //     * Выполняет реверс значений примитивного массива
