@@ -1,6 +1,7 @@
 package by.epamtc.bakulin.task03.utils;
 
-import by.epamtc.bakulin.task03.entity.JaggedIntegerArray;
+import by.epamtc.bakulin.task03.entity.JaggedMatrix;
+import by.epamtc.bakulin.task03.entity.SquareMatrix;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -61,8 +62,8 @@ public class ConsoleUtils {
         return ints;
     }
 
-    public static void printJaggedArray(JaggedIntegerArray jaggedIntegerArray) {
-        int[][] jagged = jaggedIntegerArray.getArrayData();
+    public static <E extends Number> void printJaggedArray(SquareMatrix<E> jaggedMatrix) {
+        E[][] jagged = jaggedMatrix.getMatrixData();
         for (int i = 0; i < jagged.length; i++) {
             System.out.println(Arrays.toString(jagged[i]));
         }
