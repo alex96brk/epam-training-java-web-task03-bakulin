@@ -169,19 +169,19 @@ public class IntegerArrayUtilsTest {
 
         System.out.println("Test10: Find All Prime Numbers - Finished\n");
     }
-/**
+
     @Test
     public void testArrayUtilsG2() {
         System.out.println("Test11: Find All Fibonacci Numbers - Started");
-        int[] arr = new int[]{7, 3, 4, 6, 8, 5, 1};
+        Integer[] arr = new Integer[]{7, 3, 4, 6, 8, 5, 1};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
 
-        int[] resultFibonacci = ArrayUtils.findAllFibonacci(array1);
-        System.out.println(String.format("fibonacci values: %s", Arrays.toString(resultFibonacci)));
+        Array<Integer> resultFibonacci = ArrayUtils.findAllFibonacci(array1);
+        System.out.println(String.format("fibonacci values: %s", resultFibonacci));
         System.out.println("Test10: Find All Fibonacci Numbers - Finished\n");
     }
-
+/**
     @Test
     public void testArrayUtilsG3() {
         System.out.println("Test12: Array Reverse - Started");
