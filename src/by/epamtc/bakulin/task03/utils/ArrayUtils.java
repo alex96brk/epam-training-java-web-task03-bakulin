@@ -3,6 +3,9 @@ package by.epamtc.bakulin.task03.utils;
 import by.epamtc.bakulin.task03.entity.Array;
 import by.epamtc.bakulin.task03.entity.DynamicArray;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -202,6 +205,78 @@ public class ArrayUtils {
         }
         array.setArrayData(targetArray);
 
+    }
+
+
+    /**
+     * Создает массив PlainArray, заполненный числами из файла.txt
+     *
+     * @param path      путь к файлу
+     * @param lineIndex номер строки в текстовом документе, с которой будут считаны данные
+     * @return новый PlainArray, заполненный числами из файла
+     */
+    public static Array populateIntegerArrayFromTxtFile(String path, int lineIndex) {
+        Array array = new DynamicArray();
+        String stringData = getDataFromFile(path).get(lineIndex);
+        int[] integerArray = parseStringToIntegerArray(stringData);
+
+        for (int i = 0; i < integerArray.length; i++) {
+            array.add(integerArray[i]);
+        }
+        return array;
+    }
+
+    /**
+     * Заполняет существующий массив числами из файла.txt
+     *
+     * @param targetArray целевой массив
+     * @param path        путь к файлу
+     * @param lineIndex   номер строки в текстовом документе, с которой будут считаны данные
+     */
+    public static void populateIntegerArrayFromTxtFile(Array targetArray, String path, int lineIndex) {
+        String stringData = getDataFromFile(path).get(lineIndex);
+        int[] integerArray = parseStringToIntegerArray(stringData);
+
+        for (int i = 0; i < integerArray.length; i++) {
+            targetArray.add(integerArray[i]);
+        }
+    }
+
+    private static int[] parseStringToIntegerArray(String targetValue) {
+        String[] strings = targetValue.replaceAll("\\[", "").replaceAll(" ", "").replaceAll("\\]", "").split(",");
+        int[] result = new int[strings.length];
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = Integer.valueOf(strings[i]);
+        }
+        return result;
+    }
+
+
+    private static List<String> getDataFromFile(String path) {
+        BufferedReader bufferedReader = null;
+        List<String> data = new ArrayList<>();
+        try {
+            File textFile = new File(path);
+            if (!textFile.exists()) {
+                throw new FileNotFoundException(String.format("File not found: %s", path));
+            }
+            bufferedReader = new BufferedReader(new FileReader(path));
+            String line = null;
+            while ((line = bufferedReader.readLine()) != null) {
+                data.add(line);
+            }
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        return data;
     }
 
     /**
