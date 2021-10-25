@@ -181,30 +181,30 @@ public class IntegerArrayUtilsTest {
         System.out.println(String.format("fibonacci values: %s", resultFibonacci));
         System.out.println("Test10: Find All Fibonacci Numbers - Finished\n");
     }
-/**
-    @Test
-    public void testArrayUtilsG3() {
-        System.out.println("Test12: Array Reverse - Started");
-        int[] arr = new int[]{7, 3, 4, 6, 8, 5, 1, 4, 3};
-        System.out.println(String.format("(array): %s", Arrays.toString(arr)));
-        ArrayUtils.arrayReverse(arr);
-        System.out.println(String.format("(array) reverse: %s", Arrays.toString(arr)));
 
-        Array array1 = new DynamicArray(arr);
-        System.out.println(String.format("(Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        System.out.println(String.format("(Added array): %s", array1.toString()));
-        ArrayUtils.arrayReverse(array1);
-        System.out.println(String.format("(Reversed array): %s", array1.toString()));
-        System.out.println("Test12: Array Reverse - Finished");
-    }
+//    @Test
+//    public void testArrayUtilsG3() {
+//        System.out.println("Test12: Array Reverse - Started");
+//        int[] arr = new int[]{7, 3, 4, 6, 8, 5, 1, 4, 3};
+//        System.out.println(String.format("(array): %s", Arrays.toString(arr)));
+//        ArrayUtils.arrayReverse(arr);
+//        System.out.println(String.format("(array) reverse: %s", Arrays.toString(arr)));
+//
+//        Array array1 = new DynamicArray(arr);
+//        System.out.println(String.format("(Attempt to add(int[] array): %s", Arrays.toString(arr)));
+//        System.out.println(String.format("(Added array): %s", array1.toString()));
+//        ArrayUtils.arrayReverse(array1);
+//        System.out.println(String.format("(Reversed array): %s", array1.toString()));
+//        System.out.println("Test12: Array Reverse - Finished");
+//    }
 
     @Test
     public void testArrayUtilsH1() {
         System.out.println("Test13: Find All Unique Values - Started");
 
-        int[] arr = new int[]{775, 345, 447, 651, 977, 355, 181};
+        Integer[] arr = new Integer[]{775, 345, 447, 651, 977, 355, 181};
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
-        Array array1 = new DynamicArray(arr);
+        Array<Integer> array1 = new DynamicArray<>(arr);
 
         Array uniqueValues = ArrayUtils.findAllUniqueValues(array1);
         System.out.println(String.format("Unique values: %s", uniqueValues));
@@ -212,7 +212,7 @@ public class IntegerArrayUtilsTest {
         System.out.println("Test13: Find All Unique Values - Finished");
 
     }
-
+/**
     @Test
     public void testArrayUtilsI1() {
         System.out.println("Test13: Populate existing Array from TXT file - Started");
