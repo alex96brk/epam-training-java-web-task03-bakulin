@@ -206,9 +206,22 @@ public class IntegerArrayUtilsTest {
         System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
         Array<Integer> array1 = new DynamicArray<>(arr);
 
-        Array uniqueValues = ArrayUtils.findAllUniqueValues(array1);
+        Array<Integer> uniqueValues = ArrayUtils.findAllUniqueValues(array1);
         System.out.println(String.format("Unique values: %s", uniqueValues));
 
+        System.out.println("Test13: Find All Unique Values - Finished");
+
+    }
+    @Test
+    public void testArrayUtilsH2() {
+        System.out.println("Test13: Populate integer array by random values - Started");
+
+        Integer[] arr = new Integer[]{775, 345, 447, 651, 977, 355, 181};
+        System.out.println(String.format("Attempt to add(int[] array): %s", Arrays.toString(arr)));
+        Array<Integer> array1 = new DynamicArray<>(arr);
+        System.out.println(String.format("current array: = %s", array1));
+        ArrayUtils.populateIntegerArrayRandom(23, 5, 6, array1);
+        System.out.println(String.format("modified array: = %s", array1));
         System.out.println("Test13: Find All Unique Values - Finished");
 
     }
