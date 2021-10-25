@@ -175,6 +175,16 @@ public class ArrayUtils {
         return result;
     }
 
+    public static void populateIntegerArrayRandom(int incrementC, int baseNumber, int arraySize, Array<Integer> targetArray) {
+        int primeValueA = 31;
+        int naturalModule = 127;
+        PlainRandomGenerator randomGenerator = new PlainRandomGenerator(primeValueA, incrementC, naturalModule, baseNumber);
+        for (int i = 0; i < arraySize; i++) {
+            targetArray.add(randomGenerator.calculateRandom());
+        }
+
+    }
+
     /**
      * Выполняет расчленение числа на единицы и помещает их в массив
      * Например 365 -> {5,6,3}
@@ -417,26 +427,7 @@ public class ArrayUtils {
 //
 //    }
 //
-//    /**
-//     * Выполняет поиск уникальных элементов по критерию:
-//     * Получить все трехзначные числа, в десятичной записи которых нет одинаковых цифр
-//     *
-//     * @param targetArray целевой массив
-//     * @return PlainArray
-//     */
-//    public static Array findAllUniqueValues(Array targetArray) {
-//        Array result = new DynamicArray();
-//
-//        for (int i = 0; i < targetArray.size(); i++) {
-//            int value = targetArray.get(i);
-//            int[] dismemberedValue = dismemberNumeric(value);
-//
-//            if (isNumericOrderUnique(dismemberedValue)) {
-//                result.add(value);
-//            }
-//        }
-//        return result;
-//    }
+
 //
 //    /**
 //     * Заполняет указанный массив случайными числами
