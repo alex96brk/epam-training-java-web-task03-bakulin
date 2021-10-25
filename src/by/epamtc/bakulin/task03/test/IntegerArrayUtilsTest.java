@@ -221,12 +221,12 @@ public class IntegerArrayUtilsTest {
         System.out.println("Test13: Find All Unique Values - Finished");
 
     }
-/**
+
     @Test
     public void testArrayUtilsI1() {
         System.out.println("Test13: Populate existing Array from TXT file - Started");
-        int[] arr = new int[]{775, 345, 447, 651, 977, 355, 181};
-        Array array = new DynamicArray(arr);
+        Integer[] arr = new Integer[]{775, 345, 447, 651, 977, 355, 181};
+        Array<Integer> array = new DynamicArray<>(arr);
         ArrayUtils.populateIntegerArrayFromTxtFile(array, "E:/EPAM Projects/epam-training-java-web-task03-bakulin/resources/array.txt", 0);
         System.out.println(array);
         System.out.println("Test13: Populate existing Array from TXT file - Started");
@@ -241,5 +241,4 @@ public class IntegerArrayUtilsTest {
     }
 
 
-*/
 }
