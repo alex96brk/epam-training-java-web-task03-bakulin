@@ -199,7 +199,7 @@ public class ArrayUtils {
     public static void populateIntegerArrayRandom(int incrementC, int baseNumber, int arraySize, Array<Integer> targetArray) {
         int primeValueA = 31;
         int naturalModule = 127;
-        PlainRandomGenerator randomGenerator = new PlainRandomGenerator(primeValueA, incrementC, naturalModule, baseNumber);
+        IntegerRandomGenerator randomGenerator = new IntegerRandomGenerator(primeValueA, incrementC, naturalModule, baseNumber);
         for (int i = 0; i < arraySize; i++) {
             targetArray.add(randomGenerator.calculateRandom());
         }
