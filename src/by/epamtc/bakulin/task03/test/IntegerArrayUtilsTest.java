@@ -106,7 +106,7 @@ public class IntegerArrayUtilsTest {
         System.out.println(String.format("Current Array: %s", array1.toString()));
         int searchValue = 4;
         System.out.println(String.format("search value = %d", searchValue));
-        int resIndex = ArrayUtils.binarySearch(4, array1);
+        int resIndex = ArrayUtils.binarySearch(searchValue, array1);
         System.out.println(String.format("result index = %d", resIndex));
         System.out.println(String.format("Sorted Array: %s", array1.toString()));
         System.out.println("Test7: Binary Search - Finished\n");
