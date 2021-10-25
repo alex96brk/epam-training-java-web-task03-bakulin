@@ -122,6 +122,49 @@ public class ArrayUtils {
         return result;
     }
 
+    /**
+     * Осуществляет поиск всех чисел Фибоначчи в текущем массиве
+     *
+     * @param targetArray целевой массив
+     * @return массив чисел Фибоначчи в текущем массиве
+     */
+    public static Array<Integer> findAllFibonacci(Array<Integer> targetArray) {
+        Array<Integer> result = new DynamicArray<>();
+        Integer maxValue = findMaximalValue(targetArray);
+
+        Integer[] fibonacciArray = populateFibonacciArray(maxValue);
+
+        for (int i = 0; i < targetArray.size(); i++) {
+            Integer targetValue = targetArray.get(i);
+
+            for (int j = 0; j < fibonacciArray.length; j++) {
+                if (targetValue != fibonacciArray[j]) {
+                    continue;
+                }
+                if (targetValue == fibonacciArray[j]) {
+                    result.add(targetValue);
+                    j = 0;
+                }
+                if (targetValue != fibonacciArray[(fibonacciArray.length - 1)]) {
+                    j = 0;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    private static Integer[] populateFibonacciArray(Integer n) {
+        Integer[] fibonacci = new Integer[n + 1];
+        fibonacci[0] = 0;
+        fibonacci[1] = 1;
+
+        for (int i = 2; i < n; i++) {
+            fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
+        }
+        return fibonacci;
+    }
+
     private static <E extends Number & Comparable> boolean isPrimeNumeric(Integer targetValue) {
         boolean result = true;
         int startValue = 2;
@@ -269,9 +312,6 @@ public class ArrayUtils {
     }
 
 
-//
-
-//
 //    /**
 //     * Осуществляет поиск всех чисел Фибоначчи в текущем массиве
 //     *
