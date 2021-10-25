@@ -13,7 +13,7 @@ public class ConsoleUtils {
     public static final String ERROR_INCORRECT_VALUE_ENTER = "\t[ERROR]: Incorrect value. Enter: ";
     public static final String ENTER_INTEGER = "\t[enter integer]: %s = ";
 
-    public static int enterInteger(String parameterName) {
+    public static Integer enterInteger(String parameterName) {
         Integer inputValue = null;
         printConsoleMessage(ENTER_INTEGER, parameterName);
 
@@ -30,7 +30,7 @@ public class ConsoleUtils {
         return inputValue;
     }
 
-    public static int enterPositiveInteger(String parameterName) {
+    public static Integer enterPositiveInteger(String parameterName) {
         Integer inputValue = null;
         printConsoleMessage(ENTER_INTEGER, parameterName);
 
@@ -53,12 +53,12 @@ public class ConsoleUtils {
         return inputValue;
     }
 
-    public static Array populateIntegerArray(int arraySize) {
-        Array<Integer> ints = new DynamicArray();
+    public static Integer[] populateIntegerArray(int arraySize) {
+        Integer[] ints = new Integer[arraySize];
         printConsoleMessage(String.format("\tPopulate integer array[] of size = %d\n", arraySize));
         for (int i = 0; i < arraySize; i++) {
-            int userValue = enterInteger(String.format("array[%d]", i));
-            ints.add(userValue);
+            Integer userValue = enterInteger(String.format("array[%d]", i));
+            ints[i] = userValue;
         }
         return ints;
     }
