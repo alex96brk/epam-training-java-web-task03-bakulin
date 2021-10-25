@@ -182,6 +182,25 @@ public class ArrayUtils {
         for (int i = 0; i < arraySize; i++) {
             targetArray.add(randomGenerator.calculateRandom());
         }
+    }
+
+    /**
+     * Выполняет реверс значений PlainArray <- Array
+     *
+     * @param array целевой массив
+     * @return отраженный массив
+     */
+    public static <E extends Number & Comparable> void arrayReverse(Array<E> array) {
+        E[] targetArray = array.getArrayData();
+        int reverseIndex = 0;
+
+        for (int i = 0; i < targetArray.length / 2; i++) {
+            E cache = targetArray[i];
+            reverseIndex = targetArray.length - 1 - i;
+            targetArray[i] = targetArray[reverseIndex];
+            targetArray[reverseIndex] = cache;
+        }
+        array.setArrayData(targetArray);
 
     }
 
@@ -384,69 +403,10 @@ public class ArrayUtils {
     }
 
 
-//
-//    /**
-//     * Выполняет реверс значений примитивного массива
-//     *
-//     * @param targetArray целевой массив
-//     * @return отраженный массив
-//     */
-//    public static void arrayReverse(int[] targetArray) {
-//        int cache = 0;
-//        int reverseIndex = 0;
-//
-//        for (int i = 0; i < targetArray.length / 2; i++) {
-//            cache = targetArray[i];
-//            reverseIndex = targetArray.length - 1 - i;
-//
-//            targetArray[i] = targetArray[reverseIndex];
-//            targetArray[reverseIndex] = cache;
-//        }
-//
-//    }
-//
-//    /**
-//     * Выполняет реверс значений PlainArray <- Array
-//     *
-//     * @param array целевой массив
-//     * @return отраженный массив
-//     */
-//    public static void arrayReverse(Array array) {
-//        int[] targetArray = array.getArrayData();
-//        int cache = 0;
-//        int reverseIndex = 0;
-//
-//        for (int i = 0; i < targetArray.length / 2; i++) {
-//            cache = targetArray[i];
-//            reverseIndex = targetArray.length - 1 - i;
-//
-//            targetArray[i] = targetArray[reverseIndex];
-//            targetArray[reverseIndex] = cache;
-//        }
-//        array.setArrayData(targetArray);
-//
-//    }
-//
 
-//
-//    /**
-//     * Заполняет указанный массив случайными числами
-//     * На основе линейного конгруэнтного метода генерации случайных чисел
-//     *
-//     * @param incrementC  приращение функции
-//     * @param baseNumber  начальное значение для генерации случайных чисел
-//     * @param arraySize   количество генерируемых случайных чисел (arraySize - 1)
-//     * @param targetArray целевой массив для заполнения
-//     */
-//    public static void populateIntegerArrayRandom(int incrementC, int baseNumber, int arraySize, Array targetArray) {
-//        int primeValueA = 31;
-//        int naturalModule = 127;
-//        PlainRandomGenerator randomGenerator = new PlainRandomGenerator(primeValueA, incrementC, naturalModule, baseNumber);
-//        for (int i = 0; i < arraySize; i++) {
-//            targetArray.add(randomGenerator.calculateRandom());
-//        }
-//
-//    }
+
+
+
 //
 //    /**
 //     * Создает массив PlainArray, заполненный числами из файла.txt
