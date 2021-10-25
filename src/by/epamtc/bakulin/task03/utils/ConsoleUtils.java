@@ -1,7 +1,5 @@
 package by.epamtc.bakulin.task03.utils;
 
-import by.epamtc.bakulin.task03.entity.DynamicArray;
-import by.epamtc.bakulin.task03.entity.Array;
 import by.epamtc.bakulin.task03.entity.JaggedIntegerArray;
 
 import java.util.Arrays;

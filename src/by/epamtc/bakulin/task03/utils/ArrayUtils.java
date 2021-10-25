@@ -6,7 +6,6 @@ import by.epamtc.bakulin.task03.entity.DynamicArray;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class ArrayUtils {
