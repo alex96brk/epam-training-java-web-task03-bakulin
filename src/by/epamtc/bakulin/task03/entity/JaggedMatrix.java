@@ -2,13 +2,28 @@ package by.epamtc.bakulin.task03.entity;
 
 public class JaggedMatrix<E extends Number & Comparable> implements SquareMatrix<E> {
 
+    /**
+     * Пустой массив по умолчанию
+     */
     private static final Object[][] EMPTY_MATRIX = new Object[0][0];
 
+    /**
+     * Двумерный массив
+     */
     private Object[][] matrixData;
 
+    /**
+     * Конструктор для создания двумерного массива
+     * на основе пользовательского
+     * @param jaggedArray
+     */
     public JaggedMatrix(E[][] jaggedArray) {
         this.matrixData = jaggedArray;
     }
+
+    /**
+     * Конструктор для создания пустого двумерного массива
+     */
     public JaggedMatrix() {
         this.matrixData = EMPTY_MATRIX;
     }
@@ -43,7 +58,7 @@ public class JaggedMatrix<E extends Number & Comparable> implements SquareMatrix
 
     @Override
     public int getMatrixSize() {
-        return 0;
+        return this.matrixData.length;
     }
 
     private boolean checkPosition(int row, int col) {
