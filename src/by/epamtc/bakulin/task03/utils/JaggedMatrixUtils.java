@@ -89,7 +89,47 @@ public class JaggedMatrixUtils<E extends Number & Comparable> {
         jaggedIntegerArray.setMatrixData(jagged);
     }
 
-    public static <E extends Number> E[] populateSumArrayGeneric(SquareMatrix<E> jaggedMatrix) {
+    /**
+     * Сортирует зубчатый массив
+     *
+     * @param jaggedIntegerArray целевой зубчатый массив
+     * @param isAscending {@code true} сортировать по возрастанию
+     */
+    public static <E extends Number & Comparable> void sortJaggedArrayRowElements(SquareMatrix<E> jaggedIntegerArray, boolean isAscending) {
+        E[][] jagged = jaggedIntegerArray.getMatrixData();
+        for (int i = 0; i < jagged.length - 1; i++) {
+            sortArray(jagged[i], isAscending);
+        }
+        jaggedIntegerArray.setMatrixData(jagged);
+    }
+
+    /**
+     * Сортировка массива 'Пузырьком'
+     * @param targetArray целевой одинарный массив
+     */
+    private static <E extends Number & Comparable> void sortArray(E[] targetArray, boolean isAscending) {
+        for (int i = (targetArray.length - 1); i >=0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (isAscending) {
+                    if (targetArray[j].compareTo(targetArray[j + 1]) > 0) {
+                        E buffer = targetArray[j];
+                        targetArray[j] = targetArray[j + 1];
+                        targetArray[j + 1] = buffer;
+                    }
+                }
+                if (!isAscending) {
+                    if (targetArray[j].compareTo(targetArray[j + 1]) < 0) {
+                        E buffer = targetArray[j];
+                        targetArray[j] = targetArray[j + 1];
+                        targetArray[j + 1] = buffer;
+                    }
+                }
+
+            }
+        }
+    }
+
+    private static <E extends Number> E[] populateSumArrayGeneric(SquareMatrix<E> jaggedMatrix) {
         E[] sums = null;
         E[][] jagged = jaggedMatrix.getMatrixData();
         if (jagged instanceof Integer[][]) {
@@ -112,7 +152,7 @@ public class JaggedMatrixUtils<E extends Number & Comparable> {
      * @param row массив(строка в зубчатом массиве)
      * @return int sum - сумма элементов массива(строки)
      */
-    public static <E extends Number> E calculateRowSum(E[] row) {
+    private static <E extends Number> E calculateRowSum(E[] row) {
         E sum = null;
         if (row instanceof Integer[]) {
             Integer intSum = 0;
@@ -131,72 +171,4 @@ public class JaggedMatrixUtils<E extends Number & Comparable> {
         return sum;
     }
 
-
-
-
-//    /**
-//     * Сортирует зубчатый массив
-//     *
-//     * @param jaggedMatrix целевой зубчатый массив
-//     * @param isAscending {@code true} сортировать по возрастанию
-//     */
-//    public static void sortJaggedArrayRowElements(JaggedMatrix jaggedMatrix, boolean isAscending) {
-//        int[][] jagged = jaggedMatrix.getArrayData();
-//        for (int i = 0; i < jagged.length - 1; i++) {
-//            sortArray(jagged[i], isAscending);
-//        }
-//        jaggedMatrix.setArrayData(jagged);
-//    }
-//
-//    /**
-//     * Сортировка массива 'Пузырьком'
-//     * @param targetArray целевой одинарный массив
-//     */
-//    private static void sortArray(int[] targetArray, boolean isAscending) {
-//        for (int i = (targetArray.length - 1); i >=0; i--) {
-//            for (int j = 0; j < i; j++) {
-//                if (isAscending) {
-//                    if (targetArray[j] > targetArray[j + 1]) {
-//                        int buffer = targetArray[j];
-//                        targetArray[j] = targetArray[j + 1];
-//                        targetArray[j + 1] = buffer;
-//                    }
-//                }
-//                if (!isAscending) {
-//                    if (targetArray[j] < targetArray[j + 1]) {
-//                        int buffer = targetArray[j];
-//                        targetArray[j] = targetArray[j + 1];
-//                        targetArray[j + 1] = buffer;
-//                    }
-//                }
-//
-//            }
-//        }
-//    }
-//
-//    private static int[] populateSumArray(JaggedMatrix jaggedMatrix) {
-//        int[][] jagged = jaggedMatrix.getArrayData();
-//        int[] sums = new int[jagged.length];
-//
-//        for (int i = 0; i < jagged.length; i++) {
-//            for (int j = 0; j < jagged[i].length; j++) {
-//                sums[i] = calculateRowSum(jagged[i]);
-//            }
-//        }
-//        return sums;
-//    }
-//
-//    /**
-//     * Вычисляет сумму элементов массива (строки в зубчатом массиве)
-//     *
-//     * @param row массив(строка в зубчатом массиве)
-//     * @return int sum - сумма элементов массива(строки)
-//     */
-//    private static int calculateRowSum(int[] row) {
-//        int sum = 0;
-//        for (int i = 0; i < row.length; i++) {
-//            sum = sum + row[i];
-//        }
-//        return sum;
-//    }
 }
