@@ -1,6 +1,5 @@
 package by.epamtc.bakulin.task03.utils;
 
-import by.epamtc.bakulin.task03.entity.JaggedMatrix;
 import by.epamtc.bakulin.task03.entity.SquareMatrix;
 
 public class JaggedMatrixUtils<E extends Number & Comparable> {
@@ -68,15 +67,15 @@ public class JaggedMatrixUtils<E extends Number & Comparable> {
      *
      * @param jaggedIntegerArray целевой зубчатый массив
      */
-    public static void sortJaggedArrayBySumRowsElementsAsc(SquareMatrix<Integer> jaggedIntegerArray) {
-        Integer[] sums = populateSumArray(jaggedIntegerArray);
-        Integer[][] jagged = jaggedIntegerArray.getMatrixData();
+    public static <E extends Number & Comparable> void sortJaggedArrayBySumRowsElements(SquareMatrix<E> jaggedIntegerArray) {
+        E[] sums = populateSumArrayGeneric(jaggedIntegerArray);
+        E[][] jagged = jaggedIntegerArray.getMatrixData();
 
         for (int i = 0; i < (jagged.length - 1); i++) {
             for (int j = (jagged.length - 1); j > i; j--) {
-                if (sums[j] < sums[(j - 1)]) {
-                    int buffer = sums[j];
-                    Integer[] bufferJag = jagged[j];
+                if (sums[j].compareTo(sums[(j - 1)]) < 0 ) {
+                    E buffer = sums[j];
+                    E[] bufferJag = jagged[j];
 
                     sums[j] = sums[(j - 1)];
                     jagged[j] = jagged[(j - 1)];
@@ -90,10 +89,15 @@ public class JaggedMatrixUtils<E extends Number & Comparable> {
         jaggedIntegerArray.setMatrixData(jagged);
     }
 
-    private static Integer[] populateSumArray(SquareMatrix<Integer> jaggedMatrix) {
-        Integer[][] jagged = (Integer[][]) jaggedMatrix.getMatrixData();
-        Integer[] sums = new Integer[jagged.length];
-
+    public static <E extends Number> E[] populateSumArrayGeneric(SquareMatrix<E> jaggedMatrix) {
+        E[] sums = null;
+        E[][] jagged = jaggedMatrix.getMatrixData();
+        if (jagged instanceof Integer[][]) {
+            sums = (E[]) new Integer[jagged.length];
+        }
+        if (jagged instanceof Double[][]) {
+            sums = (E[]) new Double[jagged.length];
+        }
         for (int i = 0; i < jagged.length; i++) {
             for (int j = 0; j < jagged[i].length; j++) {
                 sums[i] = calculateRowSum(jagged[i]);
@@ -108,10 +112,21 @@ public class JaggedMatrixUtils<E extends Number & Comparable> {
      * @param row массив(строка в зубчатом массиве)
      * @return int sum - сумма элементов массива(строки)
      */
-    private static Integer calculateRowSum(Integer[] row) {
-        Integer sum = 0;
-        for (int i = 0; i < row.length; i++) {
-            sum = sum + row[i];
+    public static <E extends Number> E calculateRowSum(E[] row) {
+        E sum = null;
+        if (row instanceof Integer[]) {
+            Integer intSum = 0;
+            for (int i = 0; i < row.length; i++) {
+                intSum = intSum + (Integer) row[i];
+            }
+            sum = (E)intSum;
+        }
+        if (row instanceof Double[]) {
+            Double doubleSum = 0.0;
+            for (int i = 0; i < row.length; i++) {
+                doubleSum = doubleSum + (Integer) row[i];
+            }
+            sum = (E)doubleSum;
         }
         return sum;
     }
