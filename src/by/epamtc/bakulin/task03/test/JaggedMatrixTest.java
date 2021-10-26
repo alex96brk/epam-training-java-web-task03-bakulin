@@ -9,23 +9,30 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class JaggedArrayTest {
+public class JaggedMatrixTest {
 
     @Test
     public void jaggedIntegerArrayClassTest() {
         ConsoleUtils.printConsoleMessage("Test: Base Class Functionality\n");
-        int matrixDimension = 5;
-        SquareMatrix<Integer> jaggedMatrix = new JaggedMatrix<>(matrixDimension);
+        SquareMatrix<Integer> jaggedMatrix = new JaggedMatrix(JaggedMatrixUtils.generateJaggedArrayInteger(5));
+
         ConsoleUtils.printConsoleMessage("Populating array with random numerics:\n");
-        //jaggedMatrix.populateJaggedArrayRandomNumerics(5, 7);
+
         JaggedMatrixUtils.populateJaggedMatrixRandomInteger(jaggedMatrix, 5, 7);
         ConsoleUtils.printJaggedArray(jaggedMatrix);
 
         ConsoleUtils.printConsoleMessage("Test: Finished\n");
     }
-//
-//    @Test
-//    public void jaggedIntegerArrayUtilsClassTest() {
+
+
+    @Test
+    public void jaggedIntegerArrayUtilsClassTest() {
+        SquareMatrix<Integer> jaggedMatrix = new JaggedMatrix(JaggedMatrixUtils.generateJaggedArrayInteger(5));
+        JaggedMatrixUtils.populateJaggedMatrixRandomInteger(jaggedMatrix, 5, 7);
+        ConsoleUtils.printJaggedArray(jaggedMatrix);
+        JaggedMatrixUtils.sortJaggedArrayBySumRowsElementsAsc(jaggedMatrix);
+        ConsoleUtils.printConsoleMessage("After sort:\n");
+        ConsoleUtils.printJaggedArray(jaggedMatrix);
 //        ConsoleUtils.printConsoleMessage("Test: Base Class Functionality\n");
 //        int matrixDimension = 5;
 //        JaggedMatrix jaggedMatrix = new JaggedMatrix(matrixDimension);
@@ -39,7 +46,7 @@ public class JaggedArrayTest {
 //        ConsoleUtils.printJaggedArray(jaggedMatrix);
 //
 //        ConsoleUtils.printConsoleMessage("Test: Finished\n");
-//    }
+    }
 //
 //    @Test
 //    public void jaggedIntegerArrayUtilsClassTest1() {
