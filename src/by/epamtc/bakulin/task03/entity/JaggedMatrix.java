@@ -84,24 +84,4 @@ public class JaggedMatrix<E extends Number & Comparable> implements SquareMatrix
         }
         return result;
     }
-
-
-//    /**
-//     * Заполняет зубчатый массив случайными числами
-//     * @param randomStartValue начальный аргумент для генерации случайных числе
-//     * @param increment инкремент функции генерации случайных чисел
-//     */
-//    public void populateJaggedArrayRandomNumerics(int randomStartValue, int increment) {
-//        PlainRandomGenerator randomGenerator = new PlainRandomGenerator(31, increment, 127, randomStartValue);
-//
-//        for (int i = 0; i < arrayData.length; i++) {
-//
-//            for (int j = 0; j < arrayData[i].length; j++) {
-//                arrayData[i][(j)] = randomGenerator.calculateRandom();
-//            }
-//        }
-//    }
-
-
-
 }
